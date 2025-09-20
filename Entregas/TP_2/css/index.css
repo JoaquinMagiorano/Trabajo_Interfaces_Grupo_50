@@ -1,0 +1,42 @@
+body {
+    margin: 0px;
+    background-image: url("../img/frogames/fondo_2.png");
+}
+
+header{
+    display: flex;
+    background-color: rgba(2, 3, 2, 0.813);
+    
+}
+
+footer{
+    display:flex;
+    flex-direction: column;
+    background-color: #121212;
+    bottom: 0%;
+    padding: 10px;
+}
+
+.footer_text{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.footer_links{
+    display: flex;
+    flex-direction: column;
+}
+
+.footer_logo{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.division{
+ text-align: center;
+}
+p,h1,h2,h3,h4,h5,h6{
+    color:white;
+}
