@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="./css/login.css">
+    <title>Login</title>
+</head>
+<body>
+    <header>      
+        <div> 
+            <img src="./img/frogames/menu_frog.png" width="50px" height="50px" alt="menu_hamburguesa">
+            <img src="./img/frogames/logo.png" alt="Logo" width="50px" height="50px">
+            <img src="./img/frogames/logo_texto.png" alt="Nombre_logo" width="200px" height="50px">
+        </div>
+        <div class="left-header-div">
+            <input type="text" id="barra_busqueda" placeholder="     tu busqueda">
+            <img src="./img/random/quePicardia.png" id="foto_perfil" alt="foto_perfil" width="50px" height="50px">
+        </div>
+    </header>
+
+    <div class="form_container">
+        <div class="tabs">
+            <div class="tab activo">iniciar secion</div>
+            <div class="tab">registrarse</div>
+        </div>
+
+        <!--formulario login -->
+        <form id="login" class="active">
+            <input type="text" placeholder="nombre de usuario" required>
+            <input type="password" placeholder="contraseña" required>
+            <button type="submit">iniciar sesion</button>
+        </form>
+        
+        <!--formulario registro-->
+        <form id="registro">
+            <input type="email" placeholder="Gmail" required>
+            <input type="text" placeholder="nombre" required>
+            <input type="text" placeholder="apellido" required>
+            <input type="text" placeholder="nombre de usuario" required>
+            <input type="number" placeholder="edad" required>
+            <input type="password" placeholder="contraseña" required>
+            <input type="password" placeholder="repetir contraseña" required>
+            <!-- aca va el captcha, sepa como se pone -->
+            <button type="submit">registrarse</button>
+        </form>
+
+        <div class="social-login">
+            <p>Iniciar sesión con:</p>
+            <i>logo google</i>
+            <i>logo facebook</i>
+            <i>logo instagram</i>
+        </div>
+    </div>
+    
+
+</body>
+</html>

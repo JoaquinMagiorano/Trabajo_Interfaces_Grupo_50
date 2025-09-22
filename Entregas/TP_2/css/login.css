@@ -1,0 +1,96 @@
+body {
+    margin: 0px;
+    background-image: url("../img/frogames/fondo_2.png");
+    background-size: 100% auto;
+    background-position: top center;
+    background-repeat: repeat-y;
+}
+
+/* header */
+
+header{
+    display: flex;
+    background-color: rgba(18, 18, 18, 1);
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left-header-div {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+#barra_busqueda {
+    display: block;
+    width: 20rem;
+    height: 2rem;
+    border: none;
+    border-radius: 20px;
+    background: #eee;
+}
+
+
+.form-container {
+  width: 400px;
+  background: #2C2C2C;
+  border-radius: 15px;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #444;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #bbb;
+  transition: color 0.3s;
+}
+
+.tab.active {
+  color: #fff;
+  border-bottom: 3px solid #2e7d32; /* verde */
+}
+
+form {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  animation: fade 0.5s ease-in-out;
+}
+
+form.active {
+  display: flex;
+}
+
+@keyframes fade {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+input {
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  background: #eee;
+}
+
+button {
+  padding: 12px;
+  border: none;
+  border-radius: 20px;
+  background: #2e7d32;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
