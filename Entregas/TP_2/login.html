@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/login.css">
     <title>Login</title>
 </head>
 <body>
@@ -18,41 +18,41 @@
             <img src="./img/random/quePicardia.png" id="foto_perfil" alt="foto_perfil" width="50px" height="50px">
         </div>
     </header>
+    <main>
+        <div class="form_container">
+            <div class="tabs">
+                <div class="tab active" data-target="login">iniciar sesión</div>
+                <div class="tab" data-target="register">registrarse</div>
+            </div>
 
-    <div class="form_container">
-        <div class="tabs">
-            <div class="tab activo">iniciar secion</div>
-            <div class="tab">registrarse</div>
+            <!-- formulario login -->
+            <form id="login" class="form active">
+                <input type="text" placeholder="nombre de usuario" required>
+                <input type="password" placeholder="contraseña" required>
+                <button type="submit">iniciar sesión</button>
+            </form>
+            
+            <!-- formulario registro -->
+            <form id="register" class="form">
+                <input type="email" placeholder="Gmail" required>
+                <input type="text" placeholder="nombre" required>
+                <input type="text" placeholder="apellido" required>
+                <input type="text" placeholder="nombre de usuario" required>
+                <input type="number" placeholder="edad" required>
+                <input type="password" placeholder="contraseña" required>
+                <input type="password" placeholder="repetir contraseña" required>
+                <!-- aca va el captcha, sepa como se pone -->
+                <button type="submit">registrarse</button>
+            </form>
+
+            <div class="social-login">
+                <p>Iniciar sesión con:</p>
+                <i>logo google</i>
+                <i>logo facebook</i>
+                <i>logo instagram</i>
+            </div>
         </div>
-
-        <!--formulario login -->
-        <form id="login" class="active">
-            <input type="text" placeholder="nombre de usuario" required>
-            <input type="password" placeholder="contraseña" required>
-            <button type="submit">iniciar sesion</button>
-        </form>
-        
-        <!--formulario registro-->
-        <form id="registro">
-            <input type="email" placeholder="Gmail" required>
-            <input type="text" placeholder="nombre" required>
-            <input type="text" placeholder="apellido" required>
-            <input type="text" placeholder="nombre de usuario" required>
-            <input type="number" placeholder="edad" required>
-            <input type="password" placeholder="contraseña" required>
-            <input type="password" placeholder="repetir contraseña" required>
-            <!-- aca va el captcha, sepa como se pone -->
-            <button type="submit">registrarse</button>
-        </form>
-
-        <div class="social-login">
-            <p>Iniciar sesión con:</p>
-            <i>logo google</i>
-            <i>logo facebook</i>
-            <i>logo instagram</i>
-        </div>
-    </div>
-    
-
+    </main>    
+    <script src="./js/login.js"></script>
 </body>
 </html>

@@ -1,9 +1,12 @@
 body {
     margin: 0px;
     background-image: url("../img/frogames/fondo_2.png");
-    background-size: 100% auto;
+    background-size: cover;
     background-position: top center;
     background-repeat: repeat-y;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column; 
 }
 
 /* header */
@@ -30,67 +33,88 @@ header{
     background: #eee;
 }
 
+/* header */
 
-.form-container {
-  width: 400px;
-  background: #2C2C2C;
-  border-radius: 15px;
+main {
+  flex: 1; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
-  color: white;
-  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+
+
+.form_container {
+    width: 90%;
+     max-width: 400px;
+    background: #2C2C2C;
+    border-radius: 15px;
+    padding: 20px;
+    color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.6);
 }
 
 .tabs {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #444;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #444;
 }
 
 .tab {
-  flex: 1;
-  text-align: center;
+  background: none;
+  border: none;
+  color: #bbb;
+  font-weight: bold;
   padding: 10px;
   cursor: pointer;
-  font-weight: bold;
-  color: #bbb;
-  transition: color 0.3s;
 }
 
 .tab.active {
   color: #fff;
-  border-bottom: 3px solid #2e7d32; /* verde */
+  border-bottom: 3px solid #2e7d32;
 }
 
 form {
-  display: none;
-  flex-direction: column;
-  gap: 10px;
-  animation: fade 0.5s ease-in-out;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    animation: fade 0.5s ease-in-out;
 }
 
 form.active {
-  display: flex;
+    display: flex;
 }
 
 @keyframes fade {
-  from {opacity: 0; transform: translateY(10px);}
-  to {opacity: 1; transform: translateY(0);}
+    from {opacity: 0; transform: translateY(10px);}
+    to {opacity: 1; transform: translateY(0);}
 }
 
 input {
-  padding: 10px;
-  border: none;
-  border-radius: 20px;
-  background: #eee;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background: #eee;
 }
 
 button {
-  padding: 12px;
-  border: none;
-  border-radius: 20px;
-  background: #2e7d32;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
+    padding: 12px;
+    border: none;
+    border-radius: 20px;
+    background: #2e7d32;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.social-login {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.social-login i {
+    margin: 0 10px;
+    font-size: 24px;
+    cursor: pointer;
 }
