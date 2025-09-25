@@ -18,6 +18,16 @@ p{
     height: auto;
 }
 
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 /* header */
 
 header{
@@ -42,51 +52,177 @@ header{
     background: #eee;
     }
 
-
-/* game page */
+/* ===================== PANTALLA DEL JUEGO ===================== */
 .pantallaJugable {
-    background-color: rgb(11, 52, 3);
-    justify-content: center;
-    margin: 80px;
-    width: auto;
-    height: 100px;
+    background: #2C2C2C;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    transition: all 0.4s ease-in-out;
+    position: relative;
 }
 
-.secciones_inferiores{
-    background-color: rgb(41, 47, 16); 
-    justify-content: space-between;
-    margin: 80px;
-    width: auto;
-    height: 100px;
+.juego {
+    height: 450px;
+    background-image: url("../img/frogames/frog_peg.png");
+    position: relative;
     display: flex;
-    flex-direction: row;
-    padding: 0px ;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.datos_barra {
+    background: #333333;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #444;
+}
+
+/* ===================== SECCIONES INFERIORES ===================== */
+.secciones_inferiores {
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    gap: 20px;
 }
 
     .izquierda {
         display: flex;
         flex-direction: column;
-        width: 70%;
-        justify-content:center;
+        gap: 20px;
     }
-
-        .juego_info{
-            display:flex;
-            flex-direction: column;
-        }
+/* ===================== INFORMACIÓN DEL JUEGO ===================== */
+.juego_info {
+    background: #2C2C2C;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    transition: all 0.4s ease-in-out;
+}
            
+.info_titulo,
+.info_jugar,
+.info_que_es {
+    padding: 20px;
+    border-bottom: 1px solid #444;
+    transition: all 0.3s ease;
+}
 
-    .derecha {
-        display:flex;
-        flex-direction: column;
-        width: 30%;
-        align-items: center;
-    }
-        .categorias{
-            display:flex;
-            flex-direction: column;
-            margin-bottom: 20px;
-        }
+.info_que_es {
+    border-bottom: none;
+}
+
+.info_titulo h1 {
+    color: #4caf50;
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.info_jugar h2,
+.info_que_es h2 {
+    color: #4caf50;
+    font-size: 18px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.info_titulo p,
+.info_jugar p,
+.info_que_es p {
+    color: #ffffff;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.img {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ===================== COMENTARIOS ===================== */
+
+.comentarios {
+    background: #2C2C2C;
+    border-radius: 15px;
+    padding: 20px;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    transition: all 0.4s ease-in-out;
+}
+
+.comentarios > div {
+    background: #333333;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.comentarios > div:last-child {
+    margin-bottom: 0;
+}
+/* a agregar despues
+.comentarios strong {
+    
+}
+*/
+ /* ===================== SIDEBAR DERECHA ===================== */
+
+.derecha {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.categorias {
+    background: #2C2C2C;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    transition: all 0.4s ease-in-out;
+}
+
+.categorias h3 {
+    color: #4caf50;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.categorias img {
+    border-radius: 8px;
+    border: 2px solid #444;
+    margin: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.anuncios {
+    background: #2C2C2C;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    transition: all 0.4s ease-in-out;
+}
+
+.anuncios img {
+    border-radius: 10px;
+    border: 2px solid #444;
+    max-width: 100%;
+    transition: all 0.3s ease;
+}
 
 /* footer */
 
