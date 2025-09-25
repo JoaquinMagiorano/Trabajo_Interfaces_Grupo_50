@@ -21,30 +21,39 @@
     <main>
         <div class="form_container">
             <div class="tabs">
-                <div class="tab active" data-target="login">iniciar sesión</div>
-                <div class="tab" data-target="register">registrarse</div>
+                <button type="button" class="tab active" data-target="login">iniciar sesión</button>
+                <button type="button" class="tab" data-target="register">registrarse</button>
+                <div class="tab-indicator"></div>
             </div>
 
-            <!-- formulario login -->
-            <form id="login" class="form active">
-                <input type="text" placeholder="nombre de usuario" required>
-                <input type="password" placeholder="contraseña" required>
-                <button type="submit">iniciar sesión</button>
-            </form>
-            
-            <!-- formulario registro -->
-            <form id="register" class="form">
-                <input type="email" placeholder="Gmail" required>
-                <input type="text" placeholder="nombre" required>
-                <input type="text" placeholder="apellido" required>
-                <input type="text" placeholder="nombre de usuario" required>
-                <input type="number" placeholder="edad" required>
-                <input type="password" placeholder="contraseña" required>
-                <input type="password" placeholder="repetir contraseña" required>
-                <!-- aca va el captcha, sepa como se pone -->
-                <button type="submit">registrarse</button>
-            </form>
-
+            <div class="forms-container">
+                <!-- formulario login -->
+                <form id="login" class="form active">
+                    <input type="text" placeholder="nombre de usuario" required>
+                    <input type="password" placeholder="contraseña" required>
+                    <button type="submit">iniciar sesión</button>
+                </form>
+                
+                <!-- formulario registro -->
+                <form id="register" class="form">
+                    <label for=""></label>
+                    <input type="email" placeholder="Gmail" required>
+                    <label for=""></label>
+                    <input type="text" placeholder="nombre" required>
+                    <label for=""></label>
+                    <input type="text" placeholder="apellido" required>
+                    <label for=""></label>
+                    <input type="text" placeholder="nombre de usuario" required>
+                    <label for=""></label>
+                    <input type="number" placeholder="edad" required>
+                    <label for=""></label>
+                    <input type="password" placeholder="contraseña" required>
+                    <label for=""></label>
+                    <input type="password" placeholder="repetir contraseña" required>
+                    <!-- aca va el captcha, sepa como se pone -->
+                    <button type="submit">registrarse</button>
+                </form>
+            </div>
             <div class="social-login">
                 <p>Iniciar sesión con:</p>
                 <i>logo google</i>
