@@ -14,8 +14,13 @@ p{
     font-size: 14px;
 }
 .img{
-    width: 100px;
-    height: auto;
+     width: 100%;
+    max-width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 
@@ -82,17 +87,18 @@ header{
 }
 
 /* ===================== SECCIONES INFERIORES ===================== */
+
 .secciones_inferiores {
     display: grid;
-    grid-template-columns: 5fr 1fr;
+    grid-template-columns: 3fr 1fr;
     gap: 20px;
 }
 
-    .izquierda {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
+.izquierda {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 /* ===================== INFORMACIÓN DEL JUEGO ===================== */
 .juego_info {
     background: #2C2C2C;
@@ -151,31 +157,154 @@ header{
 
 /* ===================== COMENTARIOS ===================== */
 
-.comentarios {
+.seccion_comentarios {
+    width: 100%;
+    margin: 0 auto;
     background: #2C2C2C;
     border-radius: 15px;
     padding: 20px;
-    color: #ffffff;
     box-shadow: 0 0 15px rgba(0,0,0,0.6);
-    transition: all 0.4s ease-in-out;
+    box-sizing: border-box;
 }
 
-.comentarios > div {
-    background: #333333;
+.comentar_usuario {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
     padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    transition: all 0.3s ease;
+    background: #333;
+    border-radius: 50px;
+    border: 1px solid #444;
 }
 
-.comentarios > div:last-child {
-    margin-bottom: 0;
+.avatar_usuario {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4caf50;
+    font-weight: bold;
+    font-size: 14px;
+    flex-shrink: 0;
 }
-/* a agregar despues
-.comentarios strong {
-    
+
+.input_comentario {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
 }
-*/
+
+.input_comentario::placeholder {
+    color: #aaa;
+}
+
+.btn_enviar {
+    background: #4caf50;
+    border: none;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.btn_enviar:hover {
+    background: #388e3c;
+}
+
+.comentarios {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.comentario {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    position: relative;
+    width: 100%;
+}
+
+.comentario:not(:last-child) {
+    border-bottom: 1px solid #444;
+}
+
+.comentario_head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+.avatar_usuario {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4caf50;
+    font-weight: bold;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.nombre_usuario {
+    color: #4caf50;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.comentario_texto {
+    color: #fff;
+    line-height: 1.5;
+    font-size: 14px;
+    margin-left: 47px;
+}
+
+.coemntario_foot {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    margin-left: 47px;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s ease;
+}
+
+.action-btn:hover {
+    color: #4caf50;
+}
+
+.like-count, .dislike-count, .reply-count {
+    font-size: 11px;
+}
+
+
  /* ===================== SIDEBAR DERECHA ===================== */
 
 .derecha {
@@ -189,7 +318,9 @@ header{
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 0 15px rgba(0,0,0,0.6);
-    transition: all 0.4s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .categorias h3 {
@@ -201,11 +332,15 @@ header{
 }
 
 .categorias img {
+    width: 100%;       
+    height: 200px;
     border-radius: 8px;
     border: 2px solid #444;
-    margin: 5px;
+    margin: 0 0 10px 0;    
     cursor: pointer;
     transition: all 0.3s ease;
+    box-sizing: border-box;
+    display: block;
 }
 
 .anuncios {
@@ -215,14 +350,71 @@ header{
     text-align: center;
     box-shadow: 0 0 15px rgba(0,0,0,0.6);
     transition: all 0.4s ease-in-out;
+    margin-top: 0;
 }
 
 .anuncios img {
     border-radius: 10px;
     border: 2px solid #444;
     max-width: 100%;
+    height: auto;
     transition: all 0.3s ease;
+    display: block;
+    margin: 0 auto;
 }
+
+.categoria-item {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3/2;
+    margin-bottom: 10px;
+    overflow: hidden;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+/* Imagen de juego con relación 3:2 */
+.categoria-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 3/2;
+    border-radius: 8px;
+    border: 2px solid #444;
+    box-sizing: border-box;
+    display: block;
+    transition: box-shadow 0.3s ease, filter 0.3s ease;
+}
+
+/* Sombra interna inferior y oscurecer imagen al hover */
+.categoria-item:hover img {
+    box-shadow: inset 0 -40px 40px -10px rgba(0,0,0,0.7);
+    filter: brightness(0.85);
+}
+
+/* Texto del nombre del juego */
+.categoria-nombre {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 12px 0 8px 0;
+    background: linear-gradient(to top, rgba(44,44,44,0.95) 80%, rgba(44,44,44,0.0) 100%);
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    letter-spacing: 1px;
+}
+
+/* Mostrar el texto al hover */
+.categoria-item:hover .categoria-nombre {
+    opacity: 1;
+}
+
 
 /* footer */
 
