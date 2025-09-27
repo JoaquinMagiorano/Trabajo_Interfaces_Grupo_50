@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
 body {
     margin: 0px;
     background-image: url("../img/frogames/fondo_2.png");
@@ -14,7 +15,7 @@ p{
     font-size: 14px;
 }
 .img{
-     width: 100%;
+    width: 100%;
     max-width: 300px;
     height: 200px;
     object-fit: cover;
@@ -36,7 +37,11 @@ main {
 /* header */
 
 header{
-    display: flex;
+    position: sticky;
+    display: flex; 
+    z-index: 4;
+    top: 0;
+    left: 0;
     background-color: rgba(18, 18, 18, 1);
     justify-content: space-between;
     align-items: center;
@@ -57,6 +62,56 @@ header{
     background: #eee;
     }
 
+.hamburgesa_btn{
+    background: none; 
+    border: none;       
+    padding: 0;         
+    cursor: pointer; 
+}
+
+/* =========================== MENU ============================= */
+
+.menu_desplegable{
+    position:fixed;
+    left: 0;
+    z-index: 4;
+    width: 30%;
+    height: 510px;
+    overflow-y: auto;   
+    background-color: #388e3c;
+}
+
+.lista_menu li {
+    display: flex;
+    align-items: center; 
+    gap: 10px;           
+    margin-bottom: 10px; 
+    list-style: none;    
+}
+
+.img_menu{
+    width: 30px;
+    height: 30px;
+}
+
+.menu_desplegable::-webkit-scrollbar {
+    width: 10px;
+}
+
+.menu_desplegable::-webkit-scrollbar-thumb {
+    background-color: #81c784;
+    border-radius: 5px;
+    border: 2px solid #2e7d32;
+}
+
+.menu_desplegable {
+    scrollbar-gutter: stable both-edges; 
+    direction: rtl;                      
+}
+
+.menu_desplegable > * {
+    direction: ltr; 
+}
 /* ===================== PANTALLA DEL JUEGO ===================== */
 .pantallaJugable {
     background: #2C2C2C;
