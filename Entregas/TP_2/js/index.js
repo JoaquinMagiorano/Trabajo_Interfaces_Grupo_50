@@ -103,3 +103,39 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicializar el carrusel
     refreshClasses();
 });
+
+
+
+
+
+
+
+
+
+
+let currentGroup = 0;
+        const track = document.getElementById('secTrack');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const groups = track.querySelectorAll('.sec-group');
+        const totalGroups = groups.length;
+
+        function updateButtons() {
+            prevBtn.disabled = currentGroup === 0;
+            nextBtn.disabled = currentGroup === totalGroups - 1;
+        }
+
+        function moveCarousel(direction) {
+            currentGroup += direction;
+            
+            if (currentGroup < 0) currentGroup = 0;
+            if (currentGroup >= totalGroups) currentGroup = totalGroups - 1;
+            
+            track.style.transform = `translateX(-${currentGroup * 100}%)`;
+            updateButtons();
+        }
+
+        prevBtn.addEventListener('click', () => moveCarousel(-1));
+        nextBtn.addEventListener('click', () => moveCarousel(1));
+
+        updateButtons();

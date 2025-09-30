@@ -1,8 +1,8 @@
 
 /* ===== VARIABLES DE CONFIGURACIÓN ===== */
 :root {
-    --center-w: 80%;
-    --side-w: 20%;
+    --center-w: 60%;
+    --side-w: 50%;
     --visible-side: calc(var(--side-w) / 3);
     --carousel-h: 500px;
     --border-radius: 0px;
@@ -48,15 +48,15 @@
     z-index: 3;
     
     /* Transiciones suavizadas */
-    transition: 
-        left var(--transition-time) var(--transition-easing),
-        width var(--transition-time) var(--transition-easing),
-        transform var(--transition-time) var(--transition-easing),
-        opacity var(--transition-time) var(--transition-easing),
-        box-shadow var(--transition-time) var(--transition-easing);
-    
-    transform: translate(-50%, -50%);
-    will-change: transform, left;
+transition: 
+  left var(--transition-time) var(--transition-easing),
+  width var(--transition-time) var(--transition-easing),
+  transform var(--transition-time) var(--transition-easing),
+  opacity var(--transition-time) var(--transition-easing),
+  box-shadow var(--transition-time) var(--transition-easing);
+
+  transform: translate(-50%, -50%);
+  will-change: transform, left;
 }
 
 /* Imagen */
@@ -246,4 +246,184 @@
     .footer_text {
         flex-direction: row;
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /* Contenedor principal */
+.secondary-carousel-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+/* Wrapper del carrusel */
+.secondary-carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.sec-wrapper {
+  flex: 1;
+  overflow: hidden; /* mantiene el track dentro del área visible */
+  padding: 40px 0; /* reduje padding para evitar cortes visibles */
+}
+
+/* Track */
+.sec-track {
+  display: flex;
+  transition: transform 0.5s ease;
+  will-change: transform;
+}
+
+/* Grupo de 3 items */
+.sec-group {
+  min-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 0 24px; /* menos padding lateral para evitar que el scaling salga del viewport */
+}
+
+/* Item: el contenedor recorta la imagen escalada */
+.sec-item {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden; /* IMPORTANT: el contenedor recorta la imagen */
+  transition: transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.3s ease;
+  z-index: 1;
+  background: #111; /* placeholder para evitar parpadeos */
+}
+
+/* Contenedor interno (opcional para layout) */
+.sec-item .contenedor {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Imagen: la transformación se aplica a la imagen, no al contenedor */
+.sec-item img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.35s cubic-bezier(.2,.8,.2,1), opacity 0.25s ease;
+  transform-origin: center center;
+  will-change: transform, opacity;
+  -webkit-transform: translateZ(0); /* ayuda con bugs de WebKit/Chrome */ 
+  transform: translateZ(0);
+}
+
+/* Control de opacidades para imagen normal / hover */
+.sec-item .img-normal { opacity: 1; z-index: 1; }
+.sec-item .img-hover  { opacity: 0; z-index: 2; }
+
+/* Hover: escalar SOLO la imagen y mostrar overlay */
+.sec-item:hover {
+  transform: scale(1.08);
+}
+
+.sec-item:hover .img-normal { opacity: 0; }
+.sec-item:hover .img-hover  { opacity: 1; }
+
+/* Sombra y overlay en el contenedor (no inset potente) */
+.sec-item:hover {
+  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+  z-index: 10; /* sobresale visualmente sin romper layout */
+}
+
+/* Overlay del título */
+.sec-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  border-radius: 0 0 8px 8px;
+  z-index: 3;
+  transform: translateY(100%);
+  transition: transform 0.28s ease;
+}
+
+.sec-item:hover .sec-overlay { transform: translateY(0); }
+
+.sec-overlay h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Botones */
+.sec-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 2px solid rgba(255,255,255,0.22);
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.sec-btn:hover:not(:disabled) {
+  transform: scale(1.08);
+  background: rgba(255,255,255,0.14);
+}
+
+.sec-btn:disabled {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .sec-group { grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 0 20px; }
+}
+@media (max-width: 480px) {
+  .sec-group { grid-template-columns: 1fr; gap: 18px; padding: 0 14px; }
+  .sec-btn { width: 40px; height: 40px; font-size: 24px; }
 }
