@@ -1,77 +1,83 @@
+document.addEventListener('DOMContentLoaded', () => {
 let currentSlide = 0;
-const slides = document.querySelectorAll('.carrucel_item');
-const indicators = document.querySelectorAll('.indicador');
+const slides = Array.from(document.querySelectorAll('.carrucel_item'));
+const indicators = Array.from(document.querySelectorAll('.indicador'));
 const totalSlides = slides.length;
+const carousel = document.getElementById('carousel');
 
-function updateCarrucel() {
-    slides.forEach((slide, index) => {
-        slide.classList.remove('activo', 'prev', 'next', 'hidden');
-        if (index === currentSlide) {
-            slide.classList.add('activo');
-        } else if (index === (currentSlide - 1 + totalSlides) % totalSlides) {
-            slide.classList.add('prev');
-        } else if (index === (currentSlide + 1) % totalSlides) {
-            slide.classList.add('next');
-        } else {
-            slide.classList.add('hidden');
-        }
-    });
-    indicators.forEach((indicator, index) => {
-        indicator.classList.toggle('activo', index === currentSlide);
-    });
+if(totalSlides === 0) return;
+
+function refreshClasses(){
+slides.forEach((slide, index) => {
+    slide.classList.remove('activo','prev','next','hidden');
+    if(index === currentSlide) slide.classList.add('activo');
+    else if(index === (currentSlide - 1 + totalSlides) % totalSlides) slide.classList.add('prev');
+    else if(index === (currentSlide + 1) % totalSlides) slide.classList.add('next');
+    else slide.classList.add('hidden');
+});
+
+indicators.forEach((ind, idx) => {
+    ind.classList.toggle('activo', idx === currentSlide);
+});
 }
 
-function nextSlide() {
+function nextSlide(){
     currentSlide = (currentSlide + 1) % totalSlides;
-    updateCarrucel();
+    refreshClasses();
+    resetAutoPlay();
 }
 
-function prevSlide() {
+function prevSlide(){
     currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-    updateCarrucel();
+    refreshClasses();
+    resetAutoPlay();
 }
 
-function goToSlide(index) {
-    currentSlide = index;
-    updateCarrucel();
+function goToSlide(index){
+    if(typeof index !== 'number') return;
+    currentSlide = ((index % totalSlides) + totalSlides) % totalSlides;
+    refreshClasses();
+    resetAutoPlay();
 }
+
+// Exponer funciones globales si tu HTML las llama (prevSlide(), nextSlide(), goToSlide(n))
+window.nextSlide = nextSlide;
+window.prevSlide = prevSlide;
+window.goToSlide = goToSlide;
 
 // Auto-play
-let autoPlayInterval = setInterval(nextSlide, 5000);
+let autoPlayInterval = setInterval(nextSlide, 10000); /*esto maneja el tiempo de las imagenes*/ 
 
-// Pausar auto-play al hover
-const carousel = document.getElementById('carousel');
-carousel.addEventListener('mouseenter', () => {
+function resetAutoPlay() {
     clearInterval(autoPlayInterval);
-});
-carousel.addEventListener('mouseleave', () => {
-    autoPlayInterval = setInterval(nextSlide, 5000);
-});
+    autoPlayInterval = setInterval(nextSlide, 10000);
+}
 
-// Navegación con teclado
+// teclado
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') prevSlide();
-    else if (e.key === 'ArrowRight') nextSlide();
+if(e.key === 'ArrowLeft') prevSlide();
+else if(e.key === 'ArrowRight') nextSlide();
 });
 
-// Touch/Swipe para móviles
+// touch / swipe
 let startX = 0;
-let endX = 0;
+if(carousel){
 carousel.addEventListener('touchstart', (e) => {
     startX = e.touches[0].clientX;
 });
 carousel.addEventListener('touchend', (e) => {
-    endX = e.changedTouches[0].clientX;
-    handleSwipe();
-});
-function handleSwipe() {
-    const swipeThreshold = 50;
+    const endX = e.changedTouches[0].clientX;
     const diff = startX - endX;
-    if (Math.abs(diff) > swipeThreshold) {
-        if (diff > 0) nextSlide();
-        else prevSlide();
+    const threshold = 50;
+    if(Math.abs(diff) > threshold){
+    if(diff > 0) nextSlide(); else prevSlide();
     }
+});
 }
 
-// Inicializar
-updateCarrucel();
+// Indicators click
+indicators.forEach((ind, idx) => ind.addEventListener('click', () => goToSlide(idx)));
+
+// init
+refreshClasses();
+});
