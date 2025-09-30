@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="./css/index.css">
     <title>Frogames</title>
 </head>
@@ -19,89 +20,76 @@
         </div>
     </header>
 
-    <!-- paginas -->
-
-    <div class="carrucel_contenedor">
-        <div class="carrucel" id="carousel">
-            <div class="carrucel_item activo">
-                <img src="./img/juegos/7dtd.webp" alt="que picardia" class="lienzo-img">
-                <div class="sombra_superpuesta">
-                    <h2 class="lienzo_titulo">que picaro che</h2>
+    <main>
+        <div class="carrusel_contenedor">
+            <div class="carrusel" id="carousel">
+                <div class="carrusel_item activo">
+                    <img src="./img/juegos/brd4.jpg" alt="borderlands 4" class="lienzo-img">
+                    <div class="sombra_superpuesta">
+                        <h2 class="lienzo_titulo">Borderlands 4</h2>
+                    </div>
+                </div>
+                <div class="carrusel_item next">
+                    <img src="./img/juegos/silson.png" alt="Silksong" class="lienzo-img">
+                    <div class="sombra_superpuesta">
+                        <h2 class="lienzo_titulo">Hollow Knight: Silksong</h2>
+                    </div>
+                </div>
+                <div class="carrusel_item hidden">
+                    <img src="./img/juegos/hd2.webp" alt="Hell divers 2" class="lienzo-img">
+                    <div class="sombra_superpuesta">
+                        <h2 class="lienzo_titulo">Hell Divers II</h2>
+                    </div>
+                </div>
+                <div class="carrusel_item hidden">
+                    <img src="./img/juegos/tboi.jpg" alt="Tboi" class="lienzo-img">
+                    <div class="sombra_superpuesta">
+                        <h2 class="lienzo_titulo">The Binding of Isaac: Repentance</h2>
+                    </div>
+                </div>
+                <div class="carrusel_item prev">
+                    <img src="./img/juegos/fs.webp" alt="Farming simulator" class="lienzo-img">
+                    <div class="sombra_superpuesta">
+                        <h2 class="lienzo_titulo">Farming Simulator 2025</h2>
+                    </div>
                 </div>
             </div>
-            <div class="carrucel_item next">
-                <img src="./img/juegos/brd4.jpg" alt="que picardia" class="lienzo-img">
-                <div class="sombra_superpuesta">
-                    <h2 class="lienzo_titulo">que picaro che</h2>
-                </div>
-            </div>
-            <div class="carrucel_item hidden">
-                <img src="./img/juegos/cs2.webp" alt="que picardia" class="lienzo-img">
-                <div class="sombra_superpuesta">
-                    <h2 class="lienzo_titulo">que picaro che</h2>
-                </div>
-            </div>
-            <div class="carrucel_item hidden">
-                <img src="./img/juegos/dc.jpg" alt="que picardia" class="lienzo-img">
-                <div class="sombra_superpuesta">
-                    <h2 class="lienzo_titulo">que picaro che</h2>
-                </div>
-            </div>
-            <div class="carrucel_item prev">
-                <img src="./img/juegos/silson.png" alt="que picardia" class="lienzo-img">
-                <div class="sombra_superpuesta">
-                    <h2 class="lienzo_titulo">que picaro che</h2>
-                </div>
+        
+            <!-- Indicadores -->
+            <div class="carrusel-control prev-btn" onclick="prevSlide()">‹</div>
+            <div class="carrusel-control next-btn" onclick="nextSlide()">›</div>
+            <div class="carrusel_indicadores">
+                <div class="indicador activo" onclick="goToSlide(0)"></div>
+                <div class="indicador" onclick="goToSlide(1)"></div>
+                <div class="indicador" onclick="goToSlide(2)"></div>
+                <div class="indicador" onclick="goToSlide(3)"></div>
+                <div class="indicador" onclick="goToSlide(4)"></div>
             </div>
         </div>
-    
-        <!-- Indicadores -->
-        <div class="carrucel-control prev-btn" onclick="prevSlide()">‹</div>
-        <div class="carrucel-control next-btn" onclick="nextSlide()">›</div>
-
-        <div class="carrucel_indicadores">
-            <div class="indicador activo" onclick="goToSlide(0)"></div>
-            <div class="indicador" onclick="goToSlide(1)"></div>
-            <div class="indicador" onclick="goToSlide(2)"></div>
-            <div class="indicador" onclick="goToSlide(3)"></div>
-            <div class="indicador" onclick="goToSlide(4)"></div>
-        </div>
-    </div>  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </main>
+>>>>>>> be855b913a79a113482ea7d00711db0d978cc1db
 
     <footer>
         <div class="footer_text">
             <div class="footer_links">
-                <h3>links del sitio</h3>
-                <p>home</p>
-                <p>trending games</p>
+                <h2>Links del sitio</h2>
+                <a href="index.html">Home</a>
+                <a href="gamePage.html">Trending game</a>
+                <a href="login.html">Login (borrar despues)</a>
             </div>
             <div class ="footer_links">
-                <h3>sobre nosotros</h3>
-                <p>nuestra historia</p>
-                <p>nuestros asociados</p>
+                <h2>Sobre nosotros</h2>
+                <a href="">Nuestra historia</a>
+                <a href="">Nuestros asociados</a>
             </div>
             <div class="footer_links">
-                <h3>trabajar con nosotros</h3>
-                <p>quieres trabajar con nosotros</p>
-                <p>nuestros creadores</p>
+                <h2>Trabajar con nosotros</h2>
+                <a href="">¿Quieres trabajar con nosotros?</a>
+                <a href="">Nuestros creadores</a>
             </div>
             <div class="footer_links">
-                <h3>Merchandising</h3>
-                <p>conseguir nuestra merch</p>
+                <h2>Merchandising</h2>
+                <a href="">Nuestra merch</a>
             </div>
         </div>
         <div class="footer_logo">

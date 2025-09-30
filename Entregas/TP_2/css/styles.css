@@ -1,0 +1,100 @@
+/* Body & Main */
+
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-image: url("../img/frogames/fondo_2.png");
+    background-size: 100vw auto;
+    background-position: top center;
+    background-repeat: repeat-y;
+    background-attachment: scroll;
+    overflow-x: hidden;
+}
+
+main {
+  flex: 0 0 auto;
+  min-height: 0;
+}
+
+p,h1,h2,h3,h4,h5,h6{
+    color:white;
+    font-family: 'Nunito', sans-serif;
+}
+
+/* Header */
+
+header{
+    position: sticky;
+    display: flex;
+    z-index: 4;
+    top: 0;
+    left: 0;
+    background-color: rgba(18, 18, 18, 1);
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left-header-div {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+#barra_busqueda {
+    display: block;
+    width: 20rem;
+    height: 2rem;
+    border: none;
+    border-radius: 20px;
+    background: #eee;
+}
+
+
+/* Footer */
+
+footer{
+    display:flex;
+    flex-direction: column;
+    background-color: #121212;
+    padding: 1rem;
+    flex: 1 1 auto;
+}
+
+.footer_text{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.footer_links{
+    display: flex;
+    flex-direction: column;
+}
+
+.footer_links a {
+    text-decoration: none;
+    color: white;
+    margin: 5px;
+}
+
+.footer_links a:hover {
+    color: rgb(26, 26, 230);
+}
+
+.footer_logo{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.division{
+    text-align: center;
+}
