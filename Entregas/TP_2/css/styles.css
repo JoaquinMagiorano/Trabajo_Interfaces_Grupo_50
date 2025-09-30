@@ -48,7 +48,7 @@ header{
 }
 
 #barra_busqueda {
-    display: block;
+    display: none;
     width: 20rem;
     height: 2rem;
     border: none;
