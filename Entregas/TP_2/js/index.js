@@ -1,9 +1,9 @@
 let currentSlide = 0;
-const slides = document.querySelectorAll('.carrucel_item');
+const slides = document.querySelectorAll('.carrusel_item');
 const indicators = document.querySelectorAll('.indicador');
 const totalSlides = slides.length;
 
-function updateCarrucel() {
+function updateCarrusel() {
     slides.forEach((slide, index) => {
         slide.classList.remove('activo', 'prev', 'next', 'hidden');
         if (index === currentSlide) {
@@ -23,17 +23,17 @@ function updateCarrucel() {
 
 function nextSlide() {
     currentSlide = (currentSlide + 1) % totalSlides;
-    updateCarrucel();
+    updateCarrusel();
 }
 
 function prevSlide() {
     currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-    updateCarrucel();
+    updateCarrusel();
 }
 
 function goToSlide(index) {
     currentSlide = index;
-    updateCarrucel();
+    updateCarrusel();
 }
 
 // Auto-play
@@ -74,4 +74,4 @@ function handleSwipe() {
 }
 
 // Inicializar
-updateCarrucel();
+updateCarrusel();

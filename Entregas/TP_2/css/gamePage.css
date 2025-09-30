@@ -1,19 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
 
-body {
-    margin: 0px;
-    background-image: url("../img/frogames/fondo_2.png");
-    background-size: 100% auto;
-    background-position: top center;
-    background-repeat: repeat-y;
-}
-p,h1,h2,h3,h4,h5,h6{
-    color:white;
-    font-family: 'Nunito', sans-serif;
-}
-p{
-    font-size: 14px;
-}
 .img{
     width: 100%;
     max-width: 300px;
@@ -36,32 +22,6 @@ main {
 
 /* header */
 
-header{
-    position: sticky;
-    display: flex; 
-    z-index: 4;
-    top: 0;
-    left: 0;
-    background-color: rgba(18, 18, 18, 1);
-    justify-content: space-between;
-    align-items: center;
-}
-
-.left-header-div {
-    display: flex;
-    align-items: center;
-    gap: 60px;
-}
-
-#barra_busqueda {
-    display: block;
-    width: 20rem;
-    height: 2rem;
-    border: none;
-    border-radius: 20px;
-    background: #eee;
-    }
-
 .hamburgesa_btn{
     background: none; 
     border: none;       
@@ -74,11 +34,15 @@ header{
 .menu_desplegable{
     position:fixed;
     left: 0;
+    top: 0;
     z-index: 4;
     width: 30%;
     height: 510px;
     overflow-y: auto;   
     background-color: #388e3c;
+}
+.hidden {
+    display: none;
 }
 
 .lista_menu li {
@@ -468,37 +432,4 @@ header{
 /* Mostrar el texto al hover */
 .categoria-item:hover .categoria-nombre {
     opacity: 1;
-}
-
-
-/* footer */
-
-footer{
-    display:flex;
-    flex-direction: column;
-    background-color: #121212;
-    bottom: 0%;     
-    padding: 10px;
-}
-
-.footer_text{
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.footer_links{
-    display: flex;
-    flex-direction: column;
-    
-}
-
-.footer_logo{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.division{
- text-align: center;
 }
