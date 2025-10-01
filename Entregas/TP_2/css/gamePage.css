@@ -96,6 +96,25 @@ main {
 .menu_desplegable > * {
     direction: ltr; 
 }
+
+#menu_container {
+    width: 800px;
+    height: 600px;
+    background-color: #222;
+    z-index: 1;
+}
+
+#menu_container {
+    filter: blur(1px);
+    width: 100%;
+    height: 100%;
+    background-color: #222222ab;
+    z-index: 1;
+    pointer-events: none;
+    position: absolute;
+}
+
+
 /* ===================== PANTALLA DEL JUEGO ===================== */
 .pantallaJugable {
     background: #2C2C2C;
