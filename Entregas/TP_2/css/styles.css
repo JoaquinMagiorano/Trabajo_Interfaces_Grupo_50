@@ -103,6 +103,7 @@ header{
 }
 .btn_menu{
     background-color: transparent;
+    border: none;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -154,7 +155,9 @@ footer{
     display:flex;
     flex-direction: column;
     background-color: #121212;
-    padding: 1rem;
+    padding: 40px;
+    padding-left: 100px;
+    padding-right: 100px;
     flex: 1 1 auto;
 }
 
