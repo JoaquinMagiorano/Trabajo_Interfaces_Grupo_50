@@ -55,6 +55,98 @@ header{
     border-radius: 20px;
     background: #eee;
 }
+/* =========================== MENU ============================= */
+
+.hamburgesa_btn {
+    background: none;
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.hamburgesa_btn:hover {
+    border-color: #81c784;
+    background-color: rgba(129, 199, 132, 0.1);
+    transform: scale(1.05);
+}
+
+.hamburgesa_btn:active {
+    transform: scale(0.95);
+    border-color: #a5d6a7;
+}
+
+.menu_desplegable{
+    position:fixed;
+    left: 0;
+    top: 0;
+    z-index: 4;
+    width: 30%;
+    height: 510px;
+    overflow-y: auto;   
+    background-color: #388e3c;
+    scrollbar-gutter: stable both-edges; 
+    direction: rtl; 
+}
+.hidden {
+    display: none;
+}
+.lista_menu{
+    padding: 0px;
+}
+.lista_menu li {
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+    list-style: none;    
+}
+.btn_menu{
+    background-color: transparent;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: 100%;
+}
+.img_menu{
+    width: 30px;
+    height: 30px;
+}
+
+.menu_desplegable::-webkit-scrollbar {
+    width: 10px;
+}
+
+.menu_desplegable::-webkit-scrollbar-thumb {
+    background-color: #81c784;
+    border-radius: 5px;
+    border: 2px solid #2e7d32;
+}
+
+
+.menu_desplegable > * {
+    direction: ltr; 
+}
+
+#menu_container {
+    width: 800px;
+    height: 600px;
+    background-color: #222;
+    z-index: 1;
+}
+
+#menu_container {
+    filter: blur(1px);
+    width: 100%;
+    height: 100%;
+    background-color: #222222ab;
+    z-index: 1;
+    pointer-events: none;
+    position: absolute;
+}
 
 
 /* Footer */
@@ -63,7 +155,9 @@ footer{
     display:flex;
     flex-direction: column;
     background-color: #121212;
-    padding: 1rem;
+    padding: 40px;
+    padding-left: 100px;
+    padding-right: 100px;
     flex: 1 1 auto;
 }
 
