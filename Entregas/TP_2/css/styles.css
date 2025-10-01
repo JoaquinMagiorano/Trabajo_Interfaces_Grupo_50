@@ -31,12 +31,14 @@ p,h1,h2,h3,h4,h5,h6{
 /* Header */
 
 header{
-    position: sticky;
+    position: fixed;
     display: flex;
-    z-index: 50;
+    z-index: 5;
     top: 0;
     left: 0;
     background-color: rgba(18, 18, 18, 1);
+    height: 60px;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
 }
@@ -81,7 +83,8 @@ header{
     position:fixed;
     left: 0;
     top: 0;
-    z-index: 4;
+    margin-top: 60px;
+    z-index: 5;
     width: 30%;
     height: 510px;
     overflow-y: auto;   
@@ -122,9 +125,11 @@ header{
     background-color: rgba(129, 199, 132, 0.1);
 }
 
-.btn_menu:enabled {
-    border-color: #0d4c0f;
+.btn_menu:active {
+  background-color:#297A4A;
 }
+
+
 .menu_desplegable::-webkit-scrollbar {
     width: 10px;
 }
