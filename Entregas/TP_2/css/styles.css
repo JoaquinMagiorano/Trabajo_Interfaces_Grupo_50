@@ -79,6 +79,7 @@ header{
     border-color: #a5d6a7;
 }
 
+
 .menu_desplegable{
     position:fixed;
     left: 0;
@@ -90,7 +91,19 @@ header{
     overflow-y: auto;   
     background-color: #388e3c;
     scrollbar-gutter: stable both-edges; 
-    direction: rtl; 
+    direction: rtl;
+}
+
+.menu_configuracion_desplegable{
+    position:fixed;
+    right: 0;
+    top: 0;
+    margin-top: 60px;
+    z-index: 5;
+    width: 30%;
+    height: auto;
+    overflow-y: auto;   
+    background-color: #388e3c;
 }
 
 
@@ -111,7 +124,7 @@ header{
     border: none;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     height: auto;
     width: 100%;
