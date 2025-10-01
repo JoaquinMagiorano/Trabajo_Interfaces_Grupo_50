@@ -1,13 +1,13 @@
 
 /* ===== VARIABLES DE CONFIGURACIÓN ===== */
+/*valores predeterminados para algunos elementos/ variables globales ponele*/
 :root {
-    --center-w: 60%;
-    --side-w: 50%;
-    --visible-side: calc(var(--side-w) / 3);
-    --carousel-h: 500px;
-    --border-radius: 0px;
-    --transition-time: 0.55s;
-    --transition-easing: cubic-bezier(0.22, 0.9, 0.3, 1);
+    --center-w: 60%; /*ancho del item activo*/
+    --side-w: 50%; /*ancho de items laterales*/
+    --visible-side: calc(var(--side-w) / 3); /*lado visible del lateral*/
+    --carousel-h: 500px; /*altura fija del carrucel*/
+    --transition-time: 0.55s; /*duracion de las tranciciones de elementos*/
+    --transition-easing: cubic-bezier(0.22, 0.9, 0.3, 1); /*curva de aceleracion*/
 }
 
 /* ===== CONTENEDOR PRINCIPAL ===== */
@@ -15,16 +15,16 @@
     position: relative;
     width: 100%;
     height: var(--carousel-h);
-    perspective: 1000px;
+    perspective: 800px; /*inclinacion de los items secundarios*/
     margin: 40px auto;
-    overflow: hidden;
+  /*overflow: hidden;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
 }
 
 .carrusel {
-    position: relative;
+  /*position: relative; */
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
@@ -37,15 +37,14 @@
     left: 50%;
     width: var(--side-w);
     height: 100%;
-    box-sizing: border-box;
-    border-radius: var(--border-radius);
     overflow: hidden;
+  /*box-sizing: border-box;
     background: #111;
     display: flex;
     align-items: center;
     justify-content: center;
     pointer-events: none;
-    z-index: 3;
+    z-index: 3; */
     
     /* Transiciones suavizadas */
 transition: 
@@ -64,9 +63,9 @@ transition:
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
+  /*display: block;
     border-radius: inherit;
-    backface-visibility: hidden;
+    backface-visibility: hidden;*/
 }
 
 /* Overlay con título */
@@ -78,10 +77,9 @@ transition:
     padding: 20px;
     box-sizing: border-box;
     background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-    color: #fff;
-    transform: translateY(100%);
-    transition: transform 0.35s ease;
-    pointer-events: none;
+    transform: translateY(100%); /*aparecen las letras desde abajo*/
+    transition: var(--transition-time) var(--transition-easing);
+    
 }
 
 /* ===== ESTADOS DEL CARRUSEL ===== */
@@ -101,11 +99,12 @@ transition:
 }
 
 /* Items laterales (prev y next) */
-.carrusel_item.prev,
+
+/*.carrusel_item.prev,
 .carrusel_item.next {
     z-index: 0;
     transform: translate(-50%, -50%) scale(0.95);
-}
+}*/
 
 .carrusel_item.prev {
     left: calc(50% - (var(--center-w) / 2) - var(--visible-side));
@@ -118,11 +117,12 @@ transition:
 }
 
 /* Items ocultos */
-.carrusel_item.hidden {
+/*.carrusel_item.hidden {
     left: 120%;
     transform: translate(0, -50%) scale(0.7);
     opacity: 0;
 }
+*/
 
 /* ===== CONTROLES DE NAVEGACIÓN ===== */
 
@@ -131,9 +131,9 @@ transition:
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
+    width: 140px;
+    height: 200px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
