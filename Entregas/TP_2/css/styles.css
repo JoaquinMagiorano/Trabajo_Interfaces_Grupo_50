@@ -79,14 +79,37 @@ header{
     border-color: #a5d6a7;
 }
 
+.btn_configuracion{
+    background: none;
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 100px;
+    transition: all 0.3s ease;
+}
+.btn_configuracion img{
+    border-radius: 100px;
+    width: 40px;
+    height: 40px;
+}
+.btn_configuracion:hover {
+    background-color: rgba(129, 199, 132, 0.1);
+    transform: scale(1.1);
+}
+.hamburgesa_btn:active {
+    transform: scale(0.95);
+    border-color: #a5d6a7;
+}
+
 
 .menu_desplegable{
+    display: none;
     position:fixed;
     left: 0;
     top: 0;
     margin-top: 60px;
     z-index: 5;
-    width: 30%;
+    width: 80%;
     height: 510px;
     overflow-y: auto;   
     background-color: #388e3c;
@@ -95,20 +118,20 @@ header{
 }
 
 .menu_configuracion_desplegable{
+    display: none;
     position:fixed;
     right: 0;
     top: 0;
     margin-top: 60px;
     z-index: 5;
-    width: 30%;
+    width: 80%;
     height: auto;
     overflow-y: auto;   
     background-color: #388e3c;
 }
-
-
-.hidden {
-    display: none;
+.visible {
+    display:flex;
+    flex-direction: column;
 }
 .lista_menu{
     padding: 0px;
@@ -158,22 +181,24 @@ header{
     direction: ltr; 
 }
 
-#menu_container {
-    width: 800px;
-    height: 600px;
-    background-color: #222;
-    z-index: 1;
+
+.menu_container {
+    display: none;
+    position: fixed;  
+    top: 0;
+    left: 0;
+    width:  100%; 
+    height:  100%; 
+    background-color: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(10px);  
+    z-index: 2;
+    pointer-events: auto;
 }
 
-#menu_container {
-    filter: blur(1px);
-    width: 100%;
-    height: 100%;
-    background-color: #222222ab;
-    z-index: 1;
-    pointer-events: none;
-    position: absolute;
+.menu_container.visible {
+    display: block;
 }
+
 
 
 /* Footer */
@@ -185,12 +210,11 @@ footer{
     padding: 40px;
     padding-left: 100px;
     padding-right: 100px;
-    flex: 1 1 auto;
 }
 
 .footer_text{
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
 }
 
@@ -232,7 +256,15 @@ footer{
         border-radius: 20px;
         background: #eee;
     }
-    
+
+    .menu_desplegable{
+        width: 30%;
+    }
+ 
+    .menu_configuracion_desplegable{
+        width: 30%;
+    }
+
     .footer_text {
         flex-direction: row;
     }
