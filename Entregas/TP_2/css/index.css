@@ -1,6 +1,6 @@
 
 /* ===== VARIABLES DE CONFIGURACIÓN ===== */
-/*valores predeterminados para algunos elementos/ variables globales ponele*/
+/*valores predeterminados para algunos elementos/ variables globales ponele, solo afectan al carrucel principal (deveria a menos que toquen algo 😠)*/
 :root {
     --center-w: 60%; /*ancho del item activo*/
     --side-w: 50%; /*ancho de items laterales*/
@@ -27,7 +27,7 @@
   /*position: relative; */
     width: 100%;
     height: 100%;
-    transform-style: preserve-3d;
+    transform-style: preserve-3d;/*mantiene espacio 3d pa' los hijos*/
 }
 
 /* ===== ITEMS DEL CARRUSEL ===== */
@@ -87,10 +87,12 @@ transition:
 /* Item activo (centro) */
 .carrusel_item.activo {
     width: var(--center-w);
+    /*
     left: 50%;
     transform: translate(-50%, -50%) scale(1);
-    z-index: 2;
     pointer-events: auto;
+    z-index: 2;
+    */
     box-shadow: 0 26px 60px rgba(0, 0, 0, 0.45);
 }
 
@@ -108,46 +110,46 @@ transition:
 
 .carrusel_item.prev {
     left: calc(50% - (var(--center-w) / 2) - var(--visible-side));
-    transform: translate(-50%, -50%) scale(0.95) rotateY(25deg);
+    transform: translate(-50%, -50%) scale(0.95) rotateY(55deg);
 }
 
 .carrusel_item.next {
     left: calc(50% + (var(--center-w) / 2) + var(--visible-side));
-    transform: translate(-50%, -50%) scale(0.95) rotateY(-25deg);
+    transform: translate(-50%, -50%) scale(0.95) rotateY(-55deg);
 }
 
 /* Items ocultos */
-/*.carrusel_item.hidden {
+/*
+.carrusel_item.hidden {
     left: 120%;
     transform: translate(0, -50%) scale(0.7);
     opacity: 0;
 }
 */
-
 /* ===== CONTROLES DE NAVEGACIÓN ===== */
 
 /* Flechas */
 .carrusel-control {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    width: 140px;
-    height: 200px;
-    border-radius: 20px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    backdrop-filter: blur(6px);
+    background: rgba(0, 0, 0, 0.35);
+    /*
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.35);
     color: #fff;
-    font-size: 22px;
     cursor: pointer;
     z-index: 60;
-    backdrop-filter: blur(6px);
-    transition: transform 0.18s ease, background 0.18s ease;
+    font-size: 22px;
+    transition: transform 0.18s ease, background 0.18s ease; */
 }
 
 .carrusel-control:hover {
-    transform: translateY(-50%) scale(1.06);
+    transform: scale(1.06);
     background: rgba(0, 0, 0, 0.5);
 }
 
@@ -167,7 +169,7 @@ transition:
     transform: translateX(-50%);
     display: flex;
     gap: 10px;
-    z-index: 50;
+   
 }
 
 .indicador {
@@ -175,7 +177,6 @@ transition:
     height: 8px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.35);
-    cursor: pointer;
     transition: all 0.25s;
 }
 
@@ -191,12 +192,14 @@ transition:
 .indicador.activo::after {
     content: '';
     position: absolute;
-    left: 0;
-    top: 0;
     height: 100%;
-    width: 0;
     background: #fff;
     animation: barra_progreso 10s linear;
+    /*
+    width: 0;
+    left: 0;
+    top: 0;
+    */
 }
 
 @keyframes barra_progreso {

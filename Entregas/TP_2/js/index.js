@@ -42,18 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
         resetAutoPlay();
     }
 
-    // Ir a un slide específico
-    function goToSlide(index) {
-        if(typeof index !== 'number') return;
-        currentSlide = ((index % totalSlides) + totalSlides) % totalSlides;
-        refreshClasses();
-        resetAutoPlay();
-    }
-
     // Exponer funciones globales para el HTML
     window.nextSlide = nextSlide;
     window.prevSlide = prevSlide;
-    window.goToSlide = goToSlide;
 
     // Auto-play: cambia de slide cada 10 segundos
     let autoPlayInterval = setInterval(nextSlide, 10000);
@@ -94,12 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-    // Click en indicadores
-    indicators.forEach((ind, idx) => {
-        ind.addEventListener('click', () => goToSlide(idx));
-    });
-
     // Inicializar el carrusel
     refreshClasses();
 });
