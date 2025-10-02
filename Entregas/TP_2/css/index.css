@@ -38,6 +38,7 @@
     width: var(--side-w);
     height: 100%;
     overflow: hidden;
+    
   /*box-sizing: border-box;
     background: #111;
     display: flex;
@@ -119,46 +120,144 @@ transition:
 }
 
 /* Items ocultos */
-/*
+
 .carrusel_item.hidden {
     left: 120%;
     transform: translate(0, -50%) scale(0.7);
     opacity: 0;
 }
-*/
+
 /* ===== CONTROLES DE NAVEGACIÓN ===== */
 
 /* Flechas */
+animaciones suaves */
 .carrusel-control {
-    position: absolute;
-    top: 50%;
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    backdrop-filter: blur(6px);
-    background: rgba(0, 0, 0, 0.35);
-    /*
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    cursor: pointer;
-    z-index: 60;
-    font-size: 22px;
-    transition: transform 0.18s ease, background 0.18s ease; */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 70px;
+  height: 100px;
+  border: none;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  z-index: 60;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+/* Efecto de brillo sutil en el fondo */
+.carrusel-control::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .carrusel-control:hover {
-    transform: scale(1.06);
-    background: rgba(0, 0, 0, 0.5);
+  transform: translateY(-55%);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.25);
 }
 
+.carrusel-control:hover::before {
+  opacity: 1;
+}
+
+.carrusel-control:active {
+  transform: translateY(-52%);
+}
+
+/* Contenedor de la flecha */
+.arrow {
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+/* Las dos líneas que forman la flecha (usando pseudo-elementos) */
+.arrow::before,
+.arrow::after {
+  content: "";
+  position: absolute;
+  background: #1a202c;
+  width: 5px;
+  height: 28px;
+  border-radius: 4px;
+  left: 50%;
+  top: 50%;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* ===== FLECHA DERECHA ===== */
+/* Estado inicial: X centrada */
+.arrow-right::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.arrow-right::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Hover: Las líneas se separan formando una flecha > */
+.carrusel-control:hover .arrow-right::before {
+  transform: translate(-50%, -80%) rotate(45deg);
+}
+
+.carrusel-control:hover .arrow-right::after {
+  transform: translate(-50%, -20%) rotate(-45deg);
+}
+
+/* ===== FLECHA IZQUIERDA ===== */
+/* Estado inicial: X centrada */
+.arrow-left::before {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.arrow-left::after {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* Hover: Las líneas se separan formando una flecha < */
+.carrusel-control:hover .arrow-left::before {
+  transform: translate(-50%, -80%) rotate(-45deg);
+}
+
+.carrusel-control:hover .arrow-left::after {
+  transform: translate(-50%, -20%) rotate(45deg);
+}
+
+/* Color más oscuro en hover para mejor contraste */
+.carrusel-control:hover .arrow::before,
+.carrusel-control:hover .arrow::after {
+  background: #2d3748;
+}
+
+
+
+
+
+
+
+/* Posición del botón anterior */
 .carrusel-control.prev-btn {
-    left: calc(50% - (var(--center-w) / 2) - (var(--visible-side) / 2) - 28px);
+  left: 20px;
 }
 
+/* Posición del botón siguiente */
 .carrusel-control.next-btn {
-    left: calc(50% + (var(--center-w) / 2) + (var(--visible-side) / 2) + 4px);
+  right: 20px;
+  left: auto;
 }
 
 /* Indicadores */
@@ -192,14 +291,12 @@ transition:
 .indicador.activo::after {
     content: '';
     position: absolute;
-    height: 100%;
-    background: #fff;
-    animation: barra_progreso 10s linear;
-    /*
-    width: 0;
     left: 0;
     top: 0;
-    */
+    height: 100%;
+    width: 0; /*aparentemente no*/
+    background: #fff;
+    animation: barra_progreso 10s linear;
 }
 
 @keyframes barra_progreso {
