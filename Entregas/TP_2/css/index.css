@@ -1,512 +1,74 @@
-
-/* ===== VARIABLES DE CONFIGURACIÓN ===== */
-/*valores predeterminados para algunos elementos/ variables globales ponele, solo afectan al carrucel principal (deveria a menos que toquen algo 😠)*/
+/* ===== VARIABLES GLOBALES ===== */
 :root {
-    --center-w: 60%; /*ancho del item activo*/
-    --side-w: 50%; /*ancho de items laterales*/
-    --visible-side: calc(var(--side-w) / 3); /*lado visible del lateral*/
-    --carousel-h: 500px; /*altura fija del carrusel*/
-    --transition-time: 0.55s; /*duracion de las tranciciones de elementos*/
-    --transition-easing: cubic-bezier(0.22, 0.9, 0.3, 1); /*curva de aceleracion*/
-}
+  /* Carrusel principal */
+  --center-w: 60%;
+  --side-w: 50%;
+  --visible-side: calc(var(--side-w) / 3);
+  --carousel-h: 500px;
 
-/* ===== CONTENEDOR PRINCIPAL ===== */
-.carrusel_contenedor {
+  /* Mini carrusel */
+  --mini-item-w: 25%;
+  --mini-side-w: 24%;
+  --mini-visible-side: calc(var(--mini-side-w) / 3);
+  --mini-carousel-h: 200px;
+  --mini-gap: 1.5%;
 
-    position: relative;
-    width: 100%;
-    height: var(--carousel-h);
-    perspective: 800px; /*inclinacion de los items secundarios*/
-    margin: 40px auto;
-    transform: translateY(5%);
-  /*overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center; */
-}
+  /* Transiciones compartidas */
+  --transition-time: 0.85s;
+  --transition-easing: cubic-bezier(0.22, 0.9, 0.3, 1);
 
-.carrusel {
-  /*position: relative; */
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;/*mantiene espacio 3d pa' los hijos*/
-}
-
-/* ===== ITEMS DEL CARRUSEL ===== */
-.carrusel_item {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: var(--side-w);
-    height: 100%;
-    overflow: hidden;
-    
-  /*box-sizing: border-box;
-    background: #111;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    z-index: 3; */
-    
-    /* Transiciones suavizadas */
-transition: 
-  left var(--transition-time) var(--transition-easing),
-  width var(--transition-time) var(--transition-easing),
-  transform var(--transition-time) var(--transition-easing),
-  opacity var(--transition-time) var(--transition-easing),
-  box-shadow var(--transition-time) var(--transition-easing);
-
-  transform: translate(-50%, -50%);
-  will-change: transform, left;
-}
-
-/* Imagen */
-.lienzo-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  /*display: block;
-    border-radius: inherit;
-    backface-visibility: hidden;*/
-}
-
-/* Overlay con título */
-.sombra_superpuesta {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 20px;
-    box-sizing: border-box;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-    transform: translateY(100%); /*aparecen las letras desde abajo*/
-    transition: var(--transition-time) var(--transition-easing);
-    
-}
-
-/* ===== ESTADOS DEL CARRUSEL ===== */
-
-/* Item activo (centro) */
-.carrusel_item.activo {
-    width: var(--center-w);
-    /*
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1);
-    pointer-events: auto;
-    z-index: 2;
-    */
-    box-shadow: 0 26px 60px rgba(0, 0, 0, 0.45);
-}
-
-.carrusel_item.activo .sombra_superpuesta {
-    transform: translateY(0);
-}
-
-/* Items laterales (prev y next) */
-
-/*.carrusel_item.prev,
-.carrusel_item.next {
-    z-index: 0;
-    transform: translate(-50%, -50%) scale(0.95);
-}*/
-
-.carrusel_item.prev {
-    left: calc(50% - (var(--center-w) / 2) - var(--visible-side));
-    transform: translate(-50%, -50%) scale(0.95) rotateY(55deg);
-}
-
-.carrusel_item.next {
-    left: calc(50% + (var(--center-w) / 2) + var(--visible-side));
-    transform: translate(-50%, -50%) scale(0.95) rotateY(-55deg);
-}
-
-/* Items ocultos */
-
-.carrusel_item.hidden {
-    left: 120%;
-    transform: translate(0, -50%) scale(0.7);
-    opacity: 0;
+  /* Controles */
+  --control-bg: rgba(255, 255, 255, 0.15);
+  --control-bg-hover: rgba(255, 255, 255, 0.3);
 }
 
 
-/* ===== CONTROLES DE NAVEGACIÓN (FLECHAS) ===== */
+/* ======================================== ESTILOS COMPARTIDOS ================================================== */
 
-.carrusel_control {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50px;
-    height: 80px;
-    border: none;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
-    border-radius: 8px;
-    cursor: pointer;
-    z-index: 10;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.carrusel_control:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-50%) scale(1.15);
-}
-
-/* Posicionamiento entre imagen principal y laterales */
-.prev-btn {
-    left: calc((50% - var(--center-w) / 2) / 2);
-    transform: translate(-50%, -50%);
-}
-
-.prev-btn:hover {
-    transform: translate(-50%, -50%) scale(1.15);
-}
-
-.next-btn {
-    right: calc((50% - var(--center-w) / 2) / 2);
-    transform: translate(50%, -50%);
-}
-
-.next-btn:hover {
-    transform: translate(50%, -50%) scale(1.15);
-}
-
-/* Contenedor de la flecha */
-.flecha {
-    position: relative;
-    width: 20px;
-    height: 32px;
-}
-
-/* Palos de la flecha */
-.flecha::before,
-.flecha::after {
-    content: '';
-    position: absolute;
-    width: 3px;
-    height: 24px;
-    background: #fff;
-    border-radius: 2px;
-    top: 50%;
-    left: 50%;
-    transition: all 0.3s ease;
-}
-
-/* X perfecta (45deg) - Estado normal para ambas */
-.flecha_izquierda::before,
-.flecha_derecha::before {
-    transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.flecha_izquierda::after,
-.flecha_derecha::after {
-    transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-/* Hover flecha izquierda: líneas se trasladan para formar < perfecta */
-.carrusel_control:hover .flecha_izquierda::before {
-    transform: translate(calc(-50% + 4.5px), calc(-50% - 8.5px)) rotate(45deg);
-}
-
-.carrusel_control:hover .flecha_izquierda::after {
-    transform: translate(calc(-50% + 4.5px), calc(-50% + 8.5px)) rotate(-45deg);
-}
-
-/* Hover flecha derecha: líneas se trasladan para formar > perfecta */
-.carrusel_control:hover .flecha_derecha::before {
-    transform: translate(calc(-50% - 4.5px), calc(-50% + 8.5px)) rotate(45deg);
-}
-
-.carrusel_control:hover .flecha_derecha::after {
-    transform: translate(calc(-50% - 4.5px), calc(-50% - 8.5px)) rotate(-45deg);
-}
-
-
-/* Indicadores */
-.carrusel_indicadores {
-    position: absolute;
-    bottom: 18px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
-   
-}
-
-.indicador {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.35);
-    transition: all 0.25s;
-}
-
-.indicador.activo {
-    width: 44px;
-    height: 6px;
-    border-radius: 3px;
-    background: rgba(255, 255, 255, 0.25);
-    position: relative;
-    overflow: hidden;
-}
-
-.indicador.activo::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 0; /*aparentemente no*/
-    background: #fff;
-    animation: barra_progreso 10s linear;
-}
-
-@keyframes barra_progreso {
-    0% { width: 0; }
-    100% { width: 100%; }
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 900px) {
-    :root {
-        --center-w: 78%;
-        --side-w: 56%;
-    }
-}
-
-@media (max-width: 480px) {
-    :root {
-        --center-w: 92%;
-        --side-w: 86%;
-    }
-    
-    .carrusel_item.prev,
-    .carrusel_item.next {
-        display: none;
-    }
-    
-    .carrusel_control {
-        display: none;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*============================== aca comienza el segundo carrucel ==============================*/
-
-
-
-/* ===== VARIABLES DEL CARRUSEL PEQUEÑO ===== */
-:root {
-  --small-carousel-h: 280px;
-  --small-item-w: 30%;
-  --small-gap: 2%;
-  --small-transition-time: 0.6s;
-  --small-transition-easing: cubic-bezier(0.22, 0.9, 0.3, 1);
-}
-
-/* ===== CONTENEDOR PRINCIPAL ===== */
-.carrusel_pequeno_contenedor {
-  position: relative;
-  width: 100%;
-  height: var(--small-carousel-h);
-  margin: 40px auto;
-  overflow: hidden;
-  perspective: 1200px; /* Agregada perspectiva para efecto 3D */
-}
-
-.carrusel_pequeno {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform-style: preserve-3d; /* Preservar transformaciones 3D */
-}
-
-/* ===== ITEMS DEL CARRUSEL PEQUEÑO ===== */
-.carrusel_pequeno_item {
-  position: absolute;
-  width: var(--small-item-w);
-  height: 100%;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-  transition:
-    left var(--small-transition-time) var(--small-transition-easing),
-    right var(--small-transition-time) var(--small-transition-easing),
-    opacity var(--small-transition-time) var(--small-transition-easing),
-    transform var(--small-transition-time) var(--small-transition-easing),
-    filter var(--small-transition-time) var(--small-transition-easing); /* Agregada transición para filter */
-  transform-style: preserve-3d;
-}
-
-/* Imagen del carrusel */
-.carrusel_pequeno_img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Overlay con título */
-.carrusel_pequeno_overlay {
+/* Overlay unificado para ambos carruseles */
+.overlay {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 15px;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+  padding: 20px;
+  box-sizing: border-box;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
   transform: translateY(100%);
-  transition: transform var(--small-transition-time) var(--small-transition-easing);
+  transition: transform var(--transition-time) var(--transition-easing);
 }
 
-.carrusel_pequeno_titulo {
-  color: #fff;
-  font-size: 1.1rem;
-  margin: 0;
+/* Títulos de carrusel */
+.carousel-title {
+  color: white;
+  font-size: 1.2rem;
   font-weight: 600;
+  margin: 0;
 }
 
-/* ===== ESTADOS DEL CARRUSEL ===== */
-
-/* Items activos - posicionamiento individual para cada uno de los 3 elementos */
-.carrusel_pequeno_item.activo-left {
-  left: calc(50% - var(--small-item-w) - var(--small-gap));
-  transform: translateX(-50%) scale(1);
-  opacity: 1;
-  z-index: 3;
-  filter: brightness(1);
+.mini_carrusel-item .carousel-title {
+  font-size: 1rem;
 }
 
-.carrusel_pequeno_item.activo-center {
-  left: 50%;
-  transform: translateX(-50%) scale(1);
-  opacity: 1;
-  z-index: 3;
-  filter: brightness(1);
+/* Imágenes de carrusel */
+.carousel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.carrusel_pequeno_item.activo-right {
-  left: calc(50% + var(--small-item-w) + var(--small-gap));
-  transform: translateX(-50%) scale(1);
-  opacity: 1;
-  z-index: 3;
-  filter: brightness(1);
-}
-
-.carrusel_pequeno_item.activo-left:hover .carrusel_pequeno_overlay,
-.carrusel_pequeno_item.activo-center:hover .carrusel_pequeno_overlay,
-.carrusel_pequeno_item.activo-right:hover .carrusel_pequeno_overlay {
-  transform: translateY(0);
-}
-
-/* Items siguientes (preview a la derecha) con efecto de distorsión */
-.carrusel_pequeno_item.next-left {
-  left: calc(100% - var(--small-item-w) * 0.3);
-  transform: translateX(0) scale(0.85) rotateY(-15deg);
-  opacity: 0.5;
-  z-index: 1;
-  filter: brightness(0.7) blur(1px);
-}
-
-.carrusel_pequeno_item.next-center {
-  left: calc(100% + var(--small-item-w) * 0.4);
-  transform: translateX(0) scale(0.75) rotateY(-20deg);
-  opacity: 0.3;
-  z-index: 0;
-  filter: brightness(0.6) blur(1.5px);
-}
-
-.carrusel_pequeno_item.next-right {
-  left: calc(100% + var(--small-item-w) * 1.1);
-  transform: translateX(0) scale(0.65) rotateY(-25deg);
-  opacity: 0.2;
-  z-index: 0;
-  filter: brightness(0.5) blur(2px);
-}
-
-/* Items anteriores (preview a la izquierda) con efecto de distorsión */
-.carrusel_pequeno_item.prev-right {
-  right: calc(100% - var(--small-item-w) * 0.3);
-  left: auto;
-  transform: translateX(0) scale(0.85) rotateY(15deg);
-  opacity: 0.5;
-  z-index: 1;
-  filter: brightness(0.7) blur(1px);
-}
-
-.carrusel_pequeno_item.prev-center {
-  right: calc(100% + var(--small-item-w) * 0.4);
-  left: auto;
-  transform: translateX(0) scale(0.75) rotateY(20deg);
-  opacity: 0.3;
-  z-index: 0;
-  filter: brightness(0.6) blur(1.5px);
-}
-
-.carrusel_pequeno_item.prev-left {
-  right: calc(100% + var(--small-item-w) * 1.1);
-  left: auto;
-  transform: translateX(0) scale(0.65) rotateY(25deg);
-  opacity: 0.2;
-  z-index: 0;
-  filter: brightness(0.5) blur(2px);
-}
-
-/* Items ocultos completamente fuera de vista */
-.carrusel_pequeno_item.hidden-right {
-  left: 150%;
-  opacity: 0;
-  transform: scale(0.5);
-  z-index: -1;
-}
-
-.carrusel_pequeno_item.hidden-left {
-  right: 150%;
-  left: auto;
-  opacity: 0;
-  transform: scale(0.5);
-  z-index: -1;
-}
-
-/* ===== CONTROLES DE NAVEGACIÓN ===== */
-.carrusel_pequeno_control {
+/* Controles de navegación unificados */
+.carousel-control {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 40px;
-  height: 60px;
+  width: 50px;
+  height: 80px;
   border: none;
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--control-bg);
   backdrop-filter: blur(8px);
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   z-index: 10;
   transition: all 0.3s ease;
@@ -515,42 +77,30 @@ transition:
   justify-content: center;
 }
 
-.carrusel_pequeno_control:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-50%) scale(1.1);
+.carousel-control:hover {
+  background: var(--control-bg-hover);
+  transform: translateY(-50%) scale(1.15);
 }
 
-.carrusel_pequeno_control:disabled {
+.carousel-control.disabled {
   opacity: 0.3;
   cursor: not-allowed;
-  background: rgba(255, 255, 255, 0.1);
+  pointer-events: none;
 }
 
-.carrusel_pequeno_control:disabled:hover {
-  transform: translateY(-50%) scale(1);
-}
-
-.prev-btn-small {
-  left: 15px;
-}
-
-.next-btn-small {
-  right: 15px;
-}
-
-/* Flechas pequeñas */
-.flecha_pequena {
+/* Flechas unificadas */
+.arrow {
   position: relative;
-  width: 16px;
-  height: 24px;
+  width: 20px;
+  height: 32px;
 }
 
-.flecha_pequena::before,
-.flecha_pequena::after {
+.arrow::before,
+.arrow::after {
   content: "";
   position: absolute;
-  width: 2.5px;
-  height: 18px;
+  width: 3px;
+  height: 24px;
   background: #fff;
   border-radius: 2px;
   top: 50%;
@@ -558,55 +108,508 @@ transition:
   transition: all 0.3s ease;
 }
 
-/* Flecha izquierda */
-.flecha_izquierda_pequena::before,
-.flecha_derecha_pequena::before {
+/* Estado normal: X */
+.arrow::before {
   transform: translate(-50%, -50%) rotate(45deg);
 }
 
-.flecha_izquierda_pequena::after,
-.flecha_derecha_pequena::after {
+.arrow::after {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
-/* Hover flecha izquierda */
-.carrusel_pequeno_control:hover .flecha_izquierda_pequena::before {
-  transform: translate(calc(-50% + 3.5px), calc(-50% - 6.5px)) rotate(45deg);
+/* Hover: flecha izquierda < */
+.carousel-control:hover .arrow-left::before {
+  transform: translate(calc(-50% + 4.5px), calc(-50% - 8.5px)) rotate(45deg);
 }
 
-.carrusel_pequeno_control:hover .flecha_izquierda_pequena::after {
-  transform: translate(calc(-50% + 3.5px), calc(-50% + 6.5px)) rotate(-45deg);
+.carousel-control:hover .arrow-left::after {
+  transform: translate(calc(-50% + 4.5px), calc(-50% + 8.5px)) rotate(-45deg);
 }
 
-/* Hover flecha derecha */
-.carrusel_pequeno_control:hover .flecha_derecha_pequena::before {
-  transform: translate(calc(-50% - 3.5px), calc(-50% + 6.5px)) rotate(45deg);
+/* Hover: flecha derecha > */
+.carousel-control:hover .arrow-right::before {
+  transform: translate(calc(-50% - 4.5px), calc(-50% + 8.5px)) rotate(45deg);
 }
 
-.carrusel_pequeno_control:hover .flecha_derecha_pequena::after {
-  transform: translate(calc(-50% - 3.5px), calc(-50% - 6.5px)) rotate(-45deg);
+.carousel-control:hover .arrow-right::after {
+  transform: translate(calc(-50% - 4.5px), calc(-50% - 8.5px)) rotate(-45deg);
+}
+
+/* Sombras compartidas */
+.shadow-light {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.shadow-heavy {
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.45);
+}
+
+/* ================================================== CARRUSEL PRINCIPAL ================================================== */
+.carrusel_contenedor {
+  position: relative;
+  width: 100%;
+  height: var(--carousel-h);
+  perspective: 800px;
+  margin: 80px auto;
+}
+
+.carrusel {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.carrusel_item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--side-w);
+  height: 100%;
+  overflow: hidden;
+  transform: translate(-50%, -50%);
+  transition:
+    left var(--transition-time) var(--transition-easing),
+    width var(--transition-time) var(--transition-easing),
+    transform var(--transition-time) var(--transition-easing),
+    opacity var(--transition-time) var(--transition-easing),
+    box-shadow var(--transition-time) var(--transition-easing);
+  will-change: transform, left;
+}
+
+/* Estados del carrusel principal */
+.carrusel_item.activo {
+  width: var(--center-w);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.45);
+}
+
+.carrusel_item.activo .overlay {
+  transform: translateY(0);
+}
+
+.carrusel_item.prev {
+  left: calc(50% - (var(--center-w) / 2) - var(--visible-side));
+  transform: translate(-50%, -50%) scale(0.95) rotateY(55deg);
+}
+
+.carrusel_item.next {
+  left: calc(50% + (var(--center-w) / 2) + var(--visible-side));
+  transform: translate(-50%, -50%) scale(0.95) rotateY(-55deg);
+}
+
+.carrusel_item.hidden {
+  left: 120%;
+  transform: translate(0, -50%) scale(0.7);
+  opacity: 0;
+}
+
+/* Posicionamiento de controles del carrusel principal */
+.carrusel_contenedor .prev-btn {
+  left: calc((50% - var(--center-w) / 2) / 2);
+  transform: translate(-50%, -50%);
+}
+
+.carrusel_contenedor .prev-btn:hover {
+  transform: translate(-50%, -50%) scale(1.15);
+}
+
+.carrusel_contenedor .next-btn {
+  right: calc((50% - var(--center-w) / 2) / 2);
+  transform: translate(50%, -50%);
+}
+
+.carrusel_contenedor .next-btn:hover {
+  transform: translate(50%, -50%) scale(1.15);
+}
+
+/* Indicadores */
+.carrusel_indicadores {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.indicador {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  transition: all 0.25s;
+}
+
+.indicador.activo {
+  width: 44px;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.indicador.activo::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: #fff;
+  animation: barra_progreso 10s linear;
+}
+
+@keyframes barra_progreso {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* ================================================== MINI CARRUSEL ================================================== */
+.mini_carrusel_contenedor {
+  position: relative;
+  width: 100%;
+  height: var(--mini-carousel-h);
+  perspective: 800px;
+  margin: 40px auto;
+  overflow: hidden;
+}
+
+.mini_carrusel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.mini_carrusel-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--mini-side-w);
+  height: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  transform: translate(-50%, -50%);
+  transition:
+    left var(--transition-time) var(--transition-easing),
+    width var(--transition-time) var(--transition-easing),
+    transform var(--transition-time) var(--transition-easing),
+    opacity var(--transition-time) var(--transition-easing),
+    box-shadow var(--transition-time) var(--transition-easing);
+  will-change: transform, left;
+}
+
+.mini_carrusel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mini_carrusel-item .overlay {
+  padding: 15px;
+}
+
+/* Estados del mini carrusel */
+.mini_carrusel-item.active-left {
+  width: var(--mini-item-w);
+  left: calc(10% + var(--mini-item-w) / 2);
+  transform: translate(-50%, -50%) scale(0.95);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  z-index: 3;
+}
+
+.mini_carrusel-item.active-left .overlay {
+  transform: translateY(0);
+}
+
+.mini_carrusel-item.active-center {
+  width: var(--mini-item-w);
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.45);
+  z-index: 4;
+}
+
+.mini_carrusel-item.active-center .overlay {
+  transform: translateY(0);
+}
+
+.mini_carrusel-item.active-right {
+  width: var(--mini-item-w);
+  left: calc(90% - var(--mini-item-w) / 2);
+  transform: translate(-50%, -50%) scale(0.95);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  z-index: 3;
+}
+
+.mini_carrusel-item.active-right .overlay {
+  transform: translateY(0);
+}
+
+.mini_carrusel-item.prev {
+  left: calc(5% - var(--mini-visible-side));
+  transform: translate(-50%, -50%) scale(0.85) rotateY(45deg);
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.mini_carrusel-item.next {
+  left: calc(95% + var(--mini-visible-side));
+  transform: translate(-50%, -50%) scale(0.85) rotateY(-45deg);
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.mini_carrusel-item.hidden-left {
+  left: -20%;
+  transform: translate(-50%, -50%) scale(0.7) rotateY(45deg);
+  opacity: 0;
+  z-index: 0;
+}
+
+.mini_carrusel-item.hidden-right {
+  left: 120%;
+  transform: translate(-50%, -50%) scale(0.7) rotateY(-45deg);
+  opacity: 0;
+  z-index: 0;
+}
+
+/* Controles del mini carrusel */
+.mini_carrusel_contenedor .carousel-control {
+  width: 40px;
+  height: 60px;
+  border-radius: 6px;
+}
+
+.mini_carrusel_contenedor .prev-btn {
+  left: 2%;
+}
+
+.mini_carrusel_contenedor .next-btn {
+  right: 2%;
+}
+
+.mini_carrusel_contenedor .arrow {
+  width: 16px;
+  height: 24px;
+}
+
+.mini_carrusel_contenedor .arrow::before,
+.mini_carrusel_contenedor .arrow::after {
+  width: 2.5px;
+  height: 18px;
+}
+
+/* Ajustes para hover en mini carrusel */
+.mini_carrusel_contenedor .carousel-control:hover .arrow-left::before {
+  transform: translate(calc(-50% + 4px), calc(-50% - 7px)) rotate(45deg);
+}
+
+.mini_carrusel_contenedor .carousel-control:hover .arrow-left::after {
+  transform: translate(calc(-50% + 4px), calc(-50% + 7px)) rotate(-45deg);
+}
+
+.mini_carrusel_contenedor .carousel-control:hover .arrow-right::before {
+  transform: translate(calc(-50% - 4px), calc(-50% + 7px)) rotate(45deg);
+}
+
+.mini_carrusel_contenedor .carousel-control:hover .arrow-right::after {
+  transform: translate(calc(-50% - 4px), calc(-50% - 7px)) rotate(-45deg);
+}
+
+/* ======================================================= TÍTULOS GLOBALES ============================================= */
+/* Agregando estilos para los títulos de sección */
+.titulos {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 60px auto 20px;
+  padding-left: 5%;
+  width: 90%;
+  max-width: 1200px;
+  text-transform: lowercase;
+}
+
+/* ================================================================= SEGUIR JUGANDO ======================================== */
+/* Estilos para la sección de "seguir jugando" con 3 items horizontales */
+.seguir_jugando {
+  width: 50%;
+  max-width: 1200px;
+  margin:  auto 180px;
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.seguir_jugando_item {
+  flex: 0 0 calc(33.333% - 14px);
+  min-width: 250px;
+  height: 140px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.seguir_jugando_item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.seguir_jugando_item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ===== OFERTAS EXCLUSIVAS ===== */
+/* Estilos para la sección de ofertas con imagen de banner */
+.ofertas_exclusivas {
+  width: 90%;
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0;
+}
+
+.ofertas_exclusivas img {
+  width: 100%;
+  height: 200px;
+  
+  object-fit: cover;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  display: block;
+}
+
+.ofertas_exclusivas img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+}
+
+/* ===== RECOMENDACIONES DE USUARIOS ===== */
+/* Estilos para la sección de recomendaciones con layout de imagen + comentario */
+.recomendacion_usuario {
+  width: 90%;
+  height: auto;
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 30px;
+  background: rgba(5, 23, 14, 0.927);
+  border-radius: 16px;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  margin-bottom: 20px;
+}
+
+.recomendacion_usuario > img {
+  flex: 0 0 45%;
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+  transform: perspective(800px) rotateY(-2deg);
+  object-fit: cover;
+}
+
+.recomendacion_usuario > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.comentario {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  font-style: italic;
+}
+
+.usuario {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.usuario img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  object-fit: cover;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.usuario span {
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  :root {
-    --small-carousel-h: 220px;
-    --small-item-w: 35%;
-  }
 
-  .carrusel_pequeno_titulo {
-    font-size: 0.9rem;
-  }
-}
+
 
 @media (max-width: 480px) {
   :root {
-    --small-carousel-h: 180px;
-    --small-item-w: 70%;
+    --center-w: 92%;
+    --side-w: 86%;
+    --carousel-h: 200px;
+    --mini-carousel-h: 110px;
   }
 
-  .carrusel_pequeno_control {
-    width: 35px;
-    height: 50px;
+  .carrusel_item.prev,
+  .carrusel_item.next {
+    display: none;
+  }
+
+  .carousel-control {
+    display: none;
+  }
+
+  .titulos {
+    font-size: 1.2rem;
+    padding-left: 3%;
+  }
+
+  .seguir_jugando_item {
+    height: 150px;
+  }
+
+  .ofertas_exclusivas img {
+    max-height: 200px;
+  }
+
+  .recomendacion_usuario {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .comentario {
+    font-size: 0.9rem;
+  }
+
+  .usuario img {
+    width: 40px;
+    height: 40px;
   }
 }

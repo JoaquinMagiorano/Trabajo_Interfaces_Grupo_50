@@ -17,17 +17,20 @@ main {
 .form_container {
     width: 100%;
     max-width: 400px;
+    height: 400px;
     background: #2C2C2C;
     border-radius: 15px;
     padding: 20px;
     color: white;
     box-shadow: 0 0 15px rgba(0,0,0,0.6);
     transition: all 0.4s ease-in-out;
-    position: relative;
+    position: fixed;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    
+    justify-content: space-between;
+    overflow-y: auto;  
 }
 
 /* ===================== TABS/BOTONES SUPERIORES ===================== */
@@ -95,8 +98,7 @@ button.tab.active {
 
 /* Formularios */
 form {
-position: absolute;
-  
+    position: absolute;
     left: 0; 
     right: 0;
     display: flex;
@@ -107,7 +109,8 @@ position: absolute;
     transition: opacity 0.5s cubic-bezier(.4,0,.2,1);
 }
 
-form.active {
+
+.active {
     opacity: 1;
     pointer-events: all;
     z-index: 1;

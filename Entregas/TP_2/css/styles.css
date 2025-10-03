@@ -52,6 +52,14 @@ header{
     gap: 60px;
 }
 
+header img{
+    width: 50px;
+    height: 50px;
+}
+.nombre_logo{
+    width: 40%;
+}
+
 #barra_busqueda {
     display: none;
     width: 20rem;
@@ -142,13 +150,16 @@ header{
 }
 
 .lista_menu{
-    padding: 0px;
+    padding: 10px;
 }
 .lista_menu li {
     display: flex;
     align-items: center; 
     gap: 10px; 
     list-style: none;    
+}
+.lista_menu h4{
+ margin:10px;
 }
 .btn_menu{
     background-color: transparent;
