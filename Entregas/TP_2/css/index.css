@@ -5,18 +5,20 @@
     --center-w: 60%; /*ancho del item activo*/
     --side-w: 50%; /*ancho de items laterales*/
     --visible-side: calc(var(--side-w) / 3); /*lado visible del lateral*/
-    --carousel-h: 500px; /*altura fija del carrucel*/
+    --carousel-h: 500px; /*altura fija del carrusel*/
     --transition-time: 0.55s; /*duracion de las tranciciones de elementos*/
     --transition-easing: cubic-bezier(0.22, 0.9, 0.3, 1); /*curva de aceleracion*/
 }
 
 /* ===== CONTENEDOR PRINCIPAL ===== */
 .carrusel_contenedor {
+
     position: relative;
     width: 100%;
     height: var(--carousel-h);
     perspective: 800px; /*inclinacion de los items secundarios*/
     margin: 40px auto;
+    transform: translateY(5%);
   /*overflow: hidden;
     display: flex;
     align-items: center;
@@ -127,138 +129,101 @@ transition:
     opacity: 0;
 }
 
-/* ===== CONTROLES DE NAVEGACIÓN ===== */
 
-/* Flechas */
-animaciones suaves */
-.carrusel-control {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 70px;
-  height: 100px;
-  border: none;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  cursor: pointer;
-  z-index: 60;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  overflow: hidden;
+/* ===== CONTROLES DE NAVEGACIÓN (FLECHAS) ===== */
+
+.carrusel_control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 80px;
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Efecto de brillo sutil en el fondo */
-.carrusel-control::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.carrusel_control:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.15);
 }
 
-.carrusel-control:hover {
-  transform: translateY(-55%);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-  background: rgba(255, 255, 255, 0.25);
+/* Posicionamiento entre imagen principal y laterales */
+.prev-btn {
+    left: calc((50% - var(--center-w) / 2) / 2);
+    transform: translate(-50%, -50%);
 }
 
-.carrusel-control:hover::before {
-  opacity: 1;
+.prev-btn:hover {
+    transform: translate(-50%, -50%) scale(1.15);
 }
 
-.carrusel-control:active {
-  transform: translateY(-52%);
+.next-btn {
+    right: calc((50% - var(--center-w) / 2) / 2);
+    transform: translate(50%, -50%);
+}
+
+.next-btn:hover {
+    transform: translate(50%, -50%) scale(1.15);
 }
 
 /* Contenedor de la flecha */
-.arrow {
-  width: 40px;
-  height: 40px;
-  position: relative;
+.flecha {
+    position: relative;
+    width: 20px;
+    height: 32px;
 }
 
-/* Las dos líneas que forman la flecha (usando pseudo-elementos) */
-.arrow::before,
-.arrow::after {
-  content: "";
-  position: absolute;
-  background: #1a202c;
-  width: 5px;
-  height: 28px;
-  border-radius: 4px;
-  left: 50%;
-  top: 50%;
-  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+/* Palos de la flecha */
+.flecha::before,
+.flecha::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 24px;
+    background: #fff;
+    border-radius: 2px;
+    top: 50%;
+    left: 50%;
+    transition: all 0.3s ease;
 }
 
-/* ===== FLECHA DERECHA ===== */
-/* Estado inicial: X centrada */
-.arrow-right::before {
-  transform: translate(-50%, -50%) rotate(45deg);
+/* X perfecta (45deg) - Estado normal para ambas */
+.flecha_izquierda::before,
+.flecha_derecha::before {
+    transform: translate(-50%, -50%) rotate(45deg);
 }
 
-.arrow-right::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
+.flecha_izquierda::after,
+.flecha_derecha::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
 }
 
-/* Hover: Las líneas se separan formando una flecha > */
-.carrusel-control:hover .arrow-right::before {
-  transform: translate(-50%, -80%) rotate(45deg);
+/* Hover flecha izquierda: líneas se trasladan para formar < perfecta */
+.carrusel_control:hover .flecha_izquierda::before {
+    transform: translate(calc(-50% + 4.5px), calc(-50% - 8.5px)) rotate(45deg);
 }
 
-.carrusel-control:hover .arrow-right::after {
-  transform: translate(-50%, -20%) rotate(-45deg);
+.carrusel_control:hover .flecha_izquierda::after {
+    transform: translate(calc(-50% + 4.5px), calc(-50% + 8.5px)) rotate(-45deg);
 }
 
-/* ===== FLECHA IZQUIERDA ===== */
-/* Estado inicial: X centrada */
-.arrow-left::before {
-  transform: translate(-50%, -50%) rotate(-45deg);
+/* Hover flecha derecha: líneas se trasladan para formar > perfecta */
+.carrusel_control:hover .flecha_derecha::before {
+    transform: translate(calc(-50% - 4.5px), calc(-50% + 8.5px)) rotate(45deg);
 }
 
-.arrow-left::after {
-  transform: translate(-50%, -50%) rotate(45deg);
+.carrusel_control:hover .flecha_derecha::after {
+    transform: translate(calc(-50% - 4.5px), calc(-50% - 8.5px)) rotate(-45deg);
 }
 
-/* Hover: Las líneas se separan formando una flecha < */
-.carrusel-control:hover .arrow-left::before {
-  transform: translate(-50%, -80%) rotate(-45deg);
-}
-
-.carrusel-control:hover .arrow-left::after {
-  transform: translate(-50%, -20%) rotate(45deg);
-}
-
-/* Color más oscuro en hover para mejor contraste */
-.carrusel-control:hover .arrow::before,
-.carrusel-control:hover .arrow::after {
-  background: #2d3748;
-}
-
-
-
-
-
-
-
-/* Posición del botón anterior */
-.carrusel-control.prev-btn {
-  left: 20px;
-}
-
-/* Posición del botón siguiente */
-.carrusel-control.next-btn {
-  right: 20px;
-  left: auto;
-}
 
 /* Indicadores */
 .carrusel_indicadores {
@@ -323,7 +288,7 @@ animaciones suaves */
         display: none;
     }
     
-    .carrusel-control {
+    .carrusel_control {
         display: none;
     }
 }
@@ -353,158 +318,295 @@ animaciones suaves */
 
 
 
+/*============================== aca comienza el segundo carrucel ==============================*/
 
 
 
+/* ===== VARIABLES DEL CARRUSEL PEQUEÑO ===== */
+:root {
+  --small-carousel-h: 280px;
+  --small-item-w: 30%;
+  --small-gap: 2%;
+  --small-transition-time: 0.6s;
+  --small-transition-easing: cubic-bezier(0.22, 0.9, 0.3, 1);
+}
 
-
-
-
-
- /* Contenedor principal */
-.secondary-carousel-section {
+/* ===== CONTENEDOR PRINCIPAL ===== */
+.carrusel_pequeno_contenedor {
+  position: relative;
   width: 100%;
-  max-width: 1200px;
-  margin: 60px auto;
-  padding: 0 20px;
+  height: var(--small-carousel-h);
+  margin: 40px auto;
+  overflow: hidden;
+  perspective: 1200px; /* Agregada perspectiva para efecto 3D */
 }
 
-/* Wrapper del carrusel */
-.secondary-carousel-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.sec-wrapper {
-  flex: 1;
-  overflow: hidden; /* mantiene el track dentro del área visible */
-  padding: 40px 0; /* reduje padding para evitar cortes visibles */
-}
-
-/* Track */
-.sec-track {
-  display: flex;
-  transition: transform 0.5s ease;
-  will-change: transform;
-}
-
-/* Grupo de 3 items */
-.sec-group {
-  min-width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  padding: 0 24px; /* menos padding lateral para evitar que el scaling salga del viewport */
-}
-
-/* Item: el contenedor recorta la imagen escalada */
-.sec-item {
-  position: relative;
-  aspect-ratio: 3 / 2;
-  border-radius: 8px;
-  cursor: pointer;
-  overflow: hidden; /* IMPORTANT: el contenedor recorta la imagen */
-  transition: transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.3s ease;
-  z-index: 1;
-  background: #111; /* placeholder para evitar parpadeos */
-}
-
-/* Contenedor interno (opcional para layout) */
-.sec-item .contenedor {
+.carrusel_pequeno {
   position: relative;
   width: 100%;
   height: 100%;
-}
-
-/* Imagen: la transformación se aplica a la imagen, no al contenedor */
-.sec-item img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 8px;
-  transition: transform 0.35s cubic-bezier(.2,.8,.2,1), opacity 0.25s ease;
-  transform-origin: center center;
-  will-change: transform, opacity;
-  -webkit-transform: translateZ(0); /* ayuda con bugs de WebKit/Chrome */ 
-  transform: translateZ(0);
-}
-
-/* Control de opacidades para imagen normal / hover */
-.sec-item .img-normal { opacity: 1; z-index: 1; }
-.sec-item .img-hover  { opacity: 0; z-index: 2; }
-
-/* Hover: escalar SOLO la imagen y mostrar overlay */
-.sec-item:hover {
-  transform: scale(1.08);
-}
-
-.sec-item:hover .img-normal { opacity: 0; }
-.sec-item:hover .img-hover  { opacity: 1; }
-
-/* Sombra y overlay en el contenedor (no inset potente) */
-.sec-item:hover {
-  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
-  z-index: 10; /* sobresale visualmente sin romper layout */
-}
-
-/* Overlay del título */
-.sec-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 16px;
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-  border-radius: 0 0 8px 8px;
-  z-index: 3;
-  transform: translateY(100%);
-  transition: transform 0.28s ease;
-}
-
-.sec-item:hover .sec-overlay { transform: translateY(0); }
-
-.sec-overlay h3 {
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0;
-}
-
-/* Botones */
-.sec-btn {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.08);
-  border: 2px solid rgba(255,255,255,0.22);
-  color: #fff;
-  font-size: 28px;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  transition: transform 0.18s ease, background 0.18s ease;
+  transform-style: preserve-3d; /* Preservar transformaciones 3D */
 }
 
-.sec-btn:hover:not(:disabled) {
-  transform: scale(1.08);
-  background: rgba(255,255,255,0.14);
+/* ===== ITEMS DEL CARRUSEL PEQUEÑO ===== */
+.carrusel_pequeno_item {
+  position: absolute;
+  width: var(--small-item-w);
+  height: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  transition:
+    left var(--small-transition-time) var(--small-transition-easing),
+    right var(--small-transition-time) var(--small-transition-easing),
+    opacity var(--small-transition-time) var(--small-transition-easing),
+    transform var(--small-transition-time) var(--small-transition-easing),
+    filter var(--small-transition-time) var(--small-transition-easing); /* Agregada transición para filter */
+  transform-style: preserve-3d;
 }
 
-.sec-btn:disabled {
+/* Imagen del carrusel */
+.carrusel_pequeno_img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Overlay con título */
+.carrusel_pequeno_overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 15px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+  transform: translateY(100%);
+  transition: transform var(--small-transition-time) var(--small-transition-easing);
+}
+
+.carrusel_pequeno_titulo {
+  color: #fff;
+  font-size: 1.1rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* ===== ESTADOS DEL CARRUSEL ===== */
+
+/* Items activos - posicionamiento individual para cada uno de los 3 elementos */
+.carrusel_pequeno_item.activo-left {
+  left: calc(50% - var(--small-item-w) - var(--small-gap));
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+  z-index: 3;
+  filter: brightness(1);
+}
+
+.carrusel_pequeno_item.activo-center {
+  left: 50%;
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+  z-index: 3;
+  filter: brightness(1);
+}
+
+.carrusel_pequeno_item.activo-right {
+  left: calc(50% + var(--small-item-w) + var(--small-gap));
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+  z-index: 3;
+  filter: brightness(1);
+}
+
+.carrusel_pequeno_item.activo-left:hover .carrusel_pequeno_overlay,
+.carrusel_pequeno_item.activo-center:hover .carrusel_pequeno_overlay,
+.carrusel_pequeno_item.activo-right:hover .carrusel_pequeno_overlay {
+  transform: translateY(0);
+}
+
+/* Items siguientes (preview a la derecha) con efecto de distorsión */
+.carrusel_pequeno_item.next-left {
+  left: calc(100% - var(--small-item-w) * 0.3);
+  transform: translateX(0) scale(0.85) rotateY(-15deg);
+  opacity: 0.5;
+  z-index: 1;
+  filter: brightness(0.7) blur(1px);
+}
+
+.carrusel_pequeno_item.next-center {
+  left: calc(100% + var(--small-item-w) * 0.4);
+  transform: translateX(0) scale(0.75) rotateY(-20deg);
+  opacity: 0.3;
+  z-index: 0;
+  filter: brightness(0.6) blur(1.5px);
+}
+
+.carrusel_pequeno_item.next-right {
+  left: calc(100% + var(--small-item-w) * 1.1);
+  transform: translateX(0) scale(0.65) rotateY(-25deg);
+  opacity: 0.2;
+  z-index: 0;
+  filter: brightness(0.5) blur(2px);
+}
+
+/* Items anteriores (preview a la izquierda) con efecto de distorsión */
+.carrusel_pequeno_item.prev-right {
+  right: calc(100% - var(--small-item-w) * 0.3);
+  left: auto;
+  transform: translateX(0) scale(0.85) rotateY(15deg);
+  opacity: 0.5;
+  z-index: 1;
+  filter: brightness(0.7) blur(1px);
+}
+
+.carrusel_pequeno_item.prev-center {
+  right: calc(100% + var(--small-item-w) * 0.4);
+  left: auto;
+  transform: translateX(0) scale(0.75) rotateY(20deg);
+  opacity: 0.3;
+  z-index: 0;
+  filter: brightness(0.6) blur(1.5px);
+}
+
+.carrusel_pequeno_item.prev-left {
+  right: calc(100% + var(--small-item-w) * 1.1);
+  left: auto;
+  transform: translateX(0) scale(0.65) rotateY(25deg);
+  opacity: 0.2;
+  z-index: 0;
+  filter: brightness(0.5) blur(2px);
+}
+
+/* Items ocultos completamente fuera de vista */
+.carrusel_pequeno_item.hidden-right {
+  left: 150%;
   opacity: 0;
-  visibility: hidden;
+  transform: scale(0.5);
+  z-index: -1;
 }
 
-/* Responsivo */
-@media (max-width: 768px) {
-  .sec-group { grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 0 20px; }
+.carrusel_pequeno_item.hidden-left {
+  right: 150%;
+  left: auto;
+  opacity: 0;
+  transform: scale(0.5);
+  z-index: -1;
 }
+
+/* ===== CONTROLES DE NAVEGACIÓN ===== */
+.carrusel_pequeno_control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 60px;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carrusel_pequeno_control:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carrusel_pequeno_control:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.carrusel_pequeno_control:disabled:hover {
+  transform: translateY(-50%) scale(1);
+}
+
+.prev-btn-small {
+  left: 15px;
+}
+
+.next-btn-small {
+  right: 15px;
+}
+
+/* Flechas pequeñas */
+.flecha_pequena {
+  position: relative;
+  width: 16px;
+  height: 24px;
+}
+
+.flecha_pequena::before,
+.flecha_pequena::after {
+  content: "";
+  position: absolute;
+  width: 2.5px;
+  height: 18px;
+  background: #fff;
+  border-radius: 2px;
+  top: 50%;
+  left: 50%;
+  transition: all 0.3s ease;
+}
+
+/* Flecha izquierda */
+.flecha_izquierda_pequena::before,
+.flecha_derecha_pequena::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.flecha_izquierda_pequena::after,
+.flecha_derecha_pequena::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Hover flecha izquierda */
+.carrusel_pequeno_control:hover .flecha_izquierda_pequena::before {
+  transform: translate(calc(-50% + 3.5px), calc(-50% - 6.5px)) rotate(45deg);
+}
+
+.carrusel_pequeno_control:hover .flecha_izquierda_pequena::after {
+  transform: translate(calc(-50% + 3.5px), calc(-50% + 6.5px)) rotate(-45deg);
+}
+
+/* Hover flecha derecha */
+.carrusel_pequeno_control:hover .flecha_derecha_pequena::before {
+  transform: translate(calc(-50% - 3.5px), calc(-50% + 6.5px)) rotate(45deg);
+}
+
+.carrusel_pequeno_control:hover .flecha_derecha_pequena::after {
+  transform: translate(calc(-50% - 3.5px), calc(-50% - 6.5px)) rotate(-45deg);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  :root {
+    --small-carousel-h: 220px;
+    --small-item-w: 35%;
+  }
+
+  .carrusel_pequeno_titulo {
+    font-size: 0.9rem;
+  }
+}
+
 @media (max-width: 480px) {
-  .sec-group { grid-template-columns: 1fr; gap: 18px; padding: 0 14px; }
-  .sec-btn { width: 40px; height: 40px; font-size: 24px; }
+  :root {
+    --small-carousel-h: 180px;
+    --small-item-w: 70%;
+  }
+
+  .carrusel_pequeno_control {
+    width: 35px;
+    height: 50px;
+  }
 }

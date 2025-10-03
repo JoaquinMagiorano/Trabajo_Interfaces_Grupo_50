@@ -30,36 +30,47 @@
             <div class="forms-container">
                 <!-- formulario login -->
                 <form id="login" class="form active">
-                    <input type="text" placeholder="nombre de usuario" required>
-                    <input type="password" placeholder="contraseña" required>
+                    <label for="login_nombre">Nombre de usuario:</label>
+                    <input id="login_nombre" type="text" placeholder="Nombre de usuario" required>
+                    <label for="login_password">Apellido:</label>
+                    <input id="login_password" type="password" placeholder="Contraseña" required>
                     <button type="submit">iniciar sesión</button>
                 </form>
                 
                 <!-- formulario registro -->
                 <form id="register" class="form">
-                    <label for=""></label>
-                    <input type="email" placeholder="Gmail" required>
-                    <label for=""></label>
-                    <input type="text" placeholder="nombre" required>
-                    <label for=""></label>
-                    <input type="text" placeholder="apellido" required>
-                    <label for=""></label>
-                    <input type="text" placeholder="nombre de usuario" required>
-                    <label for=""></label>
-                    <input type="number" placeholder="edad" required>
-                    <label for=""></label>
-                    <input type="password" placeholder="contraseña" required>
-                    <label for=""></label>
-                    <input type="password" placeholder="repetir contraseña" required>
+                    <label for="registro_gmail">Gmail:</label>
+                    <input id="registro_gmail" type="email" placeholder="Gmail" required>
+                    <label for="registro_nombre">Nombre:</label>
+                    <input id="registro_nombre" type="text" placeholder="Nombre" required>
+                    <label for="registro_apellido">Apellido:</label>
+                    <input id="registro_apellido" type="text" placeholder="Apellido" required>
+                    <label for="registro_username">Nombre de usuario:</label>
+                    <input id="registro_username" type="text" placeholder="Nombre de usuario" required>
+                    <label for="registro_edad">Edad:</label>
+                    <input id="registro_edad" type="number" placeholder="Edad" required>
+                    <label for="registro_password">Contraseña:</label>
+                    <input id="registro_password" type="password" placeholder="Contraseña" required>
+                    <label for="registro_rep_password">Repetir contraseña:</label>
+                    <input id="registro_rep_password" type="password" placeholder="Repetir contraseña" required>
                     <!-- aca va el captcha, sepa como se pone -->
                     <button type="submit">registrarse</button>
                 </form>
             </div>
-            <div class="social-login">
+            <div class="social_login">
                 <p>Iniciar sesión con:</p>
-                <i>logo google</i>
-                <i>logo facebook</i>
-                <i>logo instagram</i>
+                <a href="index.html">
+                    <img src="iconos/Platforms_Google.png" alt="google">
+                </a>
+                <a href="index.html">
+                    <img src="iconos/Platforms_Facebook.png" alt="facebook">
+                </a>
+                <a href="index.html">
+                    <img src="iconos/Platforms_Instagram.png" alt="instagram">
+                </a>
+                <a href="index.html">
+                    <img src="iconos/Platforms_X_Twitter.png" alt="twitter">
+                </a>
             </div>
         </div>
     </main>    

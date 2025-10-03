@@ -10,17 +10,58 @@
 <body>
     <header>      
         <div> 
-            <img src="./img/frogames/menu_frog.png" width="50px" height="50px" alt="menu_hamburguesa">
-            <img src="./img/frogames/logo.png" alt="Logo" width="50px" height="50px">
+            <button class="hamburgesa_btn">
+                <img src="./img/frogames/menu_frog.png" width="50px" height="50px" alt="menu_hamburguesa" class="menu_hamburguesa">
+            </button>
+            <img src="./img/frogames/logo.png" 
+     alt="Logo" 
+     width="50px" 
+     height="50px"
+     onmouseover="this.src='./img/frogames/logo_hover.png'"
+     onmouseout="this.src='./img/frogames/logo.png'"
+     onclick="this.src='./img/frogames/logo_click.png'">
             <img src="./img/frogames/logo_texto.png" alt="Nombre_logo" width="200px" height="50px">
         </div>
         <div class="left-header-div">
             <input type="text" id="barra_busqueda" placeholder="     tu busqueda">
-            <img src="./img/random/quePicardia.png" id="foto_perfil" alt="foto_perfil" width="50px" height="50px">
+            <button class="btn_configuracion">
+                <img src="./img/random/quePicardia.png" id="foto_perfil" alt="foto_perfil" width="50px" height="50px">
+            </button>
         </div>
     </header>
 
     <main>
+            <div class="menu_desplegable">
+        <ul class="lista_menu">
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="categoria" class="img_menu"><h4>Medievales</h4></button></li>
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="categoria" class="img_menu"><h4>Espaciales</h4></button></li>
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="categoria" class="img_menu"><h4>Cartas</h4></button></li>
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="categoria" class="img_menu"><h4>Vaqueros</h4></button></li>
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="categoria" class="img_menu"><h4>Postapocalipticos</h4></button></li>
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="categoria" class="img_menu"><h4>Minecraft</h4></button></li>
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="categoria" class="img_menu"><h4>Guerra</h4></button></li>
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="categoria" class="img_menu"><h4>Simuladores de vuelo</h4></button></li>
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="categoria" class="img_menu"><h4>Puzzle</h4></button></li>
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="categoria" class="img_menu"><h4>Deportes</h4></button></li>
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="categoria" class="img_menu"><h4>RPG</h4></button></li>
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="categoria" class="img_menu"><h4>Retro</h4></button></li>
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="categoria" class="img_menu"><h4>Música</h4></button></li>
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="categoria" class="img_menu"><h4>Terror</h4></button></li>
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="categoria" class="img_menu"><h4>Disparos</h4></button></li>
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="categoria" class="img_menu"><h4>Ranas</h4></button></li>
+        </ul>
+    </div>
+
+
+    <div class="menu_configuracion_desplegable">
+        <ul class="lista_menu">
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="img_Perfil" class="img_menu"><h4>Perfil</h4></button></li>
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="img_gestion_de_membresia" class="img_menu"><h4>gestion de membresia</h4></button></li>
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="img_Configuracion" class="img_menu"><h4>Configuracion</h4></button></li>
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="img_cerrar_sesion" class="img_menu"><h4>cerrar sesion</h4></button></li>
+        </ul>
+    </div>
+
         <div class="carrusel_contenedor">
             <div class="carrusel" id="carousel">
                 <div class="carrusel_item activo">
@@ -56,11 +97,11 @@
             </div> 
             
             <!-- Indicadores -->
-            <button class="carrusel-control prev-btn" onclick="prevSlide()">
-                <div class="arrow arrow-left"></div>
+            <button class="carrusel_control prev-btn" onclick="prevSlide()">
+                <div class="flecha flecha_izquierda"></div>
             </button>
-            <button class="carrusel-control next-btn" onclick="nextSlide()">
-                <div class="arrow arrow-right"></div>
+            <button class="carrusel_control next-btn" onclick="nextSlide()">
+                <div class="flecha flecha_derecha"></div>
             </button>
 
             <div class="carrusel_indicadores">
@@ -80,116 +121,65 @@
 
 
 
-
-    <section class="secondary-carousel-section">
-        <h2 class="section-title">Juegos Destacados</h2>
-        
-        <div class="secondary-carousel-container">
-            <!-- Botón anterior -->
-            <button class="sec-btn prev" id="prevBtn">‹</button>
-            
-            <!-- Contenedor del carrusel -->
-            <div class="sec-wrapper">
-                <div class="sec-track" id="secTrack">
-                    <!-- Grupo 1 -->
-                    <div class="sec-group">
-                        <div class="sec-item">
-                            <div class="contenedor">
-                                <img src="./img/juegos/brd4.jpg" class="img-normal" alt="Borderlands 4">
-                                <img src="./img/random/alien.gif" class="img-hover" alt="Hover">
-                            </div>
-                            <div class="sec-overlay">
-                                <h3>Borderlands 4</h3>
-                            </div>
-                        </div>
-                        <div class="sec-item">
-                            <div class="contenedor">
-                                <img src="./img/juegos/silson.png" class="img-normal" alt="Silksong">
-                                <img src="./img/random/alien.gif" class="img-hover" alt="Hover">
-                            </div>
-                            <div class="sec-overlay">
-                                <h3>Hollow Knight: Silksong</h3>
-                            </div>
-                        </div>
-                        <div class="sec-item">
-                            <div class="contenedor">
-                                <img src="./img/juegos/hd2.webp" class="img-normal" alt="Hell Divers 2">
-                                <img src="./img/random/alien.gif" class="img-hover" alt="Hover">
-                            </div>
-                            <div class="sec-overlay">
-                                <h3>Hell Divers II</h3>
-                            </div>
-                        </div>
+<!--  -->
+   <div class="carrusel_pequeno_contenedor">
+            <div class="carrusel_pequeno" id="carouselSmall">
+                <!-- Agregado un elemento de ejemplo adicional para demostrar el manejo de 7 elementos -->
+                <div class="carrusel_pequeno_item">
+                    <img src="./img/juegos/7dtd.webp" alt="Juego 1" class="carrusel_pequeno_img">
+                    <div class="carrusel_pequeno_overlay">
+                        <h3 class="carrusel_pequeno_titulo">Juego 1</h3>
                     </div>
-                    
-                    <!-- Grupo 2 -->
-                    <div class="sec-group">
-                        <div class="sec-item">
-                            <div class="contenedor">
-                                <img src="./img/juegos/tboi.jpg" class="img-normal" alt="TBOI">
-                                <img src="./img/random/alien.gif" class="img-hover" alt="Hover">
-                            </div>
-                            <div class="sec-overlay">
-                                <h3>The Binding of Isaac</h3>
-                            </div>
-                        </div>
-                        <div class="sec-item">
-                            <div class="contenedor">
-                                <img src="./img/juegos/fs.webp" class="img-normal" alt="Farming Simulator">
-                                <img src="./img/random/alien.gif" class="img-hover" alt="Hover">
-                            </div>
-                            <div class="sec-overlay">
-                                <h3>Farming Simulator 2025</h3>
-                            </div>
-                        </div>
-                        <div class="sec-item">
-                            <div class="contenedor">
-                                <img src="./img/juegos/brd4.jpg" class="img-normal" alt="Juego 6">
-                                <img src="./img/random/alien.gif" class="img-hover" alt="Hover">
-                            </div>
-                            <div class="sec-overlay">
-                                <h3>Juego 6</h3>
-                            </div>
-                        </div>
+                </div>
+                <div class="carrusel_pequeno_item">
+                    <img src="./img/juegos/7dtd.webp" alt="Juego 2" class="carrusel_pequeno_img">
+                    <div class="carrusel_pequeno_overlay">
+                        <h3 class="carrusel_pequeno_titulo">Juego 2</h3>
                     </div>
-                    
-                    <!-- Grupo 3 -->
-                    <div class="sec-group">
-                        <div class="sec-item">
-                            <div class="contenedor">
-                                <img src="./img/juegos/silson.png" class="img-normal" alt="Juego 7">
-                                <img src="./img/random/alien.gif" class="img-hover" alt="Hover">
-                            </div>
-                            <div class="sec-overlay">
-                                <h3>Juego 7</h3>
-                            </div>
-                        </div>
-                        <div class="sec-item">
-                            <div class="contenedor">
-                                <img src="./img/juegos/hd2.webp" class="img-normal" alt="Juego 8">
-                                <img src="./img/random/alien.gif" class="img-hover" alt="Hover">
-                            </div>
-                            <div class="sec-overlay">
-                                <h3>Juego 8</h3>
-                            </div>
-                        </div>
-                        <div class="sec-item">
-                            <div class="contenedor">
-                                <img src="./img/juegos/tboi.jpg" class="img-normal" alt="Juego 9">
-                                <img src="./img/random/alien.gif" class="img-hover" alt="Hover">
-                            </div>
-                            <div class="sec-overlay">
-                                <h3>Juego 9</h3>
-                            </div>
-                        </div>
+                </div>
+                <div class="carrusel_pequeno_item">
+                    <img src="./img/juegos/7dtd.webp" alt="Juego 3" class="carrusel_pequeno_img">
+                    <div class="carrusel_pequeno_overlay">
+                        <h3 class="carrusel_pequeno_titulo">Juego 3</h3>
+                    </div>
+                </div>
+                <div class="carrusel_pequeno_item">
+                    <img src="./img/juegos/7dtd.webp" alt="Juego 4" class="carrusel_pequeno_img">
+                    <div class="carrusel_pequeno_overlay">
+                        <h3 class="carrusel_pequeno_titulo">Juego 4</h3>
+                    </div>
+                </div>
+                <div class="carrusel_pequeno_item">
+                    <img src="./img/juegos/7dtd.webp" alt="Juego 5" class="carrusel_pequeno_img">
+                    <div class="carrusel_pequeno_overlay">
+                        <h3 class="carrusel_pequeno_titulo">Juego 5</h3>
+                    </div>
+                </div>
+                <div class="carrusel_pequeno_item">
+                    <img src="./img/juegos/7dtd.webp" alt="Juego 6" class="carrusel_pequeno_img">
+                    <div class="carrusel_pequeno_overlay">
+                        <h3 class="carrusel_pequeno_titulo">Juego 6</h3>
+                    </div>
+                </div>
+                <div class="carrusel_pequeno_item">
+                    <img src="./img/juegos/7dtd.webp" alt="Juego 7" class="carrusel_pequeno_img">
+                    <div class="carrusel_pequeno_overlay">
+                        <h3 class="carrusel_pequeno_titulo">Juego 7</h3>
                     </div>
                 </div>
             </div>
-            
-            <!-- Botón siguiente -->
-            <button class="sec-btn next" id="nextBtn">›</button>
+
+            <!-- Controles de navegación -->
+            <button class="carrusel_pequeno_control prev-btn-small" onclick="prevSlideSmall()">
+                <div class="flecha_pequena flecha_izquierda_pequena"></div>
+            </button>
+            <button class="carrusel_pequeno_control next-btn-small" onclick="nextSlideSmall()">
+                <div class="flecha_pequena flecha_derecha_pequena"></div>
+            </button>
         </div>
+    
 
+        
 
 
 
@@ -212,49 +202,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </main>
+</main>
 
     <footer>
         <div class="footer_text">
@@ -284,11 +232,22 @@
             <img src="./img/frogames/logo_texto.png" alt="Nombre_logo" width="200px" height="50px">
         </div>
         <div class="social_media">
-            <img src="" alt="">
-            <img src="" alt="">
-            <img src="" alt="">
+            <a href="index.html">
+                <img src="iconos/Platforms_Google.png" alt="google">
+            </a>
+            <a href="index.html">
+                <img src="iconos/Platforms_Facebook.png" alt="facebook">
+            </a>
+            <a href="index.html">
+                <img src="iconos/Platforms_Instagram.png" alt="instagram">
+            </a>
+            <a href="index.html">
+                <img src="iconos/Platforms_X_Twitter.png" alt="twitter">
+            </a>
         </div>
     </footer>
-<script src="./js/index.js"></script>    
+
 </body>
+<section class="menu_container"></section>
+<script src="./js/index.js"></script>    
 </html>

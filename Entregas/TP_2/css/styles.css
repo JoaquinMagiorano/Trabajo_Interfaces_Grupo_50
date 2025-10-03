@@ -23,6 +23,9 @@ main {
   min-height: 0;
 }
 
+/*iconos*/
+
+
 p,h1,h2,h3,h4,h5,h6{
     color:white;
     font-family: 'Nunito', sans-serif;
@@ -128,10 +131,16 @@ header{
     overflow-y: auto;   
     background-color: #388e3c;
 }
+
 .visible {
     display:flex;
     flex-direction: column;
 }
+
+.hidden{
+    display: none !important;
+}
+
 .lista_menu{
     padding: 0px;
 }
@@ -242,6 +251,20 @@ footer{
 .division{
     text-align: center;
 }
+
+.social_media{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.social_media a img, .social_media a {
+    margin: 1% 5%;
+    width: 50px;
+    height: 50px;
+    text-decoration: none;
+}
+
 @media (min-width: 1024px) {
     body {
         font-size: 18px;

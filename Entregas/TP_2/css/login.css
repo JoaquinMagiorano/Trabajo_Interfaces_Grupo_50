@@ -15,7 +15,7 @@ main {
 }
 
 .form_container {
-    width: 90%;
+    width: 100%;
     max-width: 400px;
     background: #2C2C2C;
     border-radius: 15px;
@@ -25,6 +25,9 @@ main {
     transition: all 0.4s ease-in-out;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 /* ===================== TABS/BOTONES SUPERIORES ===================== */
@@ -80,8 +83,10 @@ button.tab.active {
 /* ===================== FORMULARIOS Y ANIMACIONES ===================== */
 .forms-container {
     position: relative;
-    min-height: 200px;
+    min-height: 150px;
     transition: min-height 0.5s ease;
+    border-bottom: 1px solid #444;
+    
 }
 
 .tabs:has(.tab[data-target="register"].active) ~ .forms-container {
@@ -90,8 +95,8 @@ button.tab.active {
 
 /* Formularios */
 form {
-    position: absolute;
-    top: 0; 
+position: absolute;
+  
     left: 0; 
     right: 0;
     display: flex;
@@ -120,6 +125,14 @@ input {
 input:focus {
     outline: none;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+label {
+    font-size: 0.9rem;
+    
+    color: #ddd;
+    margin-bottom: 0px;
+    margin-top: 5px;
 }
 
 form button {
@@ -151,9 +164,15 @@ form button:focus {
 }
 
 /* ===================== SOCIAL LOGIN ===================== */
-.social-login {
+.social_login {
     margin-top: 20px;
     text-align: center;
-    border-top: 1px solid #444;
-    padding-top: 15px;
+    
+}
+
+.social_login a img, .social_login a {
+    width: 40px;
+    height: 40px;
+    text-decoration: none;
+    margin: 0% 1%;
 }
