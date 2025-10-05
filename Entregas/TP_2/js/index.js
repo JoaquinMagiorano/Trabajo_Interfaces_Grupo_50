@@ -1,260 +1,219 @@
-// ===== UTILIDADES COMPARTIDAS =====
+/* ========================================
+   MENÚS DESPLEGABLES
+   ======================================== */
+const hamburguesa_btn = document.querySelector(".hamburguesa_btn")
+const menu_desplegable = document.querySelector(".menu_desplegable")
+const btn_configuracion = document.querySelector(".btn_configuracion")
+const menu_configuracion_desplegable = document.querySelector(".menu_configuracion_desplegable")
+const pantallaFondo = document.querySelector(".menu_container")
 
-/*
-menuToShow: menu que se muestra
-menuToHide: menu que se oculta
-backdrop: fondo oscuro
-*/
-const toggleMenu = (menuToShow, menuToHide, backdrop) => {
-  menuToShow.classList.toggle("visible") /*alterna la clase visible*/
-  menuToHide.classList.remove("visible") /*remueve la clase visible*/
+hamburguesa_btn.addEventListener("click", () => {
+  menu_desplegable.classList.toggle("visible")
+  menu_configuracion_desplegable.classList.remove("visible")
+  actualizarFondo()
+})
 
-  /*verifica si algun menu tiene la clase visible*/
-  const anyMenuVisible = menuToShow.classList.contains("visible") || menuToHide.classList.contains("visible")
-  /*muestra/oculta el fondo si hay algun menu visible*/
-  backdrop.classList.toggle("visible", anyMenuVisible)
+btn_configuracion.addEventListener("click", () => {
+  menu_configuracion_desplegable.classList.toggle("visible")
+  menu_desplegable.classList.remove("visible")
+  actualizarFondo()
+})
+
+function actualizarFondo() {
+  if (menu_desplegable.classList.contains("visible") || menu_configuracion_desplegable.classList.contains("visible")) {
+    pantallaFondo.classList.add("visible")
+  } else {
+    pantallaFondo.classList.remove("visible")
+  }
 }
 
-// ===== MENÚS DESPLEGABLES =====
-document.addEventListener("DOMContentLoaded", () => {
-  const hamburguesa_Btn = document.querySelector(".hamburgesa_btn")
-  const menu_desplegable = document.querySelector(".menu_desplegable")
-  const btn_configuracion = document.querySelector(".btn_configuracion")
-  const menu_configuracion_desplegable = document.querySelector(".menu_configuracion_desplegable")
-  const pantallaFondo = document.querySelector(".menu_container")
+/* ========================================
+   CARRUSEL PRINCIPAL
+   ======================================== */
+const carousel_principal = document.querySelector("#carousel")
 
-  if (hamburguesa_Btn && menu_desplegable) {
-    hamburguesa_Btn.addEventListener("click", () => {
-      toggleMenu(menu_desplegable, menu_configuracion_desplegable, pantallaFondo)
-    })
+let slides_principales = []
+if (carousel_principal) {
+  const elementos_encontrados = carousel_principal.querySelectorAll(".carrusel_item")
+  slides_principales = Array.from(elementos_encontrados)
+}
+
+const indicadores_principales = Array.from(document.querySelectorAll(".indicador"))
+let indice_slide_actual = 0
+let intervalo_autoplay = null
+
+function actualizarSlidesPrincipales() {
+  slides_principales.forEach((slide, index) => {
+    slide.classList.remove("activo", "anterior", "siguiente", "hidden")
+
+    if (index === indice_slide_actual) {
+      slide.classList.add("activo")
+    } else if (index === (indice_slide_actual - 1 + slides_principales.length) % slides_principales.length) {
+      slide.classList.add("anterior")
+    } else if (index === (indice_slide_actual + 1) % slides_principales.length) {
+      slide.classList.add("siguiente")
+    } else {
+      slide.classList.add("hidden")
+    }
+  })
+
+  indicadores_principales.forEach((ind, idx) => {
+    if (idx === indice_slide_actual) {
+      ind.classList.add("activo")
+    } else {
+      ind.classList.remove("activo")
+    }
+  })
+}
+
+function siguienteSlide() {
+  indice_slide_actual = (indice_slide_actual + 1) % slides_principales.length
+  actualizarSlidesPrincipales()
+  reiniciarAutoplay()
+}
+
+function anteriorSlide() {
+  indice_slide_actual = (indice_slide_actual - 1 + slides_principales.length) % slides_principales.length
+  actualizarSlidesPrincipales()
+  reiniciarAutoplay()
+}
+
+function iniciarAutoplay() {
+  intervalo_autoplay = setInterval(siguienteSlide, 10000)
+}
+
+function reiniciarAutoplay() {
+  clearInterval(intervalo_autoplay)
+  iniciarAutoplay()
+}
+
+// Exponer funciones para botones HTML
+window.siguienteSlide = siguienteSlide
+window.anteriorSlide = anteriorSlide
+
+// Control por teclado
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowLeft") {
+    anteriorSlide()
   }
-
-  if (btn_configuracion && menu_configuracion_desplegable) {
-    btn_configuracion.addEventListener("click", () => {
-      toggleMenu(menu_configuracion_desplegable, menu_desplegable, pantallaFondo)
-    })
+  if (e.key === "ArrowRight") {
+    siguienteSlide()
   }
 })
 
-// ===== CARRUSEL PRINCIPAL =====
-class MainCarousel {
-  constructor(selector) {
-    this.carousel = document.querySelector(selector)
-    if (!this.carousel) return
+// Control táctil
+let touch_inicio_x = 0
+if (carousel_principal) {
+  carousel_principal.addEventListener("touchstart", (e) => {
+    touch_inicio_x = e.touches[0].clientX
+  })
 
-    this.slides = Array.from(this.carousel.querySelectorAll(".carrusel_item"))
-    this.indicators = Array.from(document.querySelectorAll(".indicador"))
-    this.totalSlides = this.slides.length
-    this.currentSlide = 0
-    this.autoPlayInterval = null
+  carousel_principal.addEventListener("touchend", (e) => {
+    const touch_fin_x = e.changedTouches[0].clientX
+    const diferencia = touch_inicio_x - touch_fin_x
 
-    if (this.totalSlides === 0) return
-
-    this.init()
-  }
-
-  init() {
-    this.updateClasses()
-    this.startAutoPlay()
-    this.attachEventListeners()
-
-    // Exponer métodos globalmente para onclick en HTML
-    window.nextSlide = () => this.next()
-    window.prevSlide = () => this.prev()
-  }
-
-  updateClasses() {
-    this.slides.forEach((slide, index) => {
-      slide.classList.remove("activo", "prev", "next", "hidden")
-
-      if (index === this.currentSlide) {
-        slide.classList.add("activo")
-      } else if (index === (this.currentSlide - 1 + this.totalSlides) % this.totalSlides) {
-        slide.classList.add("prev")
-      } else if (index === (this.currentSlide + 1) % this.totalSlides) {
-        slide.classList.add("next")
+    if (Math.abs(diferencia) > 50) {
+      if (diferencia > 0) {
+        siguienteSlide()
       } else {
-        slide.classList.add("hidden")
+        anteriorSlide()
       }
-    })
-
-    this.indicators.forEach((ind, idx) => {
-      ind.classList.toggle("activo", idx === this.currentSlide)
-    })
-  }
-
-  next() {
-    this.currentSlide = (this.currentSlide + 1) % this.totalSlides
-    this.updateClasses()
-    this.resetAutoPlay()
-  }
-
-  prev() {
-    this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides
-    this.updateClasses()
-    this.resetAutoPlay()
-  }
-
-  startAutoPlay() {
-    this.autoPlayInterval = setInterval(() => this.next(), 10000)
-  }
-
-  resetAutoPlay() {
-    clearInterval(this.autoPlayInterval)
-    this.startAutoPlay()
-  }
-
-  attachEventListeners() {
-    // Teclado
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowLeft") this.prev()
-      if (e.key === "ArrowRight") this.next()
-    })
-
-    // Touch
-    let startX = 0
-    this.carousel.addEventListener("touchstart", (e) => {
-      startX = e.touches[0].clientX
-    })
-
-    this.carousel.addEventListener("touchend", (e) => {
-      const endX = e.changedTouches[0].clientX
-      const diff = startX - endX
-      const threshold = 50
-
-      if (Math.abs(diff) > threshold) {
-        diff > 0 ? this.next() : this.prev()
-      }
-    })
-  }
+    }
+  })
 }
 
-// ===== MINI CARRUSEL =====
-class MiniCarousel {
-  constructor(selector) {
-    this.container = document.querySelector(selector)
-    if (!this.container) return
+// Inicializar carrusel principal
+if (slides_principales.length > 0) {
+  actualizarSlidesPrincipales()
+  iniciarAutoplay()
+}
 
-    this.carousel = this.container.querySelector(".mini_carrusel")
-    this.prevBtn = this.container.querySelector(".prev-btn")
-    this.nextBtn = this.container.querySelector(".next-btn")
-    this.items = Array.from(this.carousel.querySelectorAll(".mini_carrusel-item"))
-    this.totalItems = this.items.length
-    this.currentIndex = 0
-    this.animationStep = 0
-    this.isAnimating = false
-    this.maxIndex = Math.max(0, this.totalItems - 3)
+/* ========================================
+   MINI CARRUSEL
+   ======================================== */
+const todos_los_mini_carruseles = document.querySelectorAll(".mini_carrusel_contenedor")
 
-    this.init()
-  }
+todos_los_mini_carruseles.forEach((contenedor_mini) => {
+  const mini_carousel = contenedor_mini.querySelector(".mini_carrusel")
+  const btn_anterior_mini = contenedor_mini.querySelector(".btn_anterior")
+  const btn_siguiente_mini = contenedor_mini.querySelector(".btn_siguiente")
+  const items_mini = Array.from(mini_carousel.querySelectorAll(".mini_carrusel-item"))
 
-  init() {
-    this.updateClasses()
-    this.updateButtons()
-    this.attachEventListeners()
-  }
+  let indice_mini_actual = 0
+  const indice_mini_maximo = Math.max(0, items_mini.length - 3)
 
-  getItemClass(index) {
-    const effectiveIndex = this.currentIndex + this.animationStep
-    const activeIndices = [effectiveIndex, effectiveIndex + 1, effectiveIndex + 2]
-
-    if (index === activeIndices[0]) return "active-left"
-    if (index === activeIndices[1]) return "active-center"
-    if (index === activeIndices[2]) return "active-right"
-    if (index === effectiveIndex - 1) return "prev"
-    if (index === effectiveIndex + 3) return "next"
-    if (index < effectiveIndex - 1) return "hidden-left"
+  function obtenerClaseMini(index) {
+    if (index === indice_mini_actual) return "izquierda_activa"
+    if (index === indice_mini_actual + 1) return "centro_activo"
+    if (index === indice_mini_actual + 2) return "derecha_activa"
+    if (index === indice_mini_actual - 1) return "anterior"
+    if (index === indice_mini_actual + 3) return "siguiente"
+    if (index < indice_mini_actual - 1) return "hidden-left"
     return "hidden-right"
   }
 
-  updateClasses() {
-    this.items.forEach((element, index) => {
-      element.className = `mini_carrusel-item ${this.getItemClass(index)}`
+  function actualizarItemsMini() {
+    items_mini.forEach((elemento, index) => {
+      elemento.className = `mini_carrusel-item ${obtenerClaseMini(index)}`
     })
   }
 
-  updateButtons() {
-    const isAtStart = this.currentIndex === 0
-    const isAtEnd = this.currentIndex >= this.maxIndex
+  function actualizarBotonesMini() {
+    const en_inicio = indice_mini_actual === 0
+    const en_final = indice_mini_actual >= indice_mini_maximo
 
-    this.prevBtn.classList.toggle("disabled", isAtStart)
-    this.prevBtn.disabled = isAtStart
+    if (en_inicio) {
+      btn_anterior_mini.classList.add("disabled")
+    } else {
+      btn_anterior_mini.classList.remove("disabled")
+    }
+    btn_anterior_mini.disabled = en_inicio
 
-    this.nextBtn.classList.toggle("disabled", isAtEnd)
-    this.nextBtn.disabled = isAtEnd
+    if (en_final) {
+      btn_siguiente_mini.classList.add("disabled")
+    } else {
+      btn_siguiente_mini.classList.remove("disabled")
+    }
+    btn_siguiente_mini.disabled = en_final
   }
 
-  animateTransition(direction) {
-    if (this.isAnimating) return
-
-    this.isAnimating = true
-    const steps = 3
-    const stepDuration = 200
-    let step = 0
-
-    const interval = setInterval(() => {
-      step++
-      this.animationStep = direction === "next" ? step : -step
-      this.updateClasses()
-
-      if (step >= steps) {
-        clearInterval(interval)
-        setTimeout(() => {
-          this.currentIndex =
-            direction === "next" ? Math.min(this.currentIndex + 3, this.maxIndex) : Math.max(this.currentIndex - 3, 0)
-
-          this.animationStep = 0
-          this.updateClasses()
-          this.updateButtons()
-          this.isAnimating = false
-        }, 50)
-      }
-    }, stepDuration)
-  }
-
-  next() {
-    if (this.currentIndex < this.maxIndex && !this.isAnimating) {
-      this.animateTransition("next")
+  function siguienteMini() {
+    if (indice_mini_actual < indice_mini_maximo) {
+      indice_mini_actual = Math.min(indice_mini_actual + 3, indice_mini_maximo)
+      actualizarItemsMini()
+      actualizarBotonesMini()
     }
   }
 
-  prev() {
-    if (this.currentIndex > 0 && !this.isAnimating) {
-      this.animateTransition("prev")
+  function anteriorMini() {
+    if (indice_mini_actual > 0) {
+      indice_mini_actual = Math.max(indice_mini_actual - 3, 0)
+      actualizarItemsMini()
+      actualizarBotonesMini()
     }
   }
 
-  attachEventListeners() {
-    this.prevBtn.addEventListener("click", () => this.prev())
-    this.nextBtn.addEventListener("click", () => this.next())
+  // Event listeners
+  btn_anterior_mini.addEventListener("click", anteriorMini)
+  btn_siguiente_mini.addEventListener("click", siguienteMini)
 
-    // Teclado
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowLeft" && this.currentIndex > 0) this.prev()
-      if (e.key === "ArrowRight" && this.currentIndex < this.maxIndex) this.next()
-    })
+  // Control táctil
+  let touch_mini_inicio_x = 0
+  mini_carousel.addEventListener("touchstart", (e) => {
+    touch_mini_inicio_x = e.touches[0].clientX
+  })
 
-    // Touch
-    let startX = 0
-    this.carousel.addEventListener("touchstart", (e) => {
-      startX = e.touches[0].clientX
-    })
+  mini_carousel.addEventListener("touchend", (e) => {
+    const touch_mini_fin_x = e.changedTouches[0].clientX
+    const diferencia_mini = touch_mini_inicio_x - touch_mini_fin_x
 
-    this.carousel.addEventListener("touchend", (e) => {
-      const endX = e.changedTouches[0].clientX
-      const diff = startX - endX
-      const threshold = 50
+    if (Math.abs(diferencia_mini) > 50) {
+      if (diferencia_mini > 0 && indice_mini_actual < indice_mini_maximo) siguienteMini()
+      if (diferencia_mini < 0 && indice_mini_actual > 0) anteriorMini()
+    }
+  })
 
-      if (Math.abs(diff) > threshold) {
-        if (diff > 0 && this.currentIndex < this.maxIndex) this.next()
-        if (diff < 0 && this.currentIndex > 0) this.prev()
-      }
-    })
-  }
-}
-
-// ===== INICIALIZACIÓN =====
-document.addEventListener("DOMContentLoaded", () => {
-  new MainCarousel("#carousel")
-  new MiniCarousel(".mini_carrusel_contenedor")
+  // Inicializar
+  actualizarItemsMini()
+  actualizarBotonesMini()
 })

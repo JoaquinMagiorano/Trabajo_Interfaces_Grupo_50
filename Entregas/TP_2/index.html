@@ -3,23 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/styles.css">
     <title>Frogames</title>
 </head>
 <body>
-        <header>      
+    <header>      
         <div> 
-            <button class="hamburgesa_btn">
+            <button class="hamburguesa_btn">
                 <img src="./img/frogames/menu_frog.png" alt="menu_hamburguesa" class="menu_hamburguesa">
             </button>
+            
             <img src="./img/frogames/logo.png" 
-     alt="Logo" 
-     onmouseover="this.src='./img/frogames/logo_hover.png'"
-     onmouseout="this.src='./img/frogames/logo.png'"
-     onclick="this.src='./img/frogames/logo_click.png'">
+                 alt="Logo" 
+                 onmouseover="this.src='./img/frogames/logo_hover.png'"
+                 onmouseout="this.src='./img/frogames/logo.png'"
+                 onclick="this.src='./img/frogames/logo_click.png'">
+            
             <img src="./img/frogames/logo_texto.png" alt="Nombre_logo" width="200px" height="50px" class="nombre_logo">
         </div>
+        
         <div class="left-header-div">
             <input type="text" id="barra_busqueda" placeholder="     tu busqueda">
             <button class="btn_configuracion">
@@ -29,8 +32,7 @@
     </header>
 
     <main>
-      
-       <div class="menu_desplegable">
+        <div class="menu_desplegable">
             <ul class="lista_menu">
                 <li><button class="btn_menu"><img src="./iconos/categoria_caballero.png" alt="categoria" class="img_menu"><h4> Medievales</h4></button></li>
                 <li><button class="btn_menu"><img src="./iconos/categoria_astronauta.png" alt="categoria" class="img_menu"><h4> Espaciales</h4></button></li>
@@ -51,62 +53,60 @@
             </ul>
         </div>
 
+        <div class="menu_configuracion_desplegable">
+            <ul class="lista_menu">
+                <li><button class="btn_menu"><img src="./iconos/Travel_Person_Player_Character_Single.png" alt="img_Perfil" class="img_menu"><h4> Perfil</h4></button></li>
+                <li><button class="btn_menu"><img src="./iconos/corona.png" alt="img_gestion_de_membresia" class="img_menu"><h4> gestion de membresia</h4></button></li>
+                <li><button class="btn_menu"><img src="./iconos/tuerca.png" alt="img_Configuracion" class="img_menu"><h4> Configuracion</h4></button></li>
+                <li><button class="btn_menu"><img src="./iconos/salida.png" alt="img_cerrar_sesion" class="img_menu"><h4> cerrar sesion</h4></button></li>
+            </ul>
+        </div>
 
-    <div class="menu_configuracion_desplegable">
-        <ul class="lista_menu">
-            <li><button class="btn_menu"><img src="./iconos/Travel_Person_Player_Character_Single.png" alt="img_Perfil" class="img_menu"><h4> Perfil</h4></button></li>
-            <li><button class="btn_menu"><img src="./iconos/corona.png" alt="img_gestion_de_membresia" class="img_menu"><h4> gestion de membresia</h4></button></li>
-            <li><button class="btn_menu"><img src="./iconos/tuerca.png" alt="img_Configuracion" class="img_menu"><h4> Configuracion</h4></button></li>
-            <li><button class="btn_menu"><img src="./iconos/salida.png" alt="img_cerrar_sesion" class="img_menu"><h4> cerrar sesion</h4></button></li>
-        </ul>
-    </div>
-
-    
-
-        <!-- Carrusel principal -->
         <div class="carrusel_contenedor">
             <div class="carrusel" id="carousel">
                 <div class="carrusel_item activo">
                     <img src="./img/juegos/brd4.jpg" alt="borderlands 4" class="carousel-img">
                     <div class="overlay">
-                        <h2 class="carousel-title">Borderlands 4</h2>
+                         <h2 class="carousel-title">Borderlands 4</h2> 
                     </div>
                 </div>
-                <div class="carrusel_item next">
+                
+                <div class="carrusel_item siguiente">
                     <img src="./img/juegos/silson.png" alt="Silksong" class="carousel-img">
                     <div class="overlay">
-                        <h2 class="carousel-title">Hollow Knight: Silksong</h2>
+                         <h2 class="carousel-title">Hollow Knight: Silksong</h2> 
                     </div>
                 </div>
+                
                 <div class="carrusel_item hidden">
                     <img src="./img/juegos/hd2.webp" alt="Hell divers 2" class="carousel-img">
                     <div class="overlay">
-                        <h2 class="carousel-title">Hell Divers II</h2>
+                         <h2 class="carousel-title">Hell Divers II</h2> 
                     </div>
                 </div>
+                
                 <div class="carrusel_item hidden">
                     <img src="./img/juegos/tboi.jpg" alt="Tboi" class="carousel-img">
                     <div class="overlay">
-                        <h2 class="carousel-title">The Binding of Isaac: Repentance</h2>
+                         <h2 class="carousel-title">The Binding of Isaac: Repentance</h2> 
                     </div>
                 </div>
-                <div class="carrusel_item prev">
+                
+                <div class="carrusel_item anterior">
                     <img src="./img/juegos/fs.webp" alt="Farming simulator" class="carousel-img">
                     <div class="overlay">
-                        <h2 class="carousel-title">Farming Simulator 2025</h2>
+                         <h2 class="carousel-title">Farming Simulator 2025</h2> 
                     </div>
                 </div>
             </div> 
             
-            <!-- Controles -->
-            <button class="carousel-control prev-btn" onclick="prevSlide()" aria-label="Anterior">
-                <div class="arrow arrow-left"></div>
+            <button class="control_carrusel btn_anterior" onclick="anteriorSlide()" aria-label="Anterior">
+                <div class="flecha flecha_izquierda"></div>
             </button>
-            <button class="carousel-control next-btn" onclick="nextSlide()" aria-label="Siguiente">
-                <div class="arrow arrow-right"></div>
+            <button class="control_carrusel btn_siguiente" onclick="siguienteSlide()" aria-label="Siguiente">
+                <div class="flecha flecha_derecha"></div>
             </button>
 
-            <!-- Indicadores -->
             <div class="carrusel_indicadores">
                 <div class="indicador activo"></div>
                 <div class="indicador"></div>
@@ -116,173 +116,210 @@
             </div>
         </div>
 
-
-
-         <!-- seguir jugando -->
-        <h2 class="titulos">seguir jugando</h2>
+         <h2 class="titulos">seguir jugando</h2> 
         <div class="seguir_jugando">
-            
             <div class="seguir_jugando_item">
                 <img src="./img/random/te_garcho.jpeg" alt="borderlands 4" class="carousel-img">
+                <div class="overlay">
+                     <h2 class="carousel-title">Borderlands 4</h2> 
+                </div>
             </div>
             <div class="seguir_jugando_item">
-                <img src="./img/random/te_garcho.jpeg" alt="borderlands 4" class="carousel-img">
+                <img src="./img/random/te_garcho.jpeg" alt="hollow knight" class="carousel-img">
+                <div class="overlay">
+                     <h2 class="carousel-title">Hollow Knight</h2> 
+                </div>
             </div>
             <div class="seguir_jugando_item">
-                <img src="./img/random/te_garcho.jpeg" alt="borderlands 4" class="carousel-img">
+                <img src="./img/random/te_garcho.jpeg" alt="hell divers" class="carousel-img">
+                <div class="overlay">
+                     <h2 class="carousel-title">Hell Divers II</h2> 
+                </div>
             </div>
         </div>
 
-
-
-
-
-
-
-        <!-- Mini carrusel -->
-        <h2 class="titulos">seguir jugando</h2>
+         <h2 class="titulos">catálogo de juegos</h2> 
         <div class="mini_carrusel_contenedor">
             <div class="mini_carrusel">
-                <div class="mini_carrusel-item" data-index="0">
+                <div class="mini_carrusel-item">
                     <img src="./img/juegos/7dtd.webp" alt="Game 1">
                     <div class="overlay">
-                        <h2 class="carousel-title">Borderlands 4</h2>
-                        <button></button>
+                         <h2 class="carousel-title">Borderlands 4</h2> 
+                        <button class="overlay_btn">Ver más</button>
                     </div>
                 </div>
-                <div class="mini_carrusel-item" data-index="1">
+                <div class="mini_carrusel-item">
                     <img src="./img/juegos/7dtd.webp" alt="Game 2">
                     <div class="overlay">
-                        <h2 class="carousel-title">Hollow Knight: Silksong</h2>
-                        <button></button>
+                         <h2 class="carousel-title">Hollow Knight: Silksong</h2> 
+                        <button class="overlay_btn">Ver más</button>
                     </div>
                 </div>
-                <div class="mini_carrusel-item" data-index="2">
+                <div class="mini_carrusel-item">
                     <img src="./img/juegos/7dtd.webp" alt="Game 3">
                     <div class="overlay">
-                        <h2 class="carousel-title">Helldivers 2</h2>
-                        <button></button>
+                         <h2 class="carousel-title">Helldivers 2</h2> 
+                        <button class="overlay_btn">Ver más</button>
                     </div>
                 </div>
-                <div class="mini_carrusel-item" data-index="3">
+                <div class="mini_carrusel-item">
                     <img src="./img/juegos/7dtd.webp" alt="Game 4">
                     <div class="overlay">
-                        <h2 class="carousel-title">The Binding of Isaac: Repentance</h2>
-                        <button></button>
+                         <h2 class="carousel-title">The Binding of Isaac: Repentance</h2> 
+                        <button class="overlay_btn">Ver más</button>
                     </div>
                 </div>
-                <div class="mini_carrusel-item" data-index="4">
+                <div class="mini_carrusel-item">
                     <img src="./img/juegos/7dtd.webp" alt="Game 5">
                     <div class="overlay">
-                        <h2 class="carousel-title">Farming Simulator 2025</h2>
-                        <button></button>
+                         <h2 class="carousel-title">Farming Simulator 2025</h2> 
+                        <button class="overlay_btn">Ver más</button>
                     </div>
                 </div>
-                <div class="mini_carrusel-item" data-index="5">
+                <div class="mini_carrusel-item">
                     <img src="./img/juegos/7dtd.webp" alt="Game 6">
                     <div class="overlay">
-                        <h2 class="carousel-title">Stardew Valley</h2>
-                        <button></button>
+                         <h2 class="carousel-title">Stardew Valley</h2> 
+                        <button class="overlay_btn">Ver más</button>
                     </div>
                 </div>
-                <div class="mini_carrusel-item" data-index="6">
+                <div class="mini_carrusel-item">
                     <img src="./img/juegos/7dtd.webp" alt="Game 7">
                     <div class="overlay">
-                        <h2 class="carousel-title">la mama de la mama de la mama de la mama</h2>
-                        <button></button>
+                         <h2 class="carousel-title">Game Title</h2> 
+                        <button class="overlay_btn">Ver más</button>
                     </div>
                 </div>
             </div>
 
-            <button class="carousel-control prev-btn" aria-label="Anterior">
-                <div class="arrow arrow-left"></div>
+            <button class="control_carrusel btn_anterior" aria-label="Anterior">
+                <div class="flecha flecha_izquierda"></div>
             </button>
-            <button class="carousel-control next-btn" aria-label="Siguiente">
-                <div class="arrow arrow-right"></div>
+            <button class="control_carrusel btn_siguiente" aria-label="Siguiente">
+                <div class="flecha flecha_derecha"></div>
             </button>
         </div>
 
+
+         <h2 class="titulos">catálogo de juegos</h2> 
+        <div class="mini_carrusel_contenedor">
+            <div class="mini_carrusel">
+                <div class="mini_carrusel-item">
+                    <img src="./img/juegos/7dtd.webp" alt="Game 1">
+                    <div class="overlay">
+                         <h2 class="carousel-title">Borderlands 4</h2> 
+                        <button class="overlay_btn">Ver más</button>
+                    </div>
+                </div>
+                <div class="mini_carrusel-item">
+                    <img src="./img/juegos/7dtd.webp" alt="Game 2">
+                    <div class="overlay">
+                         <h2 class="carousel-title">Hollow Knight: Silksong</h2> 
+                        <button class="overlay_btn">Ver más</button>
+                    </div>
+                </div>
+                <div class="mini_carrusel-item">
+                    <img src="./img/juegos/7dtd.webp" alt="Game 3">
+                    <div class="overlay">
+                         <h2 class="carousel-title">Helldivers 2</h2> 
+                        <button class="overlay_btn">Ver más</button>
+                    </div>
+                </div>
+                <div class="mini_carrusel-item">
+                    <img src="./img/juegos/7dtd.webp" alt="Game 4">
+                    <div class="overlay">
+                         <h2 class="carousel-title">The Binding of Isaac: Repentance</h2> 
+                        <button class="overlay_btn">Ver más</button>
+                    </div>
+                </div>
+                <div class="mini_carrusel-item">
+                    <img src="./img/juegos/7dtd.webp" alt="Game 5">
+                    <div class="overlay">
+                         <h2 class="carousel-title">Farming Simulator 2025</h2> 
+                        <button class="overlay_btn">Ver más</button>
+                    </div>
+                </div>
+                <div class="mini_carrusel-item">
+                    <img src="./img/juegos/7dtd.webp" alt="Game 6">
+                    <div class="overlay">
+                         <h2 class="carousel-title">Stardew Valley</h2> 
+                        <button class="overlay_btn">Ver más</button>
+                    </div>
+                </div>
+                <div class="mini_carrusel-item">
+                    <img src="./img/juegos/7dtd.webp" alt="Game 7">
+                    <div class="overlay">
+                         <h2 class="carousel-title">Game Title</h2> 
+                        <button class="overlay_btn">Ver más</button>
+                    </div>
+                </div>
+                <div class="mini_carrusel-item">
+                    <img src="./img/juegos/7dtd.webp" alt="Game 7">
+                    <div class="overlay">
+                         <h2 class="carousel-title">Game Title</h2> 
+                        <button class="overlay_btn">Ver más</button>
+                    </div>
+                </div>
+                <div class="mini_carrusel-item">
+                    <img src="./img/juegos/7dtd.webp" alt="Game 7">
+                    <div class="overlay">
+                         <h2 class="carousel-title">Game Title</h2> 
+                        <button class="overlay_btn">Ver más</button>
+                    </div>
+                </div>
+                <div class="mini_carrusel-item">
+                    <img src="./img/juegos/7dtd.webp" alt="Game 7">
+                    <div class="overlay">
+                         <h2 class="carousel-title">Game Title</h2> 
+                        <button class="overlay_btn">Ver más</button>
+                    </div>
+                </div>
+                <div class="mini_carrusel-item">
+                    <img src="./img/juegos/7dtd.webp" alt="Game 7">
+                    <div class="overlay">
+                         <h2 class="carousel-title">Game Title</h2> 
+                        <button class="overlay_btn">Ver más</button>
+                    </div>
+                </div>
+                <div class="mini_carrusel-item">
+                    <img src="./img/juegos/7dtd.webp" alt="Game 7">
+                    <div class="overlay">
+                         <h2 class="carousel-title">Game Title</h2> 
+                        <button class="overlay_btn">Ver más</button>
+                    </div>
+                </div>
+                <div class="mini_carrusel-item">
+                    <img src="./img/juegos/7dtd.webp" alt="Game 7">
+                    <div class="overlay">
+                         <h2 class="carousel-title">Game Title</h2> 
+                        <button class="overlay_btn">Ver más</button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="control_carrusel btn_anterior" aria-label="Anterior">
+                <div class="flecha flecha_izquierda"></div>
+            </button>
+            <button class="control_carrusel btn_siguiente" aria-label="Siguiente">
+                <div class="flecha flecha_derecha"></div>
+            </button>
+        </div>
 
         <div class="ofertas_exclusivas">
             <img src="./img/random/1010.png" alt="ofertas exclusivas">
         </div>
 
-        <h2 class="titulos">seguir jugando</h2>
+         <h2 class="titulos">recomendación destacada</h2> 
         <div class="recomendacion_usuario"> 
             <img src="./img/frogames/frog_peg.png" alt="">
             <div>
-                <p class="comentario">nooooo esta rebueno el juego me va a agarrar una seves de lo bueno que ta, ndeee de...</p>
+                 <p class="comentario">nooooo esta rebueno el juego me va a agarrar una seves de lo bueno que ta, ndeee de...</p> 
                 <div class="usuario">
                     <img src="./img/random/mcbici.webp" alt="avatar_usuario">
-                    <span>jorgito macri</span>
+                     <span>jorgito macri</span> 
                 </div>    
             </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </main>
 
     <footer>
@@ -308,10 +345,12 @@
                 <a href="">Nuestra merch</a>
             </div>
         </div>
+        
         <div class="footer_logo">
             <img src="./img/frogames/logo.png" alt="Logo" width="50" height="50">
             <img src="./img/frogames/logo_texto.png" alt="Nombre_logo" width="200" height="50">
         </div>
+        
         <div class="social_media">
             <a href="index.html"><img src="iconos/Platforms_Google.png" alt="google"></a>
             <a href="index.html"><img src="iconos/Platforms_Facebook.png" alt="facebook"></a>
@@ -321,6 +360,7 @@
     </footer>
 
     <section class="menu_container"></section>
+    
     <script src="./js/index.js"></script>    
 </body>
 </html>

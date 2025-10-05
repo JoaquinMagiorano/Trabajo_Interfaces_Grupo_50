@@ -1,13 +1,11 @@
 /* ===================== HEADER ===================== */
-
-#barra_busqueda, #foto_perfil{
+#barra_busqueda, 
+#foto_perfil {
     display: none;
 }
 
 /* ===================== MAIN Y CONTENEDOR PRINCIPAL ===================== */
-
 main {
-    flex: 1; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,31 +13,26 @@ main {
 }
 
 .form_container {
+    margin-top: 80px;
     width: 100%;
     max-width: 400px;
-    height: 400px;
     background: #2C2C2C;
     border-radius: 15px;
-    padding: 20px;
+    padding: 30px 20px 20px;
     color: white;
-    box-shadow: 0 0 15px rgba(0,0,0,0.6);
-    transition: all 0.4s ease-in-out;
-    position: fixed;
-    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
     display: flex;
     flex-direction: column;
-    
-    justify-content: space-between;
-    overflow-y: auto;  
+    gap: 20px;
 }
 
 /* ===================== TABS/BOTONES SUPERIORES ===================== */
 .tabs {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 20px;
     border-bottom: 1px solid #444;
     position: relative;
+    margin-bottom: 0;
 }
 
 button.tab {
@@ -48,7 +41,7 @@ button.tab {
     padding: 12px;
     cursor: pointer;
     font-weight: bold;
-    color: #ffffff;
+    color: #aaa;
     background: none;
     border: none;
     outline: none;
@@ -75,7 +68,7 @@ button.tab.active {
     height: 3px;
     background: linear-gradient(90deg, #2e7d32, #4caf50);
     border-radius: 2px 2px 0 0;
-    transition: transform 0.4s ease;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1;
 }
 
@@ -86,96 +79,147 @@ button.tab.active {
 /* ===================== FORMULARIOS Y ANIMACIONES ===================== */
 .forms-container {
     position: relative;
-    min-height: 150px;
-    transition: min-height 0.5s ease;
-    border-bottom: 1px solid #444;
+    width: 100%;
+    transition: min-height 0.4s ease;
+}
+
+/* Altura dinámica según formulario activo */
+.forms-container:has(#login.active) {
+    min-height: 200px;
+}
+
+.forms-container:has(#register.active) {
+    min-height: 630px;
     
 }
 
-.tabs:has(.tab[data-target="register"].active) ~ .forms-container {
-    min-height: 400px;
-}
 
 /* Formularios */
 form {
     position: absolute;
-    left: 0; 
+    top: 0;
+    left: 0;
     right: 0;
     display: flex;
     flex-direction: column;
     gap: 10px;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.5s cubic-bezier(.4,0,.2,1);
+    transform: translateY(10px);
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-
-.active {
+form.active {
     opacity: 1;
     pointer-events: all;
+    transform: translateY(0);
     z-index: 1;
 }
 
-/* ===================== INPUTS Y BOTONES ===================== */
+/* ===================== CAPTCHA ===================== */
+.form img {
+  width: 300px;
+  max-width: 1000px;
+  height: auto;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.form img:hover {
+  transform: scale(1.02);
+}
+
+/* ===================== INPUTS Y LABELS ===================== */
+label {
+    font-size: 0.9rem;
+    color: #ddd;
+    margin-bottom: -6px;
+    margin-top: 0;
+}
+
 input {
-    padding: 10px;
+    padding: 10px 14px;
     border: none;
-    border-radius: 20px;
+    border-radius: 8px;
     background: #eee;
-    transition: opacity 0.5s cubic-bezier(.4,0,.2,1);
+    font-size: 0.95rem;
+    transition: box-shadow 0.3s ease, background 0.3s ease;
 }
 
 input:focus {
     outline: none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background: #fff;
+    box-shadow: 0 0 0 2px #4caf50;
 }
 
-label {
-    font-size: 0.9rem;
-    
-    color: #ddd;
-    margin-bottom: 0px;
-    margin-top: 5px;
+input::placeholder {
+    color: #999;
 }
 
-form button {
-    background: #1e7c47;          /* color base */
-    color: #fff;                  /* texto */
-    font-size: 1.2rem;
+
+/* ===================== BOTONES DE FORMULARIO ===================== */
+form button[type="submit"] {
+    background: #1e7c47;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
     font-family: Arial, sans-serif;
     padding: 12px 32px;
+    margin-top: 8px;
     border: none;
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 12px rgba(30, 124, 71, 0.3);
 }
 
-form button:hover {
-    background: #32c774;          
-    box-shadow: none;             
+form button[type="submit"]:hover {
+    background: #32c774;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(50, 199, 116, 0.4);
 }
 
-form button:focus {
+form button[type="submit"]:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(30, 124, 71, 0.3);
+}
+
+form button[type="submit"]:focus {
     outline: none;
-    background: linear-gradient(145deg, #1a6338, #2faf65);
-    /* Borde interno del color de fondo y externo del color del botón */
-    box-shadow:
-        0 0 0 3px #2C2C2C,   /* borde interno color fondo */
-        0 0 0 6px #1e7c47;   /* borde externo color del botón */
-    border: none;
+    background: #1e7c47;
+    box-shadow: 0 0 0 3px #2C2C2C,
+                0 0 0 6px #4caf50;
 }
 
 /* ===================== SOCIAL LOGIN ===================== */
 .social_login {
-    margin-top: 20px;
     text-align: center;
-    
+    padding-top: 12px;
+    border-top: 1px solid #444;
 }
 
-.social_login a img, .social_login a {
+.social_login p {
+    margin: 0 0 12px 0;
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.social_login a {
+    display: inline-block;
+    margin: 0 6px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.social_login a:hover {
+    transform: translateY(-3px);
+    opacity: 0.8;
+}
+
+.social_login a img {
     width: 40px;
     height: 40px;
-    text-decoration: none;
-    margin: 0% 1%;
+    display: block;
 }
+

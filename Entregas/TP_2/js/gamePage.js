@@ -1,4 +1,4 @@
-const hamburguesa_Btn = document.querySelector('.hamburgesa_btn');
+const hamburguesa_btn = document.querySelector('.hamburguesa_btn');
 const menu_desplegable = document.querySelector('.menu_desplegable');
 const btn_configuracion = document.querySelector('.btn_configuracion');
 const menu_configuracion_desplegable = document.querySelector('.menu_configuracion_desplegable');
@@ -8,7 +8,7 @@ const boton_compartir = document.querySelector('#btn_compartir');
 
 
 
-hamburguesa_Btn.addEventListener('click', function() {
+hamburguesa_btn.addEventListener('click', function() {
     menu_desplegable.classList.toggle('visible');
     menu_configuracion_desplegable.classList.remove('visible');
     actualizarFondo();

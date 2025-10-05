@@ -1,31 +1,61 @@
-/* ===== VARIABLES GLOBALES ===== */
+/* ========================================
+   VARIABLES GLOBALES
+   Define todas las medidas y valores reutilizables
+   ======================================== */
 :root {
-  /* Carrusel principal */
-  --center-w: 60%;
-  --side-w: 50%;
-  --visible-side: calc(var(--side-w) / 3);
-  --carousel-h: 500px;
+  /* Carrusel principal - dimensiones y espaciado */
+  --center-w: 60%; /* Ancho del slide central activo */
+  --side-w: 50%; /* Ancho de los slides laterales */
+  --visible-side: calc(var(--side-w) / 3); /* Porción visible de slides laterales */
+  --carousel-h: 500px; /* Altura del carrusel principal */
 
-  /* Mini carrusel */
-  --mini-item-w: 25%;
-  --mini-side-w: 24%;
-  --mini-visible-side: calc(var(--mini-side-w) / 3);
-  --mini-carousel-h: 200px;
-  --mini-gap: 1.5%;
+  /* Mini carrusel - dimensiones y espaciado */
+  --mini-item-w: 25%; /* Ancho de cada item del mini carrusel */
+  --mini-side-w: 24%; /* Ancho de items laterales */
+  --mini-visible-side: calc(var(--mini-side-w) / 3); /* Porción visible lateral */
+  --mini-carousel-h: 320px; /* Altura del mini carrusel */
+  --mini-gap: 1.5%; /* Espacio entre items */
 
-  /* Transiciones compartidas */
-  --transition-time: 0.85s;
-  --transition-easing: cubic-bezier(0.22, 0.9, 0.3, 1);
+  /* Transiciones - animaciones suaves */
+  --transition-time: 0.85s; /* Duración de las transiciones */
+  --transition-easing: cubic-bezier(0.22, 0.9, 0.3, 1); /* Curva de animación */
 
-  /* Controles */
-  --control-bg: rgba(255, 255, 255, 0.15);
-  --control-bg-hover: rgba(255, 255, 255, 0.3);
+  /* Controles - botones de navegación */
+  --control-bg: rgba(255, 255, 255, 0.15); /* Fondo normal */
+  --control-bg-hover: rgba(255, 255, 255, 0.3); /* Fondo al hacer hover */
 }
 
+/* ========================================
+   UTILIDADES COMPARTIDAS
+   Clases reutilizables en todo el sitio
+   ======================================== */
 
-/* ======================================== ESTILOS COMPARTIDOS ================================================== */
+/* Títulos de sección */
+.titulos {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 60px auto 20px;
+  padding-left: 5%;
+  width: 90%;
+  max-width: 1200px;
+  text-transform: lowercase;
+}
 
-/* Overlay unificado para ambos carruseles */
+/* Imágenes de los carruseles */
+.carousel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ========================================
+   COMPONENTES COMPARTIDOS
+   Elementos reutilizados en ambos carruseles
+   ======================================== */
+
+/* Overlay - Capa oscura con título sobre las imágenes */
 .overlay {
   position: absolute;
   left: 0;
@@ -34,11 +64,11 @@
   padding: 20px;
   box-sizing: border-box;
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-  transform: translateY(100%);
+  transform: translateY(100%); /* Oculto por defecto */
   transition: transform var(--transition-time) var(--transition-easing);
 }
 
-/* Títulos de carrusel */
+/* Títulos dentro de los carruseles */
 .carousel-title {
   color: white;
   font-size: 1.2rem;
@@ -47,19 +77,33 @@
 }
 
 .mini_carrusel-item .carousel-title {
-  font-size: 1rem;
+  font-size: 1rem; /* Más pequeño en el mini carrusel */
 }
 
-/* Imágenes de carrusel */
-.carousel-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+/* Botón dentro del overlay del mini carrusel */
+.overlay_btn {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-/* Controles de navegación unificados */
-.carousel-control {
+.overlay_btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+/* Controles de navegación (flechas) */
+.control_carrusel {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -77,26 +121,26 @@
   justify-content: center;
 }
 
-.carousel-control:hover {
+.control_carrusel:hover {
   background: var(--control-bg-hover);
   transform: translateY(-50%) scale(1.15);
 }
 
-.carousel-control.disabled {
+.control_carrusel.disabled {
   opacity: 0.3;
   cursor: not-allowed;
   pointer-events: none;
 }
 
-/* Flechas unificadas */
-.arrow {
+/* Flechas animadas (< y >) */
+.flecha {
   position: relative;
   width: 20px;
   height: 32px;
 }
 
-.arrow::before,
-.arrow::after {
+.flecha::before,
+.flecha::after {
   content: "";
   position: absolute;
   width: 3px;
@@ -109,54 +153,48 @@
 }
 
 /* Estado normal: X */
-.arrow::before {
+.flecha::before {
   transform: translate(-50%, -50%) rotate(45deg);
 }
 
-.arrow::after {
+.flecha::after {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 /* Hover: flecha izquierda < */
-.carousel-control:hover .arrow-left::before {
+.control_carrusel:hover .flecha_izquierda::before {
   transform: translate(calc(-50% + 4.5px), calc(-50% - 8.5px)) rotate(45deg);
 }
 
-.carousel-control:hover .arrow-left::after {
+.control_carrusel:hover .flecha_izquierda::after {
   transform: translate(calc(-50% + 4.5px), calc(-50% + 8.5px)) rotate(-45deg);
 }
 
 /* Hover: flecha derecha > */
-.carousel-control:hover .arrow-right::before {
+.control_carrusel:hover .flecha_derecha::before {
   transform: translate(calc(-50% - 4.5px), calc(-50% + 8.5px)) rotate(45deg);
 }
 
-.carousel-control:hover .arrow-right::after {
+.control_carrusel:hover .flecha_derecha::after {
   transform: translate(calc(-50% - 4.5px), calc(-50% - 8.5px)) rotate(-45deg);
 }
 
-/* Sombras compartidas */
-.shadow-light {
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-.shadow-heavy {
-  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.45);
-}
-
-/* ================================================== CARRUSEL PRINCIPAL ================================================== */
+/* ========================================
+   CARRUSEL PRINCIPAL
+   Carrusel grande con efecto 3D y rotación automática
+   ======================================== */
 .carrusel_contenedor {
   position: relative;
   width: 100%;
   height: var(--carousel-h);
-  perspective: 800px;
+  perspective: 800px; /* Profundidad para efecto 3D */
   margin: 80px auto;
 }
 
 .carrusel {
   width: 100%;
   height: 100%;
-  transform-style: preserve-3d;
+  transform-style: preserve-3d; /* Mantiene transformaciones 3D */
 }
 
 .carrusel_item {
@@ -174,24 +212,35 @@
     opacity var(--transition-time) var(--transition-easing),
     box-shadow var(--transition-time) var(--transition-easing);
   will-change: transform, left;
+  /* Agregado border-radius para esquinas redondeadas */
+  border-radius: 12px;
 }
 
-/* Estados del carrusel principal */
+/* Asegurar que las imágenes del carrusel principal tengan tamaño consistente */
+.carrusel_item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Estados de los slides */
 .carrusel_item.activo {
   width: var(--center-w);
   box-shadow: 0 26px 60px rgba(0, 0, 0, 0.45);
 }
 
 .carrusel_item.activo .overlay {
-  transform: translateY(0);
+  transform: translateY(0); /* Muestra el overlay */
 }
 
-.carrusel_item.prev {
+.carrusel_item.anterior {
   left: calc(50% - (var(--center-w) / 2) - var(--visible-side));
   transform: translate(-50%, -50%) scale(0.95) rotateY(55deg);
 }
 
-.carrusel_item.next {
+.carrusel_item.siguiente {
   left: calc(50% + (var(--center-w) / 2) + var(--visible-side));
   transform: translate(-50%, -50%) scale(0.95) rotateY(-55deg);
 }
@@ -203,25 +252,25 @@
 }
 
 /* Posicionamiento de controles del carrusel principal */
-.carrusel_contenedor .prev-btn {
+.carrusel_contenedor .btn_anterior {
   left: calc((50% - var(--center-w) / 2) / 2);
   transform: translate(-50%, -50%);
 }
 
-.carrusel_contenedor .prev-btn:hover {
+.carrusel_contenedor .btn_anterior:hover {
   transform: translate(-50%, -50%) scale(1.15);
 }
 
-.carrusel_contenedor .next-btn {
+.carrusel_contenedor .btn_siguiente {
   right: calc((50% - var(--center-w) / 2) / 2);
   transform: translate(50%, -50%);
 }
 
-.carrusel_contenedor .next-btn:hover {
+.carrusel_contenedor .btn_siguiente:hover {
   transform: translate(50%, -50%) scale(1.15);
 }
 
-/* Indicadores */
+/* Indicadores de progreso */
 .carrusel_indicadores {
   position: absolute;
   bottom: 18px;
@@ -240,6 +289,7 @@
   transition: all 0.25s;
 }
 
+/* Indicador activo con barra de progreso */
 .indicador.activo {
   width: 44px;
   height: 6px;
@@ -269,14 +319,18 @@
   }
 }
 
-/* ================================================== MINI CARRUSEL ================================================== */
+/* ========================================
+   MINI CARRUSEL
+   Carrusel compacto que muestra 3 items a la vez
+   ======================================== */
 .mini_carrusel_contenedor {
   position: relative;
   width: 100%;
   height: var(--mini-carousel-h);
   perspective: 800px;
   margin: 40px auto;
-  overflow: hidden;
+  padding: 30px 0;
+  overflow: visible;
 }
 
 .mini_carrusel {
@@ -290,7 +344,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: var(--mini-side-w);
+  width: var(--mini-item-w);
   height: 100%;
   overflow: hidden;
   border-radius: 8px;
@@ -302,6 +356,8 @@
     opacity var(--transition-time) var(--transition-easing),
     box-shadow var(--transition-time) var(--transition-easing);
   will-change: transform, left;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 .mini_carrusel-item img {
@@ -315,8 +371,17 @@
   padding: 15px;
 }
 
-/* Estados del mini carrusel */
-.mini_carrusel-item.active-left {
+.mini_carrusel-item:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+.mini_carrusel-item:hover .overlay {
+  transform: translateY(0);
+}
+
+/* Estados de los items del mini carrusel */
+.mini_carrusel-item.izquierda_activa {
   width: var(--mini-item-w);
   left: calc(10% + var(--mini-item-w) / 2);
   transform: translate(-50%, -50%) scale(0.95);
@@ -324,11 +389,12 @@
   z-index: 3;
 }
 
-.mini_carrusel-item.active-left .overlay {
-  transform: translateY(0);
+.mini_carrusel-item.izquierda_activa:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.5);
 }
 
-.mini_carrusel-item.active-center {
+.mini_carrusel-item.centro_activo {
   width: var(--mini-item-w);
   left: 50%;
   transform: translate(-50%, -50%) scale(1);
@@ -336,11 +402,12 @@
   z-index: 4;
 }
 
-.mini_carrusel-item.active-center .overlay {
-  transform: translateY(0);
+.mini_carrusel-item.centro_activo:hover {
+  transform: translate(-50%, -50%) scale(1.08);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
 }
 
-.mini_carrusel-item.active-right {
+.mini_carrusel-item.derecha_activa {
   width: var(--mini-item-w);
   left: calc(90% - var(--mini-item-w) / 2);
   transform: translate(-50%, -50%) scale(0.95);
@@ -348,18 +415,19 @@
   z-index: 3;
 }
 
-.mini_carrusel-item.active-right .overlay {
-  transform: translateY(0);
+.mini_carrusel-item.derecha_activa:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.5);
 }
 
-.mini_carrusel-item.prev {
+.mini_carrusel-item.anterior {
   left: calc(5% - var(--mini-visible-side));
   transform: translate(-50%, -50%) scale(0.85) rotateY(45deg);
   opacity: 0.5;
   z-index: 1;
 }
 
-.mini_carrusel-item.next {
+.mini_carrusel-item.siguiente {
   left: calc(95% + var(--mini-visible-side));
   transform: translate(-50%, -50%) scale(0.85) rotateY(-45deg);
   opacity: 0.5;
@@ -380,68 +448,57 @@
   z-index: 0;
 }
 
-/* Controles del mini carrusel */
-.mini_carrusel_contenedor .carousel-control {
+/* Controles del mini carrusel (más pequeños) */
+.mini_carrusel_contenedor .control_carrusel {
   width: 40px;
   height: 60px;
   border-radius: 6px;
 }
 
-.mini_carrusel_contenedor .prev-btn {
+.mini_carrusel_contenedor .btn_anterior {
   left: 2%;
 }
 
-.mini_carrusel_contenedor .next-btn {
+.mini_carrusel_contenedor .btn_siguiente {
   right: 2%;
 }
 
-.mini_carrusel_contenedor .arrow {
+.mini_carrusel_contenedor .flecha {
   width: 16px;
   height: 24px;
 }
 
-.mini_carrusel_contenedor .arrow::before,
-.mini_carrusel_contenedor .arrow::after {
+.mini_carrusel_contenedor .flecha::before,
+.mini_carrusel_contenedor .flecha::after {
   width: 2.5px;
   height: 18px;
 }
 
 /* Ajustes para hover en mini carrusel */
-.mini_carrusel_contenedor .carousel-control:hover .arrow-left::before {
+.mini_carrusel_contenedor .control_carrusel:hover .flecha_izquierda::before {
   transform: translate(calc(-50% + 4px), calc(-50% - 7px)) rotate(45deg);
 }
 
-.mini_carrusel_contenedor .carousel-control:hover .arrow-left::after {
+.mini_carrusel_contenedor .control_carrusel:hover .flecha_izquierda::after {
   transform: translate(calc(-50% + 4px), calc(-50% + 7px)) rotate(-45deg);
 }
 
-.mini_carrusel_contenedor .carousel-control:hover .arrow-right::before {
+.mini_carrusel_contenedor .control_carrusel:hover .flecha_derecha::before {
   transform: translate(calc(-50% - 4px), calc(-50% + 7px)) rotate(45deg);
 }
 
-.mini_carrusel_contenedor .carousel-control:hover .arrow-right::after {
+.mini_carrusel_contenedor .control_carrusel:hover .flecha_derecha::after {
   transform: translate(calc(-50% - 4px), calc(-50% - 7px)) rotate(-45deg);
 }
 
-/* ======================================================= TÍTULOS GLOBALES ============================================= */
-/* Agregando estilos para los títulos de sección */
-.titulos {
-  color: white;
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin: 60px auto 20px;
-  padding-left: 5%;
-  width: 90%;
-  max-width: 1200px;
-  text-transform: lowercase;
-}
-
-/* ================================================================= SEGUIR JUGANDO ======================================== */
-/* Estilos para la sección de "seguir jugando" con 3 items horizontales */
+/* ========================================
+   SECCIÓN SEGUIR JUGANDO
+   Muestra 3 juegos en progreso horizontalmente
+   ======================================== */
 .seguir_jugando {
   width: 50%;
   max-width: 1200px;
-  margin:  auto 180px;
+  margin: auto 180px;
   display: flex;
   gap: 20px;
   justify-content: flex-start;
@@ -461,8 +518,13 @@
 }
 
 .seguir_jugando_item:hover {
-  transform: translateY(-4px);
+  transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Activar overlay en hover para seguir jugando */
+.seguir_jugando_item:hover .overlay {
+  transform: translateY(0);
 }
 
 .seguir_jugando_item img {
@@ -472,8 +534,10 @@
   display: block;
 }
 
-/* ===== OFERTAS EXCLUSIVAS ===== */
-/* Estilos para la sección de ofertas con imagen de banner */
+/* ========================================
+   OFERTAS EXCLUSIVAS
+   Banner promocional de ancho completo
+   ======================================== */
 .ofertas_exclusivas {
   width: 90%;
   max-width: 1200px;
@@ -484,7 +548,6 @@
 .ofertas_exclusivas img {
   width: 100%;
   height: 200px;
-  
   object-fit: cover;
   border-radius: 12px;
   cursor: pointer;
@@ -498,13 +561,15 @@
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
 }
 
-/* ===== RECOMENDACIONES DE USUARIOS ===== */
-/* Estilos para la sección de recomendaciones con layout de imagen + comentario */
+/* ========================================
+   RECOMENDACIONES DE USUARIOS
+   Tarjeta con imagen del juego + comentario + avatar
+   ======================================== */
 .recomendacion_usuario {
   width: 90%;
   height: auto;
   max-width: 1200px;
-  margin: 60px auto;
+  margin: 60px auto 20px;
   padding: 30px;
   background: rgba(5, 23, 14, 0.927);
   border-radius: 16px;
@@ -512,29 +577,31 @@
   gap: 30px;
   align-items: center;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  margin-bottom: 20px;
 }
 
+/* Imagen del juego recomendado - ahora ocupa 72% del espacio (más grande) */
 .recomendacion_usuario > img {
-  flex: 0 0 45%;
-  max-width: 500px;
+  flex: 0 0 72%;
+  max-width: 800px;
   width: 100%;
   height: auto;
+  aspect-ratio: 16 / 9;
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
   transform: perspective(800px) rotateY(-2deg);
   object-fit: cover;
 }
 
+/* Contenedor del comentario - ahora ocupa 28% del espacio (más compacto) */
 .recomendacion_usuario > div {
-  flex: 1;
+  flex: 0 0 28%;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  justify-content: center;
 }
 
+/* Texto del comentario */
 .comentario {
   color: rgba(255, 255, 255, 0.9);
   font-size: 1rem;
@@ -543,6 +610,7 @@
   font-style: italic;
 }
 
+/* Información del usuario */
 .usuario {
   display: flex;
   align-items: center;
@@ -565,10 +633,9 @@
   font-weight: 500;
 }
 
-/* ===== RESPONSIVE ===== */
-
-
-
+/* ========================================
+   RESPONSIVE - Adaptación para móviles
+   ======================================== */
 @media (max-width: 480px) {
   :root {
     --center-w: 92%;
@@ -577,12 +644,14 @@
     --mini-carousel-h: 110px;
   }
 
-  .carrusel_item.prev,
-  .carrusel_item.next {
+  /* Oculta slides laterales en móvil */
+  .carrusel_item.anterior,
+  .carrusel_item.siguiente {
     display: none;
   }
 
-  .carousel-control {
+  /* Oculta controles en móvil (usa gestos táctiles) */
+  .control_carrusel {
     display: none;
   }
 
