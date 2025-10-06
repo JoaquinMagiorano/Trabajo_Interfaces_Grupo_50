@@ -40,7 +40,7 @@
                 <form id="login" class="form active">
                     <label for="login_nombre">Nombre de usuario:</label>
                     <input id="login_nombre" type="text" placeholder="Nombre de usuario" required>
-                    <label for="login_password">Apellido:</label>
+                    <label for="login_password">Contraseña:</label>
                     <input id="login_password" type="password" placeholder="Contraseña" required>
                     <button type="submit">iniciar sesión</button>
                 </form>
@@ -82,6 +82,17 @@
             </div>
         </div>
         
+        <div id="loading-screen" class="loading-screen">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <h2 class="loading-title">Cargando Juego...</h2>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+                <p id="loading-percentage" class="percentage">0%</p>
+            </div>
+        </div>
+
     </main>    
     <script src="./js/login.js"></script>
 </body>
