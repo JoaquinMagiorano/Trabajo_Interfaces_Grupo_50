@@ -81,19 +81,39 @@
                 </a>
             </div>
         </div>
-        
-        <div id="loading-screen" class="loading-screen">
-            <div class="loading-content">
-                <div class="spinner"></div>
-                <h2 class="loading-title">Cargando Juego...</h2>
-                <div class="progress-bar">
-                    <div id="progress-fill" class="progress-fill"></div>
-                </div>
-                <p id="loading-percentage" class="percentage">0%</p>
-            </div>
-        </div>
+    </main>
 
-    </main>    
+    <!-- Pantalla de carga con animación (oculta inicialmente) -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="pond-container">
+                <!-- Nenúfares (lily pads) -->
+                <div class="lily-pad lily-1"></div>
+                <div class="lily-pad lily-2"></div>
+                <div class="lily-pad lily-3"></div>
+                <div class="lily-pad lily-4"></div>
+                <div class="lily-pad lily-5"></div>
+                
+                <!-- Rana saltando -->
+                <div class="frog">
+                    <div class="frog-body">
+                        <div class="frog-eye left"></div>
+                        <div class="frog-eye right"></div>
+                        <div class="frog-mouth"></div>
+                    </div>
+                </div>
+                
+                <!-- Burbujas decorativas -->
+                <div class="bubble bubble-1"></div>
+                <div class="bubble bubble-2"></div>
+                <div class="bubble bubble-3"></div>
+            </div>
+            
+            <h2 class="loading-title">Saltando al juego...</h2>
+            <p id="loading-percentage" class="percentage">0%</p>
+        </div>
+    </div>
+
     <script src="./js/login.js"></script>
 </body>
 </html>

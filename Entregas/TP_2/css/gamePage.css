@@ -24,7 +24,7 @@ main {
 
 /* ===================== PANTALLA DEL JUEGO ===================== */
 .pantallaJugable {
-    background: #011f064e;
+    background: #011f06a1;
     backdrop-filter: blur(4px);
     border-radius: 15px;
     overflow: hidden;
@@ -84,7 +84,7 @@ main {
     height: 30px;
 }
 .redes button{
-    background: #011f064e;
+    background: #011f06a1;
     backdrop-filter: blur(4px);
 }
 .redes button:hover{
@@ -109,7 +109,7 @@ main {
 }
 
 #menu_compartir button{
-    background: #011f064e;
+    background: #011f06a1;
     backdrop-filter: blur(4px);
 }
 
@@ -134,7 +134,7 @@ main {
 /* ===================== INFORMACIÓN DEL JUEGO ===================== */
 .juego_info {
     backdrop-filter: blur(4px);
-background: #011f064e;
+background: #011f06a1;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 0 15px rgba(0,0,0,0.6);
@@ -217,7 +217,7 @@ background: #011f064e;
 .seccion_comentarios {
     width: 100%;
     margin: 0 auto;
-    background: #011f064e;
+    background: #011f06a1;
     backdrop-filter: blur(4px);
     border-radius: 15px;
     padding: 20px;
@@ -373,7 +373,7 @@ background: #011f064e;
 
 .recomendados {
     backdrop-filter: blur(4px);
-    background: #011f064e;
+    background: #011f06a1;
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 0 15px rgba(0,0,0,0.6);
@@ -402,7 +402,7 @@ background: #011f064e;
 
 .anuncios {
     backdrop-filter: blur(4px);
-    background: #011f064e;
+    background: #011f06a1;
     border-radius: 15px;
     padding: 20px;
     text-align: center;

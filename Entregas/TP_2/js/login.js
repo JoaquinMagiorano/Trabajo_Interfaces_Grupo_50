@@ -21,14 +21,13 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   })
 
-
-
-  
   loginForm.addEventListener("submit", (e) => {
     e.preventDefault()
 
     // Mostrar pantalla de carga
     loadingScreen.classList.add("active")
+
+    const lilyPads = document.querySelectorAll(".lily-pad")
 
     // Simular carga de 5 segundos con porcentaje
     let progress = 0
@@ -49,9 +48,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 200)
       }
 
-      // Actualizar barra de progreso y porcentaje
-      progressFill.style.width = progress + "%"
+      // Actualizar porcentaje
       loadingPercentage.textContent = Math.floor(progress) + "%"
+
+      // Iluminar nenúfares según el progreso
+      const activeLilyIndex = Math.floor((progress / 100) * lilyPads.length)
+      lilyPads.forEach((lily, index) => {
+        if (index < activeLilyIndex) {
+          lily.classList.add("active")
+        }
+      })
     }, interval)
   })
 })
