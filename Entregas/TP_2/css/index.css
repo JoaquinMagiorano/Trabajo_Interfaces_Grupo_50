@@ -6,23 +6,18 @@
   /* Carrusel principal - dimensiones y espaciado */
   --center-w: 60%; /* Ancho del slide central activo */
   --side-w: 50%; /* Ancho de los slides laterales */
-  --visible-side: calc(var(--side-w) / 3); /* Porción visible de slides laterales */
+  --visible-side: calc(var(--side-w) / 3); /* Porción visible de slides laterales (1/3 del ancho lateral) */
   --carousel-h: 500px; /* Altura del carrusel principal */
 
   /* Mini carrusel - dimensiones y espaciado */
   --mini-item-w: 25%; /* Ancho de cada item del mini carrusel */
   --mini-side-w: 24%; /* Ancho de items laterales */
-  --mini-visible-side: calc(var(--mini-side-w) / 3); /* Porción visible lateral */
-  --mini-carousel-h: 320px; /* Altura del mini carrusel */
-  --mini-gap: 1.5%; /* Espacio entre items */
+  --mini-visible-side: calc(var(--mini-side-w) / 3); /* Porción visible lateral (1/3 del ancho) */
+  --mini-carousel-h: 220px; /* Altura del mini carrusel */
 
   /* Transiciones - animaciones suaves */
   --transition-time: 0.85s; /* Duración de las transiciones */
-  --transition-easing: cubic-bezier(0.22, 0.9, 0.3, 1); /* Curva de animación */
-
-  /* Controles - botones de navegación */
-  --control-bg: rgba(255, 255, 255, 0.15); /* Fondo normal */
-  --control-bg-hover: rgba(255, 255, 255, 0.3); /* Fondo al hacer hover */
+  --transition-easing: cubic-bezier(0.22, 0.9, 0.3, 1); /* Curva de animación suave */
 }
 
 /* ========================================
@@ -35,20 +30,12 @@
   color: white;
   font-size: 1.5rem;
   font-weight: 600;
-  margin: 60px auto 20px;
+  margin: 60px auto 0px;
   padding-left: 5%;
-  width: 90%;
   max-width: 1200px;
-  text-transform: lowercase;
 }
 
 /* Imágenes de los carruseles */
-.carousel-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
 
 /* ========================================
    COMPONENTES COMPARTIDOS
@@ -64,20 +51,26 @@
   padding: 20px;
   box-sizing: border-box;
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-  transform: translateY(100%); /* Oculto por defecto */
+  transform: translateY(110%); /* Oculto por defecto, se desliza desde abajo */
   transition: transform var(--transition-time) var(--transition-easing);
 }
 
+.mini_carrusel-item .carousel-title,
+.seguir_jugando_item .carousel-title {
+  font-size: 1rem;
+}
+
+/* Botón dentro del overlay del mini carrusel */
 /* Títulos dentro de los carruseles */
 .carousel-title {
   color: white;
   font-size: 1.2rem;
   font-weight: 600;
   margin: 0;
-}
-
-.mini_carrusel-item .carousel-title {
-  font-size: 1rem; /* Más pequeño en el mini carrusel */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 110px;
 }
 
 /* Botón dentro del overlay del mini carrusel */
@@ -85,32 +78,31 @@
   position: absolute;
   bottom: 15px;
   right: 15px;
-  padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 6px;
+  padding: 10px 20px;
+  background: #22c55e;
+  border: none;
+  border-radius: 50px;
   color: white;
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.overlay_btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.05);
-}
+/* ========================================
+   CONTROLES DE NAVEGACIÓN (FLECHAS)
+   Botones para navegar entre slides
+   ======================================== */
 
-/* Controles de navegación (flechas) */
+/* Botón base de control */
 .control_carrusel {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%); /* Centra verticalmente el botón */
   width: 50px;
   height: 80px;
   border: none;
-  background: var(--control-bg);
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(8px);
   border-radius: 8px;
   cursor: pointer;
@@ -119,11 +111,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  will-change: transform;
 }
 
 .control_carrusel:hover {
-  background: var(--control-bg-hover);
-  transform: translateY(-50%) scale(1.15);
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-50%) scale(1.15); /* Mantiene centrado vertical + escala */
 }
 
 .control_carrusel.disabled {
@@ -132,13 +125,14 @@
   pointer-events: none;
 }
 
-/* Flechas animadas (< y >) */
+/* Contenedor de la flecha animada */
 .flecha {
   position: relative;
   width: 20px;
   height: 32px;
 }
 
+/* Líneas que forman la flecha (X en estado normal) */
 .flecha::before,
 .flecha::after {
   content: "";
@@ -152,7 +146,7 @@
   transition: all 0.3s ease;
 }
 
-/* Estado normal: X */
+/* Estado normal: forma de X */
 .flecha::before {
   transform: translate(-50%, -50%) rotate(45deg);
 }
@@ -163,19 +157,23 @@
 
 /* Hover: flecha izquierda < */
 .control_carrusel:hover .flecha_izquierda::before {
+  /* Mueve 4.5px a la derecha y 8.5px arriba para formar < */
   transform: translate(calc(-50% + 4.5px), calc(-50% - 8.5px)) rotate(45deg);
 }
 
 .control_carrusel:hover .flecha_izquierda::after {
+  /* Mueve 4.5px a la derecha y 8.5px abajo para formar < */
   transform: translate(calc(-50% + 4.5px), calc(-50% + 8.5px)) rotate(-45deg);
 }
 
 /* Hover: flecha derecha > */
 .control_carrusel:hover .flecha_derecha::before {
+  /* Mueve 4.5px a la izquierda y 8.5px abajo para formar > */
   transform: translate(calc(-50% - 4.5px), calc(-50% + 8.5px)) rotate(45deg);
 }
 
 .control_carrusel:hover .flecha_derecha::after {
+  /* Mueve 4.5px a la izquierda y 8.5px arriba para formar > */
   transform: translate(calc(-50% - 4.5px), calc(-50% - 8.5px)) rotate(-45deg);
 }
 
@@ -183,6 +181,8 @@
    CARRUSEL PRINCIPAL
    Carrusel grande con efecto 3D y rotación automática
    ======================================== */
+
+/* Contenedor principal del carrusel */
 .carrusel_contenedor {
   position: relative;
   width: 100%;
@@ -194,9 +194,10 @@
 .carrusel {
   width: 100%;
   height: 100%;
-  transform-style: preserve-3d; /* Mantiene transformaciones 3D */
+  transform-style: preserve-3d; /* Mantiene transformaciones 3D en elementos hijos */
 }
 
+/* Item individual del carrusel */
 .carrusel_item {
   position: absolute;
   top: 50%;
@@ -204,7 +205,7 @@
   width: var(--side-w);
   height: 100%;
   overflow: hidden;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); /* Centra el elemento desde su punto medio */
   transition:
     left var(--transition-time) var(--transition-easing),
     width var(--transition-time) var(--transition-easing),
@@ -212,11 +213,9 @@
     opacity var(--transition-time) var(--transition-easing),
     box-shadow var(--transition-time) var(--transition-easing);
   will-change: transform, left;
-  /* Agregado border-radius para esquinas redondeadas */
   border-radius: 12px;
 }
 
-/* Asegurar que las imágenes del carrusel principal tengan tamaño consistente */
 .carrusel_item img {
   width: 100%;
   height: 100%;
@@ -225,34 +224,42 @@
   display: block;
 }
 
-/* Estados de los slides */
+/* Estados de posición de los slides */
+
+/* Slide activo (centro) */
 .carrusel_item.activo {
   width: var(--center-w);
   box-shadow: 0 26px 60px rgba(0, 0, 0, 0.45);
 }
 
 .carrusel_item.activo .overlay {
-  transform: translateY(0); /* Muestra el overlay */
+  transform: translateY(0); /* Muestra el overlay deslizándolo hacia arriba */
 }
 
+/* Slide anterior (izquierda) */
 .carrusel_item.anterior {
+  /* Posición: mitad del contenedor - mitad del ancho central - porción visible lateral */
   left: calc(50% - (var(--center-w) / 2) - var(--visible-side));
-  transform: translate(-50%, -50%) scale(0.95) rotateY(55deg);
+  transform: translate(-50%, -50%) scale(0.95) rotateY(55deg); /* Escala reducida + rotación 3D */
 }
 
+/* Slide siguiente (derecha) */
 .carrusel_item.siguiente {
+  /* Posición: mitad del contenedor + mitad del ancho central + porción visible lateral */
   left: calc(50% + (var(--center-w) / 2) + var(--visible-side));
-  transform: translate(-50%, -50%) scale(0.95) rotateY(-55deg);
+  transform: translate(-50%, -50%) scale(0.95) rotateY(-55deg); /* Escala reducida + rotación 3D inversa */
 }
 
+/* Slides ocultos (fuera de vista) */
 .carrusel_item.hidden {
-  left: 120%;
+  left: 120%; /* Fuera del viewport a la derecha */
   transform: translate(0, -50%) scale(0.7);
   opacity: 0;
 }
 
 /* Posicionamiento de controles del carrusel principal */
 .carrusel_contenedor .btn_anterior {
+  /* Centra el botón en el espacio entre el borde y el slide central */
   left: calc((50% - var(--center-w) / 2) / 2);
   transform: translate(-50%, -50%);
 }
@@ -262,6 +269,7 @@
 }
 
 .carrusel_contenedor .btn_siguiente {
+  /* Centra el botón en el espacio entre el slide central y el borde derecho */
   right: calc((50% - var(--center-w) / 2) / 2);
   transform: translate(50%, -50%);
 }
@@ -270,17 +278,21 @@
   transform: translate(50%, -50%) scale(1.15);
 }
 
-/* Indicadores de progreso */
+/* ========================================
+   INDICADORES DE PROGRESO
+   Puntos que muestran el slide actual
+   ======================================== */
 .carrusel_indicadores {
   position: absolute;
   bottom: 18px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%); /* Centra horizontalmente */
   display: flex;
   gap: 10px;
   z-index: 10;
 }
 
+/* Indicador individual */
 .indicador {
   width: 8px;
   height: 8px;
@@ -289,7 +301,7 @@
   transition: all 0.25s;
 }
 
-/* Indicador activo con barra de progreso */
+/* Indicador activo con barra de progreso animada */
 .indicador.activo {
   width: 44px;
   height: 6px;
@@ -299,6 +311,7 @@
   overflow: hidden;
 }
 
+/* Barra de progreso que se llena */
 .indicador.activo::after {
   content: "";
   position: absolute;
@@ -307,14 +320,11 @@
   height: 100%;
   width: 0;
   background: #fff;
-  animation: barra_progreso 10s linear;
+  animation: barra_progreso 10s linear; /* Se llena en 10 segundos */
 }
 
 @keyframes barra_progreso {
-  0% {
-    width: 0;
-  }
-  100% {
+  to {
     width: 100%;
   }
 }
@@ -323,23 +333,26 @@
    MINI CARRUSEL
    Carrusel compacto que muestra 3 items a la vez
    ======================================== */
+
+/* Contenedor del mini carrusel */
 .mini_carrusel_contenedor {
   position: relative;
   width: 100%;
   height: var(--mini-carousel-h);
   perspective: 800px;
-  margin: 40px auto;
+  margin: 5px auto 40px;
   padding: 30px 0;
   overflow: visible;
 }
 
 .mini_carrusel {
   position: relative;
-  width: 100%;
+  width: 90%;
   height: 100%;
   transform-style: preserve-3d;
 }
 
+/* Item individual del mini carrusel */
 .mini_carrusel-item {
   position: absolute;
   top: 50%;
@@ -371,6 +384,7 @@
   padding: 15px;
 }
 
+/* Hover en items del mini carrusel */
 .mini_carrusel-item:hover {
   transform: translate(-50%, -50%) scale(1.05);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
@@ -380,9 +394,12 @@
   transform: translateY(0);
 }
 
-/* Estados de los items del mini carrusel */
+/* Estados de posición de los items del mini carrusel */
+
+/* Item izquierdo activo (visible) */
 .mini_carrusel-item.izquierda_activa {
   width: var(--mini-item-w);
+  /* Posición: 10% desde el borde + mitad del ancho del item */
   left: calc(10% + var(--mini-item-w) / 2);
   transform: translate(-50%, -50%) scale(0.95);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
@@ -394,21 +411,26 @@
   box-shadow: 0 24px 50px rgba(0, 0, 0, 0.5);
 }
 
+/* Item central activo (más grande y prominente) */
 .mini_carrusel-item.centro_activo {
   width: var(--mini-item-w);
   left: 50%;
-  transform: translate(-50%, -50%) scale(1);
+  /* Cambiado scale de 1 a 0.95 para igualar altura con elementos laterales */
+  transform: translate(-50%, -50%) scale(0.95);
   box-shadow: 0 26px 60px rgba(0, 0, 0, 0.45);
   z-index: 4;
 }
 
 .mini_carrusel-item.centro_activo:hover {
-  transform: translate(-50%, -50%) scale(1.08);
+  /* Ajustado hover para mantener consistencia con el nuevo scale base */
+  transform: translate(-50%, -50%) scale(1.05);
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
 }
 
+/* Item derecho activo (visible) */
 .mini_carrusel-item.derecha_activa {
   width: var(--mini-item-w);
+  /* Posición: 90% desde el borde - mitad del ancho del item */
   left: calc(90% - var(--mini-item-w) / 2);
   transform: translate(-50%, -50%) scale(0.95);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
@@ -420,20 +442,25 @@
   box-shadow: 0 24px 50px rgba(0, 0, 0, 0.5);
 }
 
+/* Item anterior (parcialmente visible a la izquierda) */
 .mini_carrusel-item.anterior {
+  /* Posición: 5% desde el borde - porción visible lateral */
   left: calc(5% - var(--mini-visible-side));
   transform: translate(-50%, -50%) scale(0.85) rotateY(45deg);
   opacity: 0.5;
   z-index: 1;
 }
 
+/* Item siguiente (parcialmente visible a la derecha) */
 .mini_carrusel-item.siguiente {
+  /* Posición: 95% desde el borde + porción visible lateral */
   left: calc(95% + var(--mini-visible-side));
   transform: translate(-50%, -50%) scale(0.85) rotateY(-45deg);
   opacity: 0.5;
   z-index: 1;
 }
 
+/* Items ocultos fuera de vista */
 .mini_carrusel-item.hidden-left {
   left: -20%;
   transform: translate(-50%, -50%) scale(0.7) rotateY(45deg);
@@ -448,7 +475,7 @@
   z-index: 0;
 }
 
-/* Controles del mini carrusel (más pequeños) */
+/* Controles del mini carrusel (más pequeños que el principal) */
 .mini_carrusel_contenedor .control_carrusel {
   width: 40px;
   height: 60px;
@@ -474,7 +501,7 @@
   height: 18px;
 }
 
-/* Ajustes para hover en mini carrusel */
+/* Ajustes para hover en flechas del mini carrusel */
 .mini_carrusel_contenedor .control_carrusel:hover .flecha_izquierda::before {
   transform: translate(calc(-50% + 4px), calc(-50% - 7px)) rotate(45deg);
 }
@@ -496,35 +523,32 @@
    Muestra 3 juegos en progreso horizontalmente
    ======================================== */
 .seguir_jugando {
-  width: 50%;
-  max-width: 1200px;
-  margin: auto 180px;
+  width: 90%;
+  max-width: 800px;
+  margin-left:160px;
   display: flex;
   gap: 20px;
   justify-content: flex-start;
   align-items: stretch;
 }
 
+/* Item individual de seguir jugando */
 .seguir_jugando_item {
-  flex: 0 0 calc(33.333% - 14px);
-  min-width: 250px;
-  height: 140px;
+  flex: 0 0 calc(33.333% - 14px); /* Ocupa 1/3 del ancho menos el gap proporcional */
+  min-width: 200px;
+  height: 180px;
   border-radius: 12px;
   overflow: hidden;
   position: relative;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  will-change: transform;
 }
 
 .seguir_jugando_item:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-}
-
-/* Activar overlay en hover para seguir jugando */
-.seguir_jugando_item:hover .overlay {
-  transform: translateY(0);
 }
 
 .seguir_jugando_item img {
@@ -569,53 +593,66 @@
   width: 90%;
   height: auto;
   max-width: 1200px;
-  margin: 60px auto 20px;
-  padding: 30px;
+  margin: 5px auto 40px;
+  padding: 0;
   background: rgba(5, 23, 14, 0.927);
   border-radius: 16px;
   display: flex;
-  gap: 30px;
-  align-items: center;
+  flex-direction: row;
+  gap: 0;
+  align-items: stretch;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
 }
 
-/* Imagen del juego recomendado - ahora ocupa 72% del espacio (más grande) */
+/* Imagen del juego recomendado con efecto 3D */
 .recomendacion_usuario > img {
-  flex: 0 0 72%;
-  max-width: 800px;
-  width: 100%;
+  flex: 0 0 65%; /* Ocupa exactamente 65% del ancho */
+  width: 65%;
   height: auto;
-  aspect-ratio: 16 / 9;
-  border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
-  transform: perspective(800px) rotateY(-2deg);
+  min-height: 400px;
   object-fit: cover;
+  object-position: center;
+  border-radius: 0;
+  /* Sombra proyectada hacia la derecha para simular profundidad */
+  box-shadow: 20px 0 40px rgba(0, 0, 0, 0.6), 30px 0 60px rgba(0, 0, 0, 0.4);
+  /* Rotación 3D: perspectiva de 1000px, rotación de -3° en eje Y, escala ligeramente aumentada */
+  transform: perspective(1000px) rotateY(-3deg) scale(1.02);
+  z-index: 2;
+  position: relative;
 }
 
-/* Contenedor del comentario - ahora ocupa 28% del espacio (más compacto) */
+/* Contenedor del comentario y usuario */
 .recomendacion_usuario > div {
-  flex: 0 0 28%;
+  flex: 0 0 35%; /* Ocupa exactamente 35% del ancho */
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  justify-content: center;
+  gap: 0;
+  justify-content: space-between; /* Comentario arriba, usuario abajo */
+  align-items: flex-start;
+  padding: 50px 35px;
+  z-index: 1;
 }
 
 /* Texto del comentario */
 .comentario {
   color: rgba(255, 255, 255, 0.9);
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.7;
   margin: 0;
   font-style: italic;
+  max-width: 100%;
+  flex-grow: 1;
+
 }
 
-/* Información del usuario */
+/* Información del usuario (avatar + nombre) */
 .usuario {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: auto;
+  margin-top: 20px;
+  flex-shrink: 0;
 }
 
 .usuario img {
@@ -635,7 +672,35 @@
 
 /* ========================================
    RESPONSIVE - Adaptación para móviles
+   Ajustes para diferentes tamaños de pantalla
    ======================================== */
+
+/* Tablets (1024px y menos) */
+@media (max-width: 1024px) {
+  .seguir_jugando {
+    width: 95%;
+    gap: 15px;
+  }
+
+  .seguir_jugando_item {
+    min-width: 180px;
+    height: 160px;
+  }
+
+  .recomendacion_usuario > img {
+    flex: 0 0 60%;
+    width: 60%;
+    min-height: 350px;
+  }
+
+  .recomendacion_usuario > div {
+    flex: 0 0 40%;
+    padding: 35px 25px;
+  }
+}
+
+
+/* Móviles pequeños (480px y menos) */
 @media (max-width: 480px) {
   :root {
     --center-w: 92%;
@@ -666,15 +731,15 @@
 
   .ofertas_exclusivas img {
     max-height: 200px;
+    margin-top: 0px;
+  }
+ .recomendacion_usuario {
+    padding: 0;
+    gap: 0;
   }
 
-  .recomendacion_usuario {
-    padding: 15px;
-    gap: 15px;
-  }
-
-  .comentario {
-    font-size: 0.9rem;
+  .recomendacion_usuario > img {
+    min-height: 200px;
   }
 
   .usuario img {
