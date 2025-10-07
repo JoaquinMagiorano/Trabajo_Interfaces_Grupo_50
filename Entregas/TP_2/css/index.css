@@ -1,6 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
 /* ========================================
    VARIABLES GLOBALES - MOBILE FIRST
    ======================================== */
+
+   h1,h2,h3,h4,h5,p{
+      font-family: 'Nunito', sans-serif;
+      color: #fff;
+   }
+   p{
+    font-size: 16px;
+   }
 :root {
   /* Reduciendo dimensiones de contenedores para mobile */
   --center-w: 90%;
