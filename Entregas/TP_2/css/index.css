@@ -611,9 +611,9 @@
 }
 
 /* Imagen del juego recomendado con efecto 3D */
-.recomendacion_usuario > img {
-  flex: 0 0 65%; /* Ocupa exactamente 65% del ancho */
-  width: 65%;
+.recomendacion_usuario > a > img {
+  flex: 0 0 100%; /* Ocupa exactamente 65% del ancho */
+  width: 100%;
   height: auto;
   min-height: 400px;
   object-fit: cover;
