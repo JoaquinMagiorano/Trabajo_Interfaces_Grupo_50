@@ -76,9 +76,15 @@ main {
     align-items: center;
     border-top: 1px solid #444;
 }
+
+.datos_barra h1 {
+    color: rgb(255, 255, 255);
+}
+
 .redes {
     padding-left: 500px;
 }
+
 .redes img{
     width: 30px;
     height: 30px;
@@ -100,7 +106,7 @@ main {
     width: 100%;
     height: 60px;
     z-index: 5;
-    bottom: 6rem;
+    bottom: 5rem;
 }
 
 #menu_compartir img{
