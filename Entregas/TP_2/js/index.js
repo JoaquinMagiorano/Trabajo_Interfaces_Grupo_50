@@ -143,9 +143,9 @@ todos_los_mini_carruseles.forEach((contenedor_mini) => {
   const indice_mini_maximo = Math.max(0, items_mini.length - 3)
 
   function obtenerClaseMini(index) {
-    if (index === indice_mini_actual) return "izquierda_activa"
+    if (index === indice_mini_actual) return "izquierda_activo"
     if (index === indice_mini_actual + 1) return "centro_activo"
-    if (index === indice_mini_actual + 2) return "derecha_activa"
+    if (index === indice_mini_actual + 2) return "derecha_activo"
     if (index === indice_mini_actual - 1) return "anterior"
     if (index === indice_mini_actual + 3) return "siguiente"
     if (index < indice_mini_actual - 1) return "hidden-left"

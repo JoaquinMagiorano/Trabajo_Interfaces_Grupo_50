@@ -10,9 +10,9 @@
   --carousel-h: 500px; /* Altura del carrusel principal */
 
   /* Mini carrusel - dimensiones y espaciado */
-  --mini-item-w: 35%; /* Ancho de cada item del mini carrusel */
+  --mini-item-w: 30%; /* Ancho de cada item del mini carrusel */
   --mini-side-w: 24%; /* Ancho de items laterales */
-  
+
   --mini-carousel-h: 220px; /* Altura del mini carrusel */
 
   /* Transiciones - animaciones suaves */
@@ -93,6 +93,13 @@
   transition: all 0.3s ease;
 }
 
+/* Agregando hover simple al botón del overlay */
+.overlay_btn:hover {
+  background: #16a34a;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+}
+
 /* ========================================
    CONTROLES DE NAVEGACIÓN (FLECHAS)
    Botones para navegar entre slides
@@ -103,8 +110,8 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%); /* Centra verticalmente el botón */
-  width: 50px;
-  height: 80px;
+  width: 55px;
+  height: 95px;
   border: none;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(8px);
@@ -132,8 +139,8 @@
 /* Contenedor de la flecha animada */
 .flecha {
   position: relative;
-  width: 20px;
-  height: 32px;
+  width: 24px;
+  height: 40px;
 }
 
 /* Líneas que forman la flecha (X en estado normal) */
@@ -141,8 +148,8 @@
 .flecha::after {
   content: "";
   position: absolute;
-  width: 3px;
-  height: 24px;
+  width: 3.5px;
+  height: 30px;
   background: #fff;
   border-radius: 2px;
   top: 50%;
@@ -161,24 +168,20 @@
 
 /* Hover: flecha izquierda < */
 .control_carrusel:hover .flecha_izquierda::before {
-  /* Mueve 4.5px a la derecha y 8.5px arriba para formar < */
-  transform: translate(calc(-50% + 4.5px), calc(-50% - 8.5px)) rotate(45deg);
+  transform: translate(calc(-50% + 5px), calc(-50% - 10px)) rotate(45deg);
 }
 
 .control_carrusel:hover .flecha_izquierda::after {
-  /* Mueve 4.5px a la derecha y 8.5px abajo para formar < */
-  transform: translate(calc(-50% + 4.5px), calc(-50% + 8.5px)) rotate(-45deg);
+  transform: translate(calc(-50% + 5px), calc(-50% + 10px)) rotate(-45deg);
 }
 
 /* Hover: flecha derecha > */
 .control_carrusel:hover .flecha_derecha::before {
-  /* Mueve 4.5px a la izquierda y 8.5px abajo para formar > */
-  transform: translate(calc(-50% - 4.5px), calc(-50% + 8.5px)) rotate(45deg);
+  transform: translate(calc(-50% - 5px), calc(-50% + 10px)) rotate(45deg);
 }
 
 .control_carrusel:hover .flecha_derecha::after {
-  /* Mueve 4.5px a la izquierda y 8.5px arriba para formar > */
-  transform: translate(calc(-50% - 4.5px), calc(-50% - 8.5px)) rotate(-45deg);
+  transform: translate(calc(-50% - 5px), calc(-50% - 10px)) rotate(-45deg);
 }
 
 /* ========================================
@@ -351,11 +354,10 @@
 
 .mini_carrusel {
   position: relative;
-  width: var(--center-w);
+  width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  margin-left: calc((100% - var(--center-w)) / 2);
-
+  margin-left: 0;
 }
 
 /* Item individual del mini carrusel */
@@ -391,19 +393,33 @@
 }
 
 /* Hover en items del mini carrusel */
-.mini_carrusel-item:hover {
-  transform: translate(-50%, -50%) scale(1.05);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
-}
-
 .mini_carrusel-item:hover .overlay {
   transform: translateY(0);
+}
+
+/* Agregando hovers específicos para cada estado del mini-carrusel */
+/* Item izquierdo activo hover */
+.mini_carrusel-item.izquierda_activo:hover {
+  transform: translate(-50%, -50%) scale(1.02);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+}
+
+/* Item central activo hover */
+.mini_carrusel-item.centro_activo:hover {
+  transform: translate(-50%, -50%) scale(1.02);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
+}
+
+/* Item derecho activo hover */
+.mini_carrusel-item.derecha_activo:hover {
+  transform: translate(-50%, -50%) scale(1.02);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
 }
 
 /* Estados de posición de los items del mini carrusel */
 
 /* Item izquierdo activo (visible) */
-.mini_carrusel-item.izquierda_activa {
+.mini_carrusel-item.izquierda_activo {
   width: var(--mini-item-w);
   left: calc(var(--mini-item-w) / 2 + 2%);
   transform: translate(-50%, -50%) scale(0.95);
@@ -421,7 +437,7 @@
 }
 
 /* Item derecho activo (visible) */
-.mini_carrusel-item.derecha_activa {
+.mini_carrusel-item.derecha_activo {
   width: var(--mini-item-w);
   left: calc(100% - var(--mini-item-w) / 2 - 2%);
   transform: translate(-50%, -50%) scale(0.95);
@@ -431,6 +447,7 @@
 
 /* Item anterior (parcialmente visible a la izquierda) */
 .mini_carrusel-item.anterior {
+  width: var(--mini-side-w);
   left: calc(-8%);
   transform: translate(-50%, -50%) scale(0.85) rotateY(45deg);
   opacity: 0.5;
@@ -439,6 +456,7 @@
 
 /* Item siguiente (parcialmente visible a la derecha) */
 .mini_carrusel-item.siguiente {
+  width: var(--mini-side-w);
   left: calc(108%);
   transform: translate(-50%, -50%) scale(0.85) rotateY(-45deg);
   opacity: 0.5;
@@ -462,45 +480,45 @@
 
 /* Controles del mini carrusel (más pequeños que el principal) */
 .mini_carrusel_contenedor .control_carrusel {
-  width: 40px;
-  height: 60px;
+  width: 50px;
+  height: 75px;
   border-radius: 6px;
 }
 
 .mini_carrusel_contenedor .btn_anterior {
-  left: calc(var(--content-padding-left) - 50px);
+  left: 20px;
 }
 
 .mini_carrusel_contenedor .btn_siguiente {
-  right: calc(var(--content-padding-left) - 50px);
+  right: 20px;
 }
 
 .mini_carrusel_contenedor .flecha {
-  width: 16px;
-  height: 24px;
+  width: 20px;
+  height: 32px;
 }
 
 .mini_carrusel_contenedor .flecha::before,
 .mini_carrusel_contenedor .flecha::after {
-  width: 2.5px;
-  height: 18px;
+  width: 3px;
+  height: 24px;
 }
 
 /* Ajustes para hover en flechas del mini carrusel */
 .mini_carrusel_contenedor .control_carrusel:hover .flecha_izquierda::before {
-  transform: translate(calc(-50% + 4px), calc(-50% - 7px)) rotate(45deg);
+  transform: translate(calc(-50% + 5px), calc(-50% - 9px)) rotate(45deg);
 }
 
 .mini_carrusel_contenedor .control_carrusel:hover .flecha_izquierda::after {
-  transform: translate(calc(-50% + 4px), calc(-50% + 7px)) rotate(-45deg);
+  transform: translate(calc(-50% + 5px), calc(-50% + 9px)) rotate(-45deg);
 }
 
 .mini_carrusel_contenedor .control_carrusel:hover .flecha_derecha::before {
-  transform: translate(calc(-50% - 4px), calc(-50% + 7px)) rotate(45deg);
+  transform: translate(calc(-50% - 5px), calc(-50% + 9px)) rotate(45deg);
 }
 
 .mini_carrusel_contenedor .control_carrusel:hover .flecha_derecha::after {
-  transform: translate(calc(-50% - 4px), calc(-50% - 7px)) rotate(-45deg);
+  transform: translate(calc(-50% - 5px), calc(-50% - 9px)) rotate(-45deg);
 }
 
 /* ========================================
@@ -611,14 +629,13 @@
 
 /* Contenedor del comentario y usuario */
 .seccion_comentario {
-  flex: 0 0 35%; /* Ocupa exactamente 35% del ancho */
   display: flex;
   flex-direction: column;
-  gap: 0;
   justify-content: space-between; /* Comentario arriba, usuario abajo */
   align-items: flex-start;
-  padding: 50px 35px;
+  padding: 35px 50px;
   z-index: 1;
+  overflow: hidden;
 }
 
 /* Texto del comentario */
@@ -630,6 +647,8 @@
   font-style: italic;
   max-width: 100%;
   flex-grow: 1;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 /* Información del usuario (avatar + nombre) */
@@ -661,58 +680,6 @@
    Ajustes para diferentes tamaños de pantalla
    ======================================== */
 
-/* Tablets (1024px y menos) */
-@media (max-width: 1024px) {
-  :root {
-    --content-padding-left: 5%;
-  }
-
-  .mini_carrusel {
-    width: 90%;
-    margin-left: 5%;
-  }
-
-  .mini_carrusel_contenedor .btn_anterior {
-    left: 2%;
-  }
-
-  .mini_carrusel_contenedor .btn_siguiente {
-    right: 2%;
-  }
-
-  .seguir_jugando {
-    width: 90%;
-    margin-left: 5%;
-    gap: 15px;
-  }
-
-  .seguir_jugando_item {
-    min-width: 180px;
-    height: 160px;
-  }
-
-  .ofertas_exclusivas {
-    width: 90%;
-    margin-left: 5%;
-  }
-
-  .recomendacion_usuario {
-    width: 90%;
-    margin-left: 5%;
-  }
-
-  .recomendacion_usuario > img {
-    flex: 0 0 60%;
-    width: 60%;
-    min-height: 350px;
-  }
-
-  .seccion_comentario {
-    flex: 0 0 40%;
-    padding: 35px 25px;
-  }
-}
-
 /* Móviles pequeños (480px y menos) */
 @media (max-width: 480px) {
   :root {
@@ -740,8 +707,8 @@
   }
 
   .mini_carrusel {
-    width: 92%;
-    margin-left: 4%;
+    width: 100%;
+    margin-left: 0;
   }
 
   .seguir_jugando {
