@@ -228,11 +228,13 @@ background: #011f06a1;
 .comentar_usuario {
     display: flex;
     gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 5%;
     padding: 15px;
-    background: #333;
+    backdrop-filter: blur(4px);
+    background: #011f06a1;
     border-radius: 50px;
     border: 1px solid #444;
+    align-items: center;
 }
 
 .avatar_usuario {
@@ -245,8 +247,9 @@ background: #011f06a1;
     justify-content: center;
     color: #4caf50;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 12px;
     flex-shrink: 0;
+    border: 1px solid rgb(0, 0, 0);
 }
 
 .input_comentario {
@@ -308,20 +311,6 @@ background: #011f06a1;
     margin-bottom: 6px;
 }
 
-.avatar_usuario {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    background: #222;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #4caf50;
-    font-weight: bold;
-    font-size: 12px;
-    flex-shrink: 0;
-}
-
 .nombre_usuario {
     color: #4caf50;
     font-weight: 600;
@@ -335,7 +324,7 @@ background: #011f06a1;
     margin-left: 47px;
 }
 
-.coemntario_foot {
+.comentario_foot {
     display: flex;
     gap: 15px;
     margin-top: 10px;
