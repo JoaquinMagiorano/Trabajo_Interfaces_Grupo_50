@@ -4,7 +4,7 @@
    ======================================== */
 :root {
   /* Carrusel principal - dimensiones y espaciado */
-  --center-w: 60%; /* Ancho del slide central activo */
+  --center-w: 70%; /* Ancho del slide central activo */
   --side-w: 50%; /* Ancho de los slides laterales */
   --visible-side: calc(var(--side-w) / 3); /* Porción visible de slides laterales (1/3 del ancho lateral) */
   --carousel-h: 500px; /* Altura del carrusel principal */

@@ -2,9 +2,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const tabs = document.querySelectorAll(".tab")
   const forms = document.querySelectorAll(".form")
   const loginForm = document.getElementById("login")
+  const registerForm = document.getElementById("register")
   const loadingScreen = document.getElementById("loading-screen")
   const progressFill = document.getElementById("progress-fill")
   const loadingPercentage = document.getElementById("loading-percentage")
+  const socialLinks = document.querySelectorAll(".social_login a")
 
   tabs.forEach((tab) => {
     tab.addEventListener("click", () => {
@@ -21,9 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   })
 
-  loginForm.addEventListener("submit", (e) => {
-    e.preventDefault()
-
+  function showLoadingScreen() {
     // Mostrar pantalla de carga
     loadingScreen.classList.add("active")
 
@@ -59,5 +59,22 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       })
     }, interval)
+  }
+
+  loginForm.addEventListener("submit", (e) => {
+    e.preventDefault()
+    showLoadingScreen()
+  })
+
+  registerForm.addEventListener("submit", (e) => {
+    e.preventDefault()
+    showLoadingScreen()
+  })
+
+  socialLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault()
+      showLoadingScreen()
+    })
   })
 })
