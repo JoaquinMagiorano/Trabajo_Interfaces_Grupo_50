@@ -6,6 +6,7 @@ html,body {
   height: 100%;
   padding: 0;
   margin: 0;
+  max-width: 100vw;
 }
 
 body {
@@ -18,6 +19,7 @@ body {
   background-repeat: repeat-y;
   background-attachment: scroll;
   overflow-x: hidden;
+  max-width: 100vw; /* <-- AGREGAR ESTA LÍNEA */
 }
 
 main {
@@ -57,7 +59,9 @@ header {
   left: 0;
   background-color: rgba(18, 18, 18, 1);
   height: 60px;
-  width: 100%;
+  width: 100vw;
+  max-width: 100vw;
+  box-sizing: border-box;
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;

@@ -101,6 +101,7 @@
   height: var(--carousel-h);
   perspective: 800px;
   margin: 20px auto;
+  overflow: hidden;
 }
 
 .carrusel {
@@ -228,7 +229,7 @@
   height: var(--mini-carousel-h);
   perspective: 800px;
   margin: 5px auto 30px;
-  overflow: visible;
+  overflow: hidden;
   align-items: center;
 }
 
