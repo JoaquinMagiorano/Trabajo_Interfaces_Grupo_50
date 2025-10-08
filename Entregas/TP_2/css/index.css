@@ -468,6 +468,19 @@
   font-weight: 500;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ========================================
    RESPONSIVE - DESKTOP (768px y más)
    ======================================== */
@@ -656,7 +669,7 @@
   }
 
   .mini_carrusel_contenedor {
-    width: 80%;
+    width: 70%;
   }
 
   .carousel-title {
