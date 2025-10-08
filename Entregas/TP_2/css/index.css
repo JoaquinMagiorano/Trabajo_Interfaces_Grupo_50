@@ -284,7 +284,7 @@
 .mini_carrusel-item.centro_activo {
   width: var(--mini-item-w);
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.95);
+  transform: translate(-50%, -50%) scale(0.9);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
   z-index: 4;
 }
@@ -481,6 +481,9 @@
 
 
 
+
+
+
 /* ========================================
    RESPONSIVE - DESKTOP (768px y más)
    ======================================== */
@@ -579,30 +582,21 @@
     border-radius: 2px;
     top: 50%;
     left: 50%;
-    transition: all 0.3s ease;
   }
 
-  .flecha::before {
-    transform: translate(-50%, -50%) rotate(45deg);
-  }
-
-  .flecha::after {
-    transform: translate(-50%, -50%) rotate(-45deg);
-  }
-
-  .control_carrusel:hover .flecha_izquierda::before {
+  .flecha_izquierda::before {
     transform: translate(calc(-50% + 5px), calc(-50% - 10px)) rotate(45deg);
   }
 
-  .control_carrusel:hover .flecha_izquierda::after {
+  .flecha_izquierda::after {
     transform: translate(calc(-50% + 5px), calc(-50% + 10px)) rotate(-45deg);
   }
 
-  .control_carrusel:hover .flecha_derecha::before {
+  .flecha_derecha::before {
     transform: translate(calc(-50% - 5px), calc(-50% + 10px)) rotate(45deg);
   }
 
-  .control_carrusel:hover .flecha_derecha::after {
+  .flecha_derecha::after {
     transform: translate(calc(-50% - 5px), calc(-50% - 10px)) rotate(-45deg);
   }
 
@@ -669,7 +663,7 @@
   }
 
   .mini_carrusel_contenedor {
-    width: 70%;
+    width: 80%;
   }
 
   .carousel-title {
