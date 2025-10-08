@@ -114,7 +114,7 @@ main {
     width: 100%;
     height: 60px;
     z-index: 5;
-    bottom: 11.5%;
+    bottom: 5rem;
 }
 
 #menu_compartir img{
@@ -163,26 +163,8 @@ background: #011f06a1;
     transition: all 0.3s ease;
 }
 
-.info_titulo h4 a {
-    text-decoration: none;
-    color: lightblue;
-}
-
-.info_titulo h4 a:hover{
-    color: rgb(25, 78, 158);
-}
-
 .info_que_es {
     border-bottom: none;
-}
-
-.info_que_es a{
-    text-decoration: none;
-    color: lightblue;
-}
-
-.info_que_es a:hover{
-    color: rgb(25, 78, 158);
 }
 
 .info_titulo h1 {

@@ -1,26 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 
 /* ========================================
    VARIABLES GLOBALES - MOBILE FIRST
    ======================================== */
 
-   h1,h2,h3,h4,h5,p{
-      font-family: 'Nunito', sans-serif;
-      color: #fff;
-   }
-   p{
-    font-size: 16px;
-   }
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  font-family: "Nunito", sans-serif;
+  color: #fff;
+}
+p {
+  font-size: 16px;
+}
 :root {
   /* Reduciendo dimensiones de contenedores para mobile */
   --center-w: 90%;
   --side-w: 86%;
   --visible-side: 0;
-  --carousel-h: 180px;
+  /* Aumentando altura del carrusel principal en mobile a 350px para evitar recortes */
+  --carousel-h: 350px;
 
   /* Mini carrusel mostrando 3 elementos más pequeños en mobile */
-  --mini-item-w: 28%;
+  --mini-item-w: 32%;
   --mini-side-w: 25%;
+  
   --mini-carousel-h: 100px;
 
   --transition-time: 0.85s;
@@ -131,9 +138,12 @@
 .carrusel_item img {
   width: 100%;
   height: 100%;
+  /* Manteniendo object-fit: cover para preservar dimensiones originales de las imágenes */
   object-fit: cover;
   object-position: center;
   display: block;
+  /* Agregando fondo negro para rellenar espacios vacíos */
+  background-color: #000;
 }
 
 .carrusel_item.activo {
@@ -264,8 +274,11 @@
 .mini_carrusel-item img {
   width: 100%;
   height: 100%;
+  /* Manteniendo object-fit: cover */
   object-fit: cover;
   display: block;
+  /* Agregando fondo negro */
+  background-color: #000;
 }
 
 .mini_carrusel-item .overlay {
@@ -276,7 +289,7 @@
 .mini_carrusel-item.izquierda_activo {
   width: var(--mini-item-w);
   left: calc(var(--mini-item-w) / 2 + 3%);
-  transform: translate(-50%, -50%) scale(0.9);
+  transform: translate(-50%, -50%) scale(0.85);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   z-index: 3;
 }
@@ -284,7 +297,7 @@
 .mini_carrusel-item.centro_activo {
   width: var(--mini-item-w);
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.9);
+  transform: translate(-50%, -50%) scale(0.85);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
   z-index: 4;
 }
@@ -292,7 +305,7 @@
 .mini_carrusel-item.derecha_activo {
   width: var(--mini-item-w);
   left: calc(100% - var(--mini-item-w) / 2 - 3%);
-  transform: translate(-50%, -50%) scale(0.9);
+  transform: translate(-50%, -50%) scale(0.85);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   z-index: 3;
 }
@@ -334,7 +347,7 @@
    ======================================== */
 /* Manteniendo tamaño pequeño igual que desktop */
 .seguir_jugando {
-  width: 90%;
+  width: 80%;
   margin: 5px auto 30px;
   display: flex;
   gap: 6px;
@@ -346,7 +359,8 @@
 .seguir_jugando_item {
   flex: 0 0 calc(33.333% - 5px);
   min-width: 30px;
-  height: 50px;
+  /* Aumentando altura a 140px en mobile */
+  height: 60px;
   border-radius: 6px;
   overflow: hidden;
   position: relative;
@@ -359,6 +373,7 @@
 .seguir_jugando_item img {
   width: 100%;
   height: 100%;
+  /* Manteniendo object-fit: cover */
   object-fit: cover;
   display: block;
 }
@@ -405,7 +420,6 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
   overflow: hidden;
 }
-
 
 /* Imagen del juego recomendado con efecto 3D */
 .recomendacion_usuario > a > img {
@@ -468,22 +482,6 @@
   font-weight: 500;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* ========================================
    RESPONSIVE - DESKTOP (768px y más)
    ======================================== */
@@ -493,10 +491,11 @@
     --center-w: 70%;
     --side-w: 50%;
     --visible-side: calc(var(--side-w) / 3);
-    --carousel-h: 500px;
-    --mini-item-w: 30%;
+    /* Aumentando altura del carrusel principal en desktop a 600px */
+    --carousel-h: 600px;
+    --mini-item-w: 33%;
     --mini-side-w: 25%;
-    --mini-carousel-h: 220px;
+    --mini-carousel-h: 260px;
     --content-padding-left: calc((100% - var(--center-w)) / 2);
   }
 
@@ -601,7 +600,7 @@
   }
 
   .carrusel_contenedor {
-    margin: 80px auto;
+    margin: 20px auto;
   }
 
   /* Ajustando posición de slides anterior y siguiente en desktop */
@@ -681,8 +680,6 @@
     transform: translateY(0);
   }
 
-  
-
   .mini_carrusel-item.anterior {
     left: calc(-8%);
     opacity: 0.6;
@@ -694,17 +691,17 @@
   }
 
   .mini_carrusel-item.izquierda_activo:hover {
-    transform: translate(-50%, -50%) scale(1.02);
+    transform: translate(-50%, -50%) scale(0.9);
     box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
   }
 
   .mini_carrusel-item.centro_activo:hover {
-    transform: translate(-50%, -50%) scale(1.02);
+    transform: translate(-50%, -50%) scale(0.9);
     box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
   }
 
   .mini_carrusel-item.derecha_activo:hover {
-    transform: translate(-50%, -50%) scale(1.02);
+    transform: translate(-50%, -50%) scale(0.9);
     box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
   }
 
@@ -759,7 +756,8 @@
 
   .seguir_jugando_item {
     flex: 0 0 calc(33.333% - 14px);
-    height: 180px;
+    /* Aumentando altura en desktop a 260px */
+    height: 170px;
   }
 
   .seguir_jugando_item:hover {
