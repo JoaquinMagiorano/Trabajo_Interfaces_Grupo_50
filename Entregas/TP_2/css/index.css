@@ -4,12 +4,7 @@
    VARIABLES GLOBALES - MOBILE FIRST
    ======================================== */
 
-h1,
-h2,
-h3,
-h4,
-h5,
-p {
+h1,h2,h3,h4,h5,p {
   font-family: "Nunito", sans-serif;
   color: #fff;
 }
@@ -17,10 +12,10 @@ p {
   font-size: 16px;
 }
 :root {
-  /* Reduciendo dimensiones de contenedores para mobile */
-  --center-w: 90%;
-  --side-w: 86%;
-  --visible-side: 0;
+  /* dimensiones para carrusel principal mobile */
+  --center-w: 90%; /*ancho del central*/
+  --side-w: 86%; /*ancho de los laterales*/
+  --visible-side: 0; /*parte visibel de los elementso*/
   /* Aumentando altura del carrusel principal en mobile a 350px para evitar recortes */
   --carousel-h: 350px;
 
@@ -423,8 +418,7 @@ p {
 
 /* Imagen del juego recomendado con efecto 3D */
 .recomendacion_usuario > a > img {
-  flex: 0 0 100%; /* Ocupa exactamente 65% del ancho */
-
+  flex: 0 0 100%;
   width: 100%;
   height: auto;
   min-height: 150px;
@@ -436,6 +430,7 @@ p {
   z-index: 2;
   position: relative;
 }
+
 
 .seccion_comentario {
   display: flex;
@@ -624,10 +619,7 @@ p {
     box-shadow: 0 26px 60px rgba(0, 0, 0, 0.45);
   }
 
-  .carrusel_item.activo .overlay {
-    transform: translateY(0);
-  }
-
+  
   .carrusel_contenedor .btn_anterior {
     left: calc((50% - var(--center-w) / 2) / 2);
     transform: translate(-50%, -50%);
@@ -681,13 +673,17 @@ p {
   }
 
   .mini_carrusel-item.anterior {
-    left: calc(-8%);
-    opacity: 0.6;
+    left: 8%;
+    width: 20%;
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(0.75);
   }
 
   .mini_carrusel-item.siguiente {
-    left: calc(108%);
-    opacity: 0.6;
+    left: 92%;
+    width: 20%;
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(0.75);
   }
 
   .mini_carrusel-item.izquierda_activo:hover {
@@ -786,9 +782,9 @@ p {
     flex-direction: row;
   }
 
-  .recomendacion_usuario > img {
-    flex: 0 0 65%;
-    width: 65%;
+ .recomendacion_usuario > a > img {
+    flex: 0 0 100%;
+    width: 100%;
     min-height: 400px;
     box-shadow: 20px 0 40px rgba(0, 0, 0, 0.6), 30px 0 60px rgba(0, 0, 0, 0.4);
     transform: perspective(1000px) rotateY(-3deg) scale(1.02);
