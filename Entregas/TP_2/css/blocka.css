@@ -1,0 +1,190 @@
+.contenedor_jugable {
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+.pantalla_comienzo,
+.pantalla_instrucciones,
+.pantalla_jugable,
+.pantalla_victoria {
+    display: none;
+}
+
+
+.pantalla_comienzo.active,
+.pantalla_instrucciones.active,
+.pantalla_jugable.active,
+.pantalla_victoria.active {
+    display: block;
+}
+
+/*---------------- Pantalla de comienzo ----------------*/
+.pantalla_comienzo {
+    text-align: center;
+}
+
+.pantalla_comienzo h1 {
+    color: #667eea;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.menu_btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.pantalla_comienzo .btn,
+.pantalla_instrucciones .btn,
+.pantalla_jugable .btn,
+.pantalla_victoria .btn {
+    background: #2c2c2c;
+    color: #4caf50;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    font-weight: bold;
+    min-width: 200px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.pantalla_comienzo .btn:hover,
+.pantalla_instrucciones .btn:hover,
+.pantalla_jugable .btn:hover,
+.pantalla_victoria .btn:hover {
+    transform: scale(0.95);
+    box-shadow:  0 5px 15px rgba(0,0,0,0.3);
+}
+
+.galeria {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.galeria img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+/*---------------- Pantalla de instrucciones ----------------*/
+
+.pantalla_instrucciones {
+    text-align: left;
+}
+
+.instrucciones {
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.instrucciones h2 {
+    color: #66ea7a;
+    margin-bottom: 15px;
+    font-size: 2em;
+}
+
+.instrucciones h3 {
+    color: #66ea7a;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.instrucciones ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.instrucciones li {
+    margin-bottom: 10px;
+}
+
+.pantalla_instrucciones > div:last-child {
+    text-align: center;
+}
+
+/*---------------- Pantalla jugable ----------------*/
+
+.info_juego {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.info_nivel,
+.tiempo {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #333;
+}
+
+.pantalla_juego {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+#canvas {
+    border: 3px solid #66ea7a;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    max-width: 100%;
+    height: auto;
+}
+
+.pantalla_jugable > div:last-child {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+/*---------------- Pantalla de victoria ----------------*/
+
+.pantalla_victoria {
+    text-align: center;
+}
+
+.pantalla_victoria h2 {
+    color: #6fea66;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.tiempo_victoria {
+    font-size: 1.5em;
+    color: #333;
+    margin: 20px 0;
+}
+
+.pantalla_victoria > div:last-child {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
