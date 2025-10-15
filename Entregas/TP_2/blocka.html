@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="./css/gamePage.css">
     <link rel="stylesheet" href="./css/blocka.css">
-    <script src="./js/blocka.js" defer></script>
     <title>Document</title>
 </head>
 <body>
@@ -67,9 +66,9 @@
 
             <!-- pantalla principal, que aparece en la game_page -->
             
-            <div id="pantalla_difuminada" class="juego">
+            <div id="blur_screen" class="juego">
                 <img src="./img/frogames/frog_peg.png" alt="">
-                <button id="btn_comienzo"><h1>JUGAR</h1></button>
+                <button id="btn_start"><h1>JUGAR</h1></button>
             </div>
 
             <!-- pantalla priuncipal que aparece en el menu -->
@@ -132,6 +131,7 @@
 
                 <div>
                     <button class="btn"> ayudita </button>
+                    <button id="btn_reset" class="btn"> Reset </button>
                     <button class="btn"> volver al menu</button>
                 </div>
             </div>   
@@ -382,4 +382,5 @@
     <section class="menu_container"></section>
     <script src="./js/gamePage.js"></script>
     <script src="./js/menu.js"></script>
+    <script src="./js/blocka.js"></script>
 </html>
