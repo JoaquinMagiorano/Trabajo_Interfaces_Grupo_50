@@ -62,132 +62,92 @@
 
     <main>
 
-        <div class="contenedor_jugable">
+        <div class="pantalla">
 
-            <!-- pantalla principal, que aparece en la game_page -->
-            
-            <div id="blur_screen" class="juego">
-                <img src="./img/frogames/frog_peg.png" alt="">
-                <button id="btn_start"><h1>JUGAR</h1></button>
-            </div>
-
-            <!-- pantalla priuncipal que aparece en el menu -->
-            <div class="pantalla_comienzo">
-                <h1>froger lover</h1>
-
-                <div class="menu_btn">
-                    <button class="btn">instrucciones</button>
-                    <button class="btn">comenzar a jugar</button>
-                </div>
-
-                <div class="galeria">
-                    <img src="./img/random/momo.gif" alt="">
-                    <img src="./img/random/momo.gif" alt="">
-                    <img src="./img/random/momo.gif" alt="">
-                    <img src="./img/random/momo.gif" alt="">
-                    <img src="./img/random/momo.gif" alt="">
-                </div>
-            </div>
-
-            <!-- pantalla de instrucciones -->
-    
-            <div class="pantalla_instrucciones">
-                <div class="instrucciones">
-                    <h2>Cómo Jugar</h2>
-                    <p><strong>Objetivo:</strong> Rotar las 4 piezas de la imagen hasta formar la imagen completa correctamente.</p>
-                <h3>Controles:</h3>
-                <ul>
-                    <li><strong>Clic Izquierdo:</strong> Rota la pieza hacia la IZQUIERDA (90°)</li>
-                    <li><strong>Clic Derecho:</strong> Rota la pieza hacia la DERECHA (90°)</li>
-                </ul>
-                <h3>Niveles:</h3>
-                <ul>
-                    <li><strong>Nivel 1:</strong> Filtro de Escala de Grises</li>
-                    <li><strong>Nivel 2:</strong> Filtro de Brillo</li>
-                    <li><strong>Nivel 3:</strong> Filtro Negativo</li>
-                </ul>
-
-                <h3>Ayudita:</h3>
-                <p>Si necesitas ayuda, puedes usar el botón "Ayudita" que colocará correctamente una pieza</p>
-
-                <h3>Victoria:</h3>
-                <p>Cuando todas las piezas estén en su posición correcta, ¡ganarás! Los filtros desaparecerán y verás la imagen original.</p>
-                </div>
-                <div>
-                    <button>volver al menu</button>
-                </div>
-            </div>
-
-            <!-- pantalla priuncipal jugable -->
-            <div class="pantalla_jugable">
-                <div class="info_juego">
-                    <div class="info_nivel">nivel: <span id="nivel_numero">1</span></div>
-                    <div class="tiempo"> <span id="tiempo"> 00:00</span></div>
-                </div>
+            <div class="contenedor_jugable">
+                <!-- pantalla principal, que aparece en la game_page -->
                 
-                <div class="pantalla_juego">
-                    <canvas id="canvas" width="500" height="500"></canvas>
+                <div id="blur_screen" class="juego">
+                    <img src="./img/frogames/frog_peg.png" alt="">
+                    <button id="btn_start"><h1>JUGAR</h1></button>
                 </div>
 
-                <div>
-                    <button class="btn"> ayudita </button>
-                    <button id="btn_reset" class="btn"> Reset </button>
-                    <button class="btn"> volver al menu</button>
-                </div>
-            </div>   
+                <!-- pantalla priuncipal que aparece en el menu -->
+                <div class="pantalla_comienzo">
+                    <h1>froger lover</h1>
 
-            <!-- pantalla de victoria -->
-            <div class="pantalla_victoria">
-                <h2>NIVEL COMPLETADO</h2>
-                <div class="tiempo_victoria">
-                    Tu tiempo: <span id="tiempo_final">00:00</span>
+                    <div class="menu_btn">
+                        <button class="btn">instrucciones</button>
+                        <button class="btn">comenzar a jugar</button>
+                    </div>
+
+                    <div class="galeria">
+                        <img src="./img/random/cr7.jpg" alt="">
+                        <img src="./img/random/te_garcho.jpeg" alt="">
+                        <img src="./img/random/scorpio.jpeg" alt="">
+                        <img src="./img/random/ms.jpg" alt="">
+                        <img src="./img/random/mcbici.webp" alt="">
+                    </div>
                 </div>
-                <div>
-                    <button class="btn" > Siguiente Nivel</button>
-                    <button class="btn" > Menú Principal</button>
+
+                <!-- pantalla de instrucciones -->
+        
+                <div class="pantalla_instrucciones">
+                    <div class="instrucciones">
+                        <h2>Cómo Jugar</h2>
+                        <p><strong>Objetivo:</strong> Rotar las 4 piezas de la imagen hasta formar la imagen completa correctamente.</p>
+                    <h3>Controles:</h3>
+                    <ul>
+                        <li><strong>Clic Izquierdo:</strong> Rota la pieza hacia la IZQUIERDA (90°)</li>
+                        <li><strong>Clic Derecho:</strong> Rota la pieza hacia la DERECHA (90°)</li>
+                    </ul>
+                    <h3>Niveles:</h3>
+                    <ul>
+                        <li><strong>Nivel 1:</strong> Filtro de Escala de Grises</li>
+                        <li><strong>Nivel 2:</strong> Filtro de Brillo</li>
+                        <li><strong>Nivel 3:</strong> Filtro Negativo</li>
+                    </ul>
+
+                    <h3>Ayudita:</h3>
+                    <p>Si necesitas ayuda, puedes usar el botón "Ayudita" que colocará correctamente una pieza</p>
+
+                    <h3>Victoria:</h3>
+                    <p>Cuando todas las piezas estén en su posición correcta, ¡ganarás! Los filtros desaparecerán y verás la imagen original.</p>
+                    </div>
+                    <div>
+                        <button>volver al menu</button>
+                    </div>
+                </div>
+
+                <!-- pantalla priuncipal jugable -->
+                <div class="pantalla_jugable">
+                    <div class="info_juego">
+                        <div class="info_nivel">nivel: <span id="nivel_numero">1</span></div>
+                        <div class="tiempo"> <span id="tiempo"> 00:00</span></div>
+                    </div>
+                    
+                    <div class="pantalla_juego">
+                        <canvas id="canvas" width="500" height="500"></canvas>
+                    </div>
+                    <div>
+                        <button class="btn"> ayudita </button>
+                        <button id="btn_reset" class="btn"> Reset </button>
+                        <button class="btn"> volver al menu</button>
+                    </div>
+                </div>   
+
+                <!-- pantalla de victoria -->
+                <div class="pantalla_victoria">
+                    <h2>NIVEL COMPLETADO</h2>
+                    <div class="tiempo_victoria">
+                        Tu tiempo: <span id="tiempo_final">00:00</span>
+                    </div>
+                    <div>
+                        <button class="btn" > Siguiente Nivel</button>
+                        <button class="btn" > Menú Principal</button>
+                    </div>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -215,7 +175,7 @@
             <div class="izquierda">
                 <div class="juego_info">
                     <div class="info_titulo">
-                        <h4> <a href="index.html">Juegos</a> » <a href="index.html">Puzzle</a> » <a href="gamePage.html">PEG solitare-frog ver</a></h4>
+                        <h4> <a href="index.html">Juegos</a> » <a href="index.html">Puzzle</a> » <a href="gamePage.html">Blocka frogs</a></h4>
                         <h1>Sobre el juego</h1>
                             <p>Desarrollador: Team Froggy</p>
                             <p>Calificacion: 9.3 (15.345 reseñas)</p>
@@ -229,15 +189,15 @@
 
                     <div class="info_jugar">
                         <h2>Como jugar</h2>
-                        <p>¡Poné a prueba tu ingenio! Empezás con casi todo el tablero lleno y un solo espacio vacío. Saltá una clavija sobre otra para hacerla desaparecer… ¡y seguí encadenando saltos! Solo podés saltar en línea recta, y cada clavija que saltes se va del tablero. Objetivo: quedarte con una sola clavija. ¿Podrás lograrlo o te rendirás antes?</p>
+                        <p>¡Poné a prueba tu ingenio!Rotar las 4 piezas de la imagen hasta formar la imagen completa correctamente</p>
                         <img src="./iconos/Software_Hardware_Mouse_Click_Input1.png" alt="mouse">     
                     </div>
                     <div class="info_que_es">
-                        <h2>Que es PEG?</h2>
-                        <p>PEG es un juego de lógica y estrategia individual. Consiste en un tablero con hoyos donde se colocan clavijas (pegs), dejando uno vacío al inicio. El jugador mueve las clavijas saltando una sobre otra en línea recta (horizontal o vertical) hacia un espacio vacío, eliminando la clavija que fue saltada. El desafío es pensar cada movimiento para que, al final, quede solo una clavija en el tablero. Es un pasatiempo clásico que combina paciencia, planificación y pensamiento lógico.</p>
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/BY6RT0TK5no?si=JPHtGgsJ-P6mhM8o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <h2>Que es Blocka frogs?</h2>
+                        <p>Juego de rompecabezas creado por de el aclamado estudio de videojuegos Froggy Games en este te veras enfrentado a rompecabezas de alta dificultad. </p>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/YpkRvkVJjHY?si=AXXVBUjQXYGdMir1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         <h2>Más sobre la historia de PEG solitaire</h2>
-                        <a href="https://en.wikipedia.org/wiki/Peg_solitaire">¡Quiero saber mas!</a>
+                        <a href="https://es.wikipedia.org/wiki/Hideo_Kojima">¡Quiero saber mas!</a>
                     </div>
                 </div>
 
@@ -252,9 +212,9 @@
                         <div class="comentario">
                             <div class="comentario_head">
                                 <img src="./img/random/cr7.jpg" class="avatar_usuario" alt=""  width="50px" height="50px">
-                                <span class="nombre_usuario">dimlink12</span>
+                                <span class="nombre_usuario">AlexOS</span>
                             </div>
-                            <span class="comentario_texto">Muy disfrutable, 100% recomendado</span>
+                            <span class="comentario_texto">Ta bien</span>
                             <div class="comentario_foot">
                                 <button class="action-btn"> <img src="./iconos/Emoji_Hand_Thumbs_Up.png" alt="like"> <span class="like-count">19</span> </button>
                                 <button class="action-btn"> <img src="./iconos/Emoji_Hand_Thumbs_Down.png" alt="dislike"> <span class="dislike-count">2</span> </button>
@@ -263,9 +223,9 @@
                         <div class="comentario">
                             <div class="comentario_head">
                                 <img src="./img/random/te_garcho.jpeg" class="avatar_usuario" alt=""  width="50px" height="50px">
-                                <span class="nombre_usuario">Zama ザマ</span>
+                                <span class="nombre_usuario">Shadowboxer</span>
                             </div>
-                            <span class="comentario_texto">Juego bien elaborado, con buena complejidad y ademas agradable para pasar horas ante él.</span>
+                            <span class="comentario_texto">Muy buen juego para pasar el tiempo. Puedes jugar solo o con amigos y es muy adictivo. Muy recomendable</span>
                             <div class="comentario_foot">
                                 <button class="action-btn"> <img src="./iconos/Emoji_Hand_Thumbs_Up.png" alt="like"> <span class="like-count">15</span> </button>
                                 <button class="action-btn"> <img src="./iconos/Emoji_Hand_Thumbs_Down.png" alt="dislike"> <span class="dislike-count">1</span> </button>
@@ -275,9 +235,9 @@
                         <div class="comentario">
                             <div class="comentario_head">
                                 <img src="./img/random/ms.jpg" class="avatar_usuario" alt=""  width="50px" height="50px">
-                                <span class="nombre_usuario">juanceto01</span>
+                                <span class="nombre_usuario">daxtcreepy</span>
                             </div>
-                            <span class="comentario_texto">Una basura</span>
+                            <span class="comentario_texto">juegazo, se merece el GOTY</span>
                             <div class="comentario_foot">
                                 <button class="action-btn"> <img src="./iconos/Emoji_Hand_Thumbs_Up.png" alt="like"> <span class="like-count">1</span> </button>
                                 <button class="action-btn"> <img src="./iconos/Emoji_Hand_Thumbs_Down.png" alt="dislike"> <span class="dislike-count">4</span> </button>
@@ -287,9 +247,9 @@
                         <div class="comentario">
                             <div class="comentario_head">
                                 <img src="./img/random/la_bestia.jpg" class="avatar_usuario" alt=""  width="50px" height="50px">
-                                <span class="nombre_usuario">_La bestia_</span>
+                                <span class="nombre_usuario">Rigatoni Pasta</span>
                             </div>
-                            <span class="comentario_texto">Arte</span>
+                            <span class="comentario_texto">deja que desear, no tienen cara en publicar esto</span>
                            <div class="comentario_foot">
                                 <button class="action-btn"> <img src="./iconos/Emoji_Hand_Thumbs_Up.png" alt="like"> <span class="like-count">2</span> </button>
                                 <button class="action-btn"> <img src="./iconos/Emoji_Hand_Thumbs_Down.png" alt="dislike"> <span class="dislike-count">1</span> </button>

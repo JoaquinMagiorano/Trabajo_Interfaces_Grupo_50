@@ -2,7 +2,7 @@ const btn_start = document.querySelector('#btn_start');
 const blur_screen = document.querySelector('#blur_screen');
 const canvas = /** @type {HTMLCanvasElement} */ (document.getElementById('canvas')); //El casting es para el intellisense, BORRAR DESPUES
 const ctx = /** @type {CanvasRenderingContext2D} */ (canvas.getContext("2d")); //El casting es para el intellisense, BORRAR DESPUES
-const btn_reset = document.getElementById('btn_reset'); 
+const btn_reset = document.getElementById('btn_reset');
 
 const width = canvas.width;
 const height = canvas.height;

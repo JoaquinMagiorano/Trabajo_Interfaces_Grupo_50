@@ -59,7 +59,7 @@ function reiniciarAutoplay() {
   clearInterval(intervalo_autoplay)
   iniciarAutoplay()
 }
-
+// btn_siguiente.addEventListener("click", siguienteSlide)
 // Exponer funciones para botones HTML
 window.siguienteSlide = siguienteSlide
 window.anteriorSlide = anteriorSlide
@@ -166,7 +166,6 @@ todos_los_mini_carruseles.forEach((contenedor_mini) => {
     }
   }
 
-  // Event listeners
   btn_anterior_mini.addEventListener("click", anteriorMini)
   btn_siguiente_mini.addEventListener("click", siguienteMini)
 
