@@ -23,6 +23,114 @@ let juego_timer = null;
 let tiempo_transcurrido = 0;
 const timer_display = document.getElementById('tiempo');
 
+/*//////////////////////////////////////*/ 
+
+
+const canvas = /** @type {HTMLCanvasElement} */ (document.getElementById('canvas')); //El casting es para el intellisense, BORRAR DESPUES
+const ctx = /** @type {CanvasRenderingContext2D} */ (canvas.getContext("2d")); //El casting es para el intellisense, BORRAR DESPUES
+/* const btn_reset = document.getElementById('btn_reset'); */
+
+
+const width = canvas.width;
+const height = canvas.height;
+const pieceWidth = width / 2;
+const pieceHeight = height / 2;
+
+// Arreglo con las images disponibles - CAMBIARLAS  
+const imageArray = [
+    "./img/frogames/sapo 1.png",
+    "./img/frogames/sapo 2.png",
+    "./img/frogames/sapo 3.png",
+    "./img/frogames/sapo 4.png",
+    "./img/frogames/sapo 5.png",
+    "./img/frogames/sapo 6.png",
+    "./img/frogames/sapo 7.png",
+    "./img/frogames/sapo 8.png"
+];
+
+// Rotaciones actuales (representadas en grados)
+let rotations = [0, 0, 0, 0];
+
+const correctRotations = [0, 0, 0, 0];
+
+let imageLoaded = false;
+let originalImage = new Image();
+/*/////////////////////////////////////////////////////////////////*/
+
+
+/* sistema de niveles*/ 
+let nivel_actual = 1;
+const TOTAL_NIVELES = imageArray.length;
+let filtro_actual = 'none';
+    
+let filtros_por_pieza = []; // Array para filtros individuales por pieza
+let usar_filtros_mixtos = false; // para saber si usar filtros diferentes por pieza
+
+function setDificultad(){
+    switch(nivel_actual) {
+        case 1:
+            filtro_actual = 'grayscale(100%)';
+            usar_filtros_mixtos = false;
+            break;
+        case 2:
+            filtro_actual = 'brightness(30%)';
+            usar_filtros_mixtos = false;
+            break;
+        case 3:
+            filtro_actual = 'invert(100%)';
+            usar_filtros_mixtos = false;
+            break;
+        case 4:// A partir del nivel 4, cada pieza tiene un filtro diferente   
+            usar_filtros_mixtos = true;
+            filtros_por_pieza = [
+                'grayscale(100%)',
+                'brightness(30%)',
+                'invert(100%)',
+                'sepia(100%)'
+            ];
+            break;
+        case 5:
+            usar_filtros_mixtos = true;
+            filtros_por_pieza = [
+                'contrast(200%)',
+                'saturate(300%)',
+                'grayscale(100%)',
+                'brightness(30%)'
+            ];
+            break;
+        case 6:
+            usar_filtros_mixtos = true;
+            filtros_por_pieza = [
+                'hue-rotate(90deg)',
+                'invert(100%)',
+                'sepia(100%)',
+                'invert(150%)'
+            ];
+            break;
+        case 7:
+            usar_filtros_mixtos = true;
+            filtros_por_pieza = [
+                'saturate(400%)',
+                'none',
+                'brightness(40%)',
+                'invert(100%)'
+            ];
+            break;
+        case 8:
+            usar_filtros_mixtos = true;
+            filtros_por_pieza = [
+                'blur(2px)',
+                'grayscale(100%)',
+                'contrast(250%)',
+                'sepia(100%)'
+            ];
+            break;
+        default:
+            console.log("error nivel invalido");
+            filtro_actual = 'none';
+            usar_filtros_mixtos = false;
+    }
+}
 
 function iniciarTiempo() {
     if (juego_timer) return; 
@@ -80,7 +188,8 @@ function mostrarPantalla(pantalla) {
 // Ir a menú comienzo
 function irAlMenu() {
     mostrarPantalla(pantalla_comienzo);
-    detenerTiempo();
+    detenerTiempo()
+    nivel_actual = 1
 }
 
 // Ir a instrucciones
@@ -104,6 +213,7 @@ function irAVictoria() {
 function siguientNivel() {
     mostrarPantalla(pantalla_jugable);
     resetGame();
+    nivel_actual++;
 }
 
 btn_start.addEventListener('click', irAlMenu);
@@ -130,37 +240,6 @@ btn_menu_victoria.addEventListener('click', irAlMenu);
 
 
 
-
-const canvas = /** @type {HTMLCanvasElement} */ (document.getElementById('canvas')); //El casting es para el intellisense, BORRAR DESPUES
-const ctx = /** @type {CanvasRenderingContext2D} */ (canvas.getContext("2d")); //El casting es para el intellisense, BORRAR DESPUES
-/* const btn_reset = document.getElementById('btn_reset'); */
-
-
-
-
-
-const width = canvas.width;
-const height = canvas.height;
-const pieceWidth = width / 2;
-const pieceHeight = height / 2;
-
-// Arreglo con las images disponibles - CAMBIARLAS  
-const imageArray = [
-    "./img/frogames/sapo 1.png",
-    "./img/frogames/sapo 2.png",
-    "./img/frogames/sapo 3.png",
-    "./img/frogames/sapo 4.png",
-    "./img/frogames/sapo 5.png"
-];
-
-// Rotaciones actuales (representadas en grados)
-let rotations = [0, 0, 0, 0];
-
-const correctRotations = [0, 0, 0, 0];
-
-let imageLoaded = false;
-let originalImage = new Image();
-
 function loadRandomImage() {
     const randomIndex = Math.floor(Math.random() * imageArray.length);
     const selectedImage = imageArray[randomIndex];
@@ -170,6 +249,7 @@ function loadRandomImage() {
     originalImage.onload = () => {
         imageLoaded = true;
         randomizeRotations();
+        setDificultad(); //setea la dificultad(filtros)
         drawPuzzle();
     }
     
@@ -215,9 +295,22 @@ function drawPuzzle() {
     checkResult();
 }
 
-function drawPiece(index, canvasX, canvasY, imgX, imgY) {
+function drawPiece(index, canvasX, canvasY, imgX, imgY, sin_filtros = false) {
     ctx.save();
     
+    if (sin_filtros) {
+        // Sin filtro (imagen original RGB)
+        ctx.filter = 'none';
+    } else {
+        // Aplica filtro según configuración del nivel
+        if (usar_filtros_mixtos) {
+            // Cada pieza tiene su propio filtro
+            ctx.filter = filtros_por_pieza[index];
+        } else {
+            // Todas las piezas con el mismo filtro
+            ctx.filter = filtro_actual;
+        }
+    }
     ctx.translate(canvasX + pieceWidth / 2, canvasY + pieceHeight / 2);
     
     ctx.rotate((rotations[index] * Math.PI) / 180);
