@@ -811,4 +811,12 @@ p {
   .usuario span {
     font-size: 1rem;
   }
+
+  .btn_premium{
+    background-color: rgb(160, 160, 16);
+   }
+
+   .btn_premium:hover{
+    background-color: rgb(255, 242, 0);
+   }   
 }

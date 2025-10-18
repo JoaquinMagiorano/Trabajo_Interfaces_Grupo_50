@@ -1,8 +1,93 @@
+/*pantalla principal*/ 
 const btn_start = document.querySelector('#btn_start');
 const blur_screen = document.querySelector('#blur_screen');
+/*pantalla de inicio*/
+const pantalla_comienzo = document.querySelector('.pantalla_comienzo');
+const btn_instrucciones = document.getElementById('btn_instrucciones');
+const btn_comenzar_jugar = document.getElementById('btn_comenzar_jugar');
+/*pantalla instrucciones*/
+const pantalla_instrucciones = document.querySelector('.pantalla_instrucciones');
+const btn_volver_menu = document.querySelector('.pantalla_instrucciones .btn');
+/*pantalla jugable*/
+const pantalla_jugable = document.querySelector('.pantalla_jugable');
+const btn_ayudita = document.getElementById('btn_ayudita');
+const btn_reset = document.getElementById('btn_reset');
+const btn_volver_menu_jugable = document.querySelectorAll('.pantalla_jugable .btn')[2];
+/*pantalla de victoria*/
+const pantalla_victoria = document.querySelector('.pantalla_victoria');
+const btn_siguiente = document.querySelector('.pantalla_victoria #btn_siguiente');
+const btn_menu_victoria = document.querySelectorAll('.pantalla_victoria .btn')[1];
+
+
+function mostrarPantalla(pantalla) {
+    blur_screen.classList.add('hidden');
+    pantalla_comienzo.classList.add('hidden');
+    pantalla_instrucciones.classList.add('hidden');
+    pantalla_jugable.classList.add('hidden');
+    pantalla_victoria.classList.add('hidden');
+    
+    pantalla.classList.remove('hidden');
+}
+
+// Ir a menú comienzo
+function irAlMenu() {
+    mostrarPantalla(pantalla_comienzo);
+}
+
+// Ir a instrucciones
+function irAInstrucciones() {
+    mostrarPantalla(pantalla_instrucciones);
+}
+
+// Ir a jugar
+function irAJugar() {
+    mostrarPantalla(pantalla_jugable);
+    resetGame();
+}
+
+// Ir a victoria
+function irAVictoria() {
+    mostrarPantalla(pantalla_victoria);
+}
+
+// Siguiente nivel
+function siguientNivel() {
+    mostrarPantalla(pantalla_jugable);
+    resetGame();
+}
+
+btn_start.addEventListener('click', irAlMenu);
+btn_instrucciones.addEventListener('click', irAInstrucciones);
+btn_comenzar_jugar.addEventListener('click', irAJugar);
+btn_volver_menu.addEventListener('click', irAlMenu);
+btn_volver_menu_jugable.addEventListener('click', irAlMenu);
+btn_siguiente.addEventListener('click', siguientNivel);
+btn_menu_victoria.addEventListener('click', irAlMenu);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const canvas = /** @type {HTMLCanvasElement} */ (document.getElementById('canvas')); //El casting es para el intellisense, BORRAR DESPUES
 const ctx = /** @type {CanvasRenderingContext2D} */ (canvas.getContext("2d")); //El casting es para el intellisense, BORRAR DESPUES
-const btn_reset = document.getElementById('btn_reset');
+/* const btn_reset = document.getElementById('btn_reset'); */
+
+
+
+
 
 const width = canvas.width;
 const height = canvas.height;
@@ -11,11 +96,11 @@ const pieceHeight = height / 2;
 
 // Arreglo con las images disponibles - CAMBIARLAS  
 const imageArray = [
-    "./img/random/cr7.jpg",
-    "./img/random/te_garcho.jpeg",
-    "./img/random/scorpio.jpeg",
-    "./img/random/ms.jpg",
-    "./img/random/mcbici.webp"
+    "./img/frogames/sapo 1.png",
+    "./img/frogames/sapo 2.png",
+    "./img/frogames/sapo 3.png",
+    "./img/frogames/sapo 4.png",
+    "./img/frogames/sapo 5.png"
 ];
 
 // Rotaciones actuales (representadas en grados)
@@ -156,9 +241,40 @@ canvas.addEventListener('contextmenu', (e) => {
 
 btn_reset.addEventListener('click', resetGame());
 
-btn_start.addEventListener('click', function(){
-    blur_screen.classList.toggle('hidden');
-});
-
 // Para que cargue la primer imagen
 loadRandomImage();
+
+
+
+/*
+                             .-----.
+                            /7  .  (
+                           /   .-.  \
+                          /   /   \  \
+                         / `  )   (   )
+                        / `   )   ).  \
+                      .'  _.   \_/  . |
+     .--.           .' _.' )`.        |
+    (    `---...._.'   `---.'_)    ..  \
+     \            `----....___    `. \  |
+      `.           _ ----- _   `._  )/  |
+        `.       /"  \   /"  \`.  `._   |
+          `.    ((O)` ) ((O)` ) `.   `._\
+            `-- '`---'   `---' )  `.    `-.
+               /                  ` \      `-.
+             .'                      `.       `.
+            /                     `  ` `.       `-.
+     .--.   \ ===._____.======. `    `   `. .___.--`     .''''.
+    ' .` `-. `.                )`. `   ` ` \          .' . '  8)
+   (8  .  ` `-.`.               ( .  ` `  .`\      .'  '    ' /
+    \  `. `    `-.               ) ` .   ` ` \  .'   ' .  '  /
+     \ ` `.  ` . \`.    .--.     |  ` ) `   .``/   '  // .  /
+      `.  ``. .   \ \   .-- `.  (  ` /_   ` . / ' .  '/   .'
+        `. ` \  `  \ \  '-.   `-'  .'  `-.  `   .  .'/  .'
+          \ `.`.  ` \ \    ) /`._.`       `.  ` .  .'  /
+           |  `.`. . \ \  (.'               `.   .'  .'
+        __/  .. \ \ ` ) \                     \.' .. \__
+ .-._.-'     '"  ) .-'   `.                   (  '"     `-._.--.
+(_________.-====' / .' /\_)`--..__________..-- `====-. _________)
+                 (.'(.'
+*/

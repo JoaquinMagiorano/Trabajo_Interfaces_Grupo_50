@@ -68,31 +68,33 @@
                 <!-- pantalla principal, que aparece en la game_page -->
                 
                 <div id="blur_screen" class="juego">
-                    <img src="./img/frogames/frog_peg.png" alt="">
+                    <img src="./img/frogames/puzzle_frog.png" alt="">
                     <button id="btn_start"><h1>JUGAR</h1></button>
                 </div>
 
                 <!-- pantalla priuncipal que aparece en el menu -->
-                <div class="pantalla_comienzo">
+                <div class="pantalla_comienzo hidden">
                     <h1>froger lover</h1>
 
                     <div class="menu_btn">
-                        <button class="btn">instrucciones</button>
-                        <button class="btn">comenzar a jugar</button>
+                        <button class="btn" id="btn_instrucciones">instrucciones</button>
+                        <button class="btn" id="btn_comenzar_jugar">comenzar a jugar</button>
                     </div>
 
                     <div class="galeria">
-                        <img src="./img/random/cr7.jpg" alt="">
-                        <img src="./img/random/te_garcho.jpeg" alt="">
-                        <img src="./img/random/scorpio.jpeg" alt="">
-                        <img src="./img/random/ms.jpg" alt="">
-                        <img src="./img/random/mcbici.webp" alt="">
+                        <img class="vista_previa" src="./img/frogames/sapo 9.png" alt="">
+                        <img class="vista_previa" src="./img/frogames/sapo 8.png" alt="">
+                        <img class="vista_previa" src="./img/frogames/sapo 7.png" alt="">
+                        <img class="vista_previa" src="./img/frogames/sapo 6.png" alt="">
+                        <img class="vista_previa" src="./img/frogames/sapo 5.png" alt="">
+                        <img class="vista_previa" src="./img/frogames/sapo 4.png" alt="">
+
                     </div>
                 </div>
 
                 <!-- pantalla de instrucciones -->
         
-                <div class="pantalla_instrucciones">
+                <div class="pantalla_instrucciones hidden">
                     <div class="instrucciones">
                         <h2>Cómo Jugar</h2>
                         <p><strong>Objetivo:</strong> Rotar las 4 piezas de la imagen hasta formar la imagen completa correctamente.</p>
@@ -115,12 +117,12 @@
                     <p>Cuando todas las piezas estén en su posición correcta, ¡ganarás! Los filtros desaparecerán y verás la imagen original.</p>
                     </div>
                     <div>
-                        <button>volver al menu</button>
+                        <button class="btn" id="btn_volver_menu">volver al menu</button>
                     </div>
                 </div>
 
                 <!-- pantalla priuncipal jugable -->
-                <div class="pantalla_jugable">
+                <div class="pantalla_jugable hidden" >
                     <div class="info_juego">
                         <div class="info_nivel">nivel: <span id="nivel_numero">1</span></div>
                         <div class="tiempo"> <span id="tiempo"> 00:00</span></div>
@@ -130,20 +132,20 @@
                         <canvas id="canvas" width="500" height="500"></canvas>
                     </div>
                     <div>
-                        <button class="btn"> ayudita </button>
+                        <button id="btn_ayudita" class="btn"> ayudita </button>
                         <button id="btn_reset" class="btn"> Reset </button>
                         <button class="btn"> volver al menu</button>
                     </div>
                 </div>   
 
                 <!-- pantalla de victoria -->
-                <div class="pantalla_victoria">
+                <div class="pantalla_victoria hidden">
                     <h2>NIVEL COMPLETADO</h2>
                     <div class="tiempo_victoria">
                         Tu tiempo: <span id="tiempo_final">00:00</span>
                     </div>
                     <div>
-                        <button class="btn" > Siguiente Nivel</button>
+                        <button id="btn_siguiente" class="btn" > Siguiente Nivel</button>
                         <button class="btn" > Menú Principal</button>
                     </div>
                 </div>
