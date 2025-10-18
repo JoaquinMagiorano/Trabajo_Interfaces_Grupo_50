@@ -17,6 +17,54 @@ const btn_volver_menu_jugable = document.querySelectorAll('.pantalla_jugable .bt
 const pantalla_victoria = document.querySelector('.pantalla_victoria');
 const btn_siguiente = document.querySelector('.pantalla_victoria #btn_siguiente');
 const btn_menu_victoria = document.querySelectorAll('.pantalla_victoria .btn')[1];
+/*variables para el funcionamiento del juego, tiempo, etc...*/
+let juego_activo = false;
+let juego_timer = null;
+let tiempo_transcurrido = 0;
+const timer_display = document.getElementById('tiempo');
+
+
+function iniciarTiempo() {
+    if (juego_timer) return; 
+    
+    tiempo_transcurrido = 0;
+    actualizarDisplayTiempo();
+    
+    juego_timer = setInterval(() => {
+        tiempo_transcurrido++;
+        actualizarDisplayTiempo();
+    }, 1000); 
+}
+
+function detenerTiempo() {
+    if (juego_timer) {
+        clearInterval(juego_timer);
+        juego_timer = null;
+    }
+}
+
+function actualizarDisplayTiempo() {
+    const minutos = Math.floor(tiempo_transcurrido / 60);
+    const segundos = tiempo_transcurrido % 60;
+    
+    // Formatea con ceros a la izquierda (00:00)
+    const formato = `${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
+    
+    if (timer_display) {
+        timer_display.textContent = formato;
+    }
+}
+
+function mostrarTiempoVictoria() {
+    const minutos = Math.floor(tiempo_transcurrido / 60);
+    const segundos = tiempo_transcurrido % 60;
+    const formato = `${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
+    
+    const tiempo_victoria = document.getElementById('tiempo_final');
+    if (tiempo_victoria) {
+        tiempo_victoria.textContent = formato;
+    }
+}
 
 
 function mostrarPantalla(pantalla) {
@@ -32,6 +80,7 @@ function mostrarPantalla(pantalla) {
 // Ir a menú comienzo
 function irAlMenu() {
     mostrarPantalla(pantalla_comienzo);
+    detenerTiempo();
 }
 
 // Ir a instrucciones
@@ -48,6 +97,7 @@ function irAJugar() {
 // Ir a victoria
 function irAVictoria() {
     mostrarPantalla(pantalla_victoria);
+    juego_activo = false; 
 }
 
 // Siguiente nivel
@@ -206,16 +256,21 @@ function rotatePiece(pieceIndex, direction) {
 function checkResult() {
     const solved = rotations.every((r, i) => r === correctRotations[i]);
     
-    // TO DO
-    // que pare el temporizador
-    // que muestre los botones para pasar al siguiente nivel y eso
-    // muestre un mensaje de completado?
+    if (solved && juego_activo) {
+        console.log("nivel superado");
+        detenerTiempo();    
+        mostrarTiempoVictoria(); 
+        irAVictoria();
+    }
 
     return solved;
 }
 
 function resetGame() {
     imageLoaded = false;
+    juego_activo = true;
+    detenerTiempo();      
+    iniciarTiempo();
     loadRandomImage();
 }
 
