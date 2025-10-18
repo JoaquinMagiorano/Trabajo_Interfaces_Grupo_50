@@ -69,18 +69,22 @@ let usar_filtros_mixtos = false; // para saber si usar filtros diferentes por pi
 function setDificultad(){
     switch(nivel_actual) {
         case 1:
-            filtro_actual = 'grayscale(100%)';
+            filtro_actual = 'none';
             usar_filtros_mixtos = false;
             break;
         case 2:
-            filtro_actual = 'brightness(30%)';
+            filtro_actual = 'grayscale(100%)';//escala de grises
             usar_filtros_mixtos = false;
             break;
         case 3:
-            filtro_actual = 'invert(100%)';
+            filtro_actual = 'brightness(30%)';//brillo 30%
             usar_filtros_mixtos = false;
             break;
-        case 4:// A partir del nivel 4, cada pieza tiene un filtro diferente   
+        case 4:
+            filtro_actual = 'invert(100%)';//negativo
+            usar_filtros_mixtos = false;
+            break;
+        case 5:// A partir del nivel 5, cada pieza tiene un filtro diferente   
             usar_filtros_mixtos = true;
             filtros_por_pieza = [
                 'grayscale(100%)',
@@ -89,7 +93,7 @@ function setDificultad(){
                 'sepia(100%)'
             ];
             break;
-        case 5:
+        case 6:
             usar_filtros_mixtos = true;
             filtros_por_pieza = [
                 'contrast(200%)',
@@ -98,7 +102,7 @@ function setDificultad(){
                 'brightness(30%)'
             ];
             break;
-        case 6:
+        case 7:
             usar_filtros_mixtos = true;
             filtros_por_pieza = [
                 'hue-rotate(90deg)',
@@ -107,22 +111,13 @@ function setDificultad(){
                 'invert(150%)'
             ];
             break;
-        case 7:
+        case 8:
             usar_filtros_mixtos = true;
             filtros_por_pieza = [
                 'saturate(400%)',
                 'none',
                 'brightness(40%)',
                 'invert(100%)'
-            ];
-            break;
-        case 8:
-            usar_filtros_mixtos = true;
-            filtros_por_pieza = [
-                'blur(2px)',
-                'grayscale(100%)',
-                'contrast(250%)',
-                'sepia(100%)'
             ];
             break;
         default:
