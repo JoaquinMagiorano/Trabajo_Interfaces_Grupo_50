@@ -17,17 +17,27 @@ const btn_volver_menu_jugable = document.querySelectorAll('.pantalla_jugable .bt
 const pantalla_victoria = document.querySelector('.pantalla_victoria');
 const btn_siguiente = document.querySelector('.pantalla_victoria #btn_siguiente');
 const btn_menu_victoria = document.querySelectorAll('.pantalla_victoria .btn')[1];
+/*pantalla final */
+const pantalla_final=document.querySelector('.pantalla_final');
+const btn_volver_menu_pantalla_final =document.querySelector('.pantalla_final .btn');
+/*pantalla derrota*/
+const pantalla_derrota = document.querySelector('.pantalla_derrota');
+const btn_reintentar = document.querySelector('.pantalla_derrota #btn_reintentar');
+const btn_menu_derrota = document.querySelectorAll('.pantalla_derrota .btn')[1];
+
+
 /*variables para el funcionamiento del juego, tiempo, etc...*/
 let juego_activo = false;
 let juego_timer = null;
 let tiempo_transcurrido = 0;
 const timer_display = document.getElementById('tiempo');
-
+let tiempo_limite = 0;
+let tiene_limite = false;
 /*//////////////////////////////////////*/ 
 
 
-const canvas = /** @type {HTMLCanvasElement} */ (document.getElementById('canvas')); //El casting es para el intellisense, BORRAR DESPUES
-const ctx = /** @type {CanvasRenderingContext2D} */ (canvas.getContext("2d")); //El casting es para el intellisense, BORRAR DESPUES
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext("2d"); 
 /* const btn_reset = document.getElementById('btn_reset'); */
 
 
@@ -36,7 +46,6 @@ const height = canvas.height;
 const pieceWidth = width / 2;
 const pieceHeight = height / 2;
 
-// Arreglo con las images disponibles - CAMBIARLAS  
 const imageArray = [
     "./img/frogames/sapo 1.png",
     "./img/frogames/sapo 2.png",
@@ -48,13 +57,16 @@ const imageArray = [
     "./img/frogames/sapo 8.png"
 ];
 
-// Rotaciones actuales (representadas en grados)
+// Rotaciones actuales (representadas en grados) y animaciones
 let rotations = [0, 0, 0, 0];
-
 const correctRotations = [0, 0, 0, 0];
+let piezas_bloqueadas = [false, false, false, false];
+
+
 
 let imageLoaded = false;
 let originalImage = new Image();
+
 /*/////////////////////////////////////////////////////////////////*/
 
 
@@ -71,18 +83,22 @@ function setDificultad(){
         case 1:
             filtro_actual = 'none';
             usar_filtros_mixtos = false;
+            tiene_limite = false;
             break;
         case 2:
             filtro_actual = 'grayscale(100%)';//escala de grises
             usar_filtros_mixtos = false;
+            tiene_limite = false;
             break;
         case 3:
             filtro_actual = 'brightness(30%)';//brillo 30%
             usar_filtros_mixtos = false;
+            tiene_limite = false;
             break;
         case 4:
             filtro_actual = 'invert(100%)';//negativo
             usar_filtros_mixtos = false;
+            tiene_limite = false;
             break;
         case 5:// A partir del nivel 5, cada pieza tiene un filtro diferente   
             usar_filtros_mixtos = true;
@@ -92,6 +108,8 @@ function setDificultad(){
                 'invert(100%)',
                 'sepia(100%)'
             ];
+            tiene_limite = true;
+            tiempo_limite = 30;
             break;
         case 6:
             usar_filtros_mixtos = true;
@@ -101,6 +119,8 @@ function setDificultad(){
                 'grayscale(100%)',
                 'brightness(30%)'
             ];
+            tiene_limite = true;
+            tiempo_limite = 20;
             break;
         case 7:
             usar_filtros_mixtos = true;
@@ -110,6 +130,8 @@ function setDificultad(){
                 'sepia(100%)',
                 'invert(150%)'
             ];
+            tiene_limite = true;
+            tiempo_limite = 10;
             break;
         case 8:
             usar_filtros_mixtos = true;
@@ -119,12 +141,22 @@ function setDificultad(){
                 'brightness(40%)',
                 'invert(100%)'
             ];
+            tiene_limite = true;
+            tiempo_limite = 5;
+            break;
+        case 9:
+            irAPantallaFinal();
             break;
         default:
             console.log("error nivel invalido");
             filtro_actual = 'none';
             usar_filtros_mixtos = false;
+            tiene_limite = false;
     }
+}
+
+function pantallaVictoriaFinal(){
+console.log("terminaste");
 }
 
 function iniciarTiempo() {
@@ -136,6 +168,10 @@ function iniciarTiempo() {
     juego_timer = setInterval(() => {
         tiempo_transcurrido++;
         actualizarDisplayTiempo();
+
+        if (tiene_limite && tiempo_transcurrido >= tiempo_limite) {
+            perderPorTiempo();
+        }
     }, 1000); 
 }
 
@@ -147,14 +183,45 @@ function detenerTiempo() {
 }
 
 function actualizarDisplayTiempo() {
-    const minutos = Math.floor(tiempo_transcurrido / 60);
-    const segundos = tiempo_transcurrido % 60;
-    
-    // Formatea con ceros a la izquierda (00:00)
-    const formato = `${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
-    
-    if (timer_display) {
-        timer_display.textContent = formato;
+    if (tiene_limite) {
+        // Con límite: mostrar "restante / límite"
+        const tiempo_restante = tiempo_limite - tiempo_transcurrido;
+        
+        const min_restante = Math.floor(Math.abs(tiempo_restante) / 60);
+        const seg_restante = Math.abs(tiempo_restante) % 60;
+        
+        const min_limite = Math.floor(tiempo_limite / 60);
+        const seg_limite = tiempo_limite % 60;
+        
+        const restante = `${String(min_restante).padStart(2, '0')}:${String(seg_restante).padStart(2, '0')}`;
+        const limite = `${String(min_limite).padStart(2, '0')}:${String(seg_limite).padStart(2, '0')}`;
+        
+        if (timer_display) {
+            timer_display.textContent = `${restante}`;
+            
+            if (tiempo_restante <= 10) {
+                timer_display.style.color = 'red';
+                timer_display.style.fontWeight = 'bold';
+            } else if (tiempo_restante <= 30) {
+                timer_display.style.color = 'orange';
+                timer_display.style.fontWeight = 'bold';
+            } else {
+                timer_display.style.color = '#333';
+                timer_display.style.fontWeight = 'normal';
+            }
+        }
+    } else {
+        // Sin límite: mostrar tiempo normal
+        const minutos = Math.floor(tiempo_transcurrido / 60);
+        const segundos = tiempo_transcurrido % 60;
+        
+        const formato = `${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
+        
+        if (timer_display) {
+            timer_display.textContent = formato;
+            timer_display.style.color = '#333';
+            timer_display.style.fontWeight = 'normal';
+        }
     }
 }
 
@@ -169,6 +236,11 @@ function mostrarTiempoVictoria() {
     }
 }
 
+function perderPorTiempo() {
+    juego_activo = false;
+    detenerTiempo();
+    setTimeout(irADerrota, 500);
+}
 
 function mostrarPantalla(pantalla) {
     blur_screen.classList.add('hidden');
@@ -176,7 +248,9 @@ function mostrarPantalla(pantalla) {
     pantalla_instrucciones.classList.add('hidden');
     pantalla_jugable.classList.add('hidden');
     pantalla_victoria.classList.add('hidden');
-    
+    pantalla_final.classList.add('hidden');//nuevo
+    pantalla_derrota.classList.add('hidden');//nuevo
+
     pantalla.classList.remove('hidden');
 }
 
@@ -204,11 +278,27 @@ function irAVictoria() {
     juego_activo = false; 
 }
 
+function irADerrota() {
+    mostrarPantalla(pantalla_derrota);
+    juego_activo = false;
+}
+
+function reintentarNivel() {
+    mostrarPantalla(pantalla_jugable);
+    resetGame();
+}
+
+function irAPantallaFinal(){
+    mostrarPantalla(pantalla_final);
+}
+
 // Siguiente nivel
 function siguientNivel() {
     mostrarPantalla(pantalla_jugable);
-    resetGame();
     nivel_actual++;
+    resetGame();
+
+    
 }
 
 btn_start.addEventListener('click', irAlMenu);
@@ -218,7 +308,14 @@ btn_volver_menu.addEventListener('click', irAlMenu);
 btn_volver_menu_jugable.addEventListener('click', irAlMenu);
 btn_siguiente.addEventListener('click', siguientNivel);
 btn_menu_victoria.addEventListener('click', irAlMenu);
+btn_volver_menu_pantalla_final.addEventListener('click', irAlMenu);
 
+if (btn_reintentar) {
+    btn_reintentar.addEventListener('click', reintentarNivel);
+}
+if (btn_menu_derrota) {
+    btn_menu_derrota.addEventListener('click', irAlMenu);
+}
 
 
 
@@ -287,23 +384,32 @@ function drawPuzzle() {
     ctx.lineTo(width, pieceHeight);
     ctx.stroke();
     
+    piezas_bloqueadas.forEach((bloqueada, index) => {
+        if (bloqueada) {
+            const col = index % 2;
+            const row = Math.floor(index / 2);
+            const x = col * pieceWidth;
+            const y = row * pieceHeight;
+            
+            ctx.strokeStyle = '#4caf50';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(x + 2, y + 2, pieceWidth - 4, pieceHeight - 4);
+        }   
+    });
+
     checkResult();
 }
 
 function drawPiece(index, canvasX, canvasY, imgX, imgY, sin_filtros = false) {
     ctx.save();
     
-    if (sin_filtros) {
-        // Sin filtro (imagen original RGB)
-        ctx.filter = 'none';
-    } else {
-        // Aplica filtro según configuración del nivel
-        if (usar_filtros_mixtos) {
-            // Cada pieza tiene su propio filtro
-            ctx.filter = filtros_por_pieza[index];
-        } else {
-            // Todas las piezas con el mismo filtro
-            ctx.filter = filtro_actual;
+    if (sin_filtros) {    
+        ctx.filter = 'none';// Sin filtro (imagen original RGB)
+    } else {// Aplica filtro según configuración del nivel     
+        if (usar_filtros_mixtos) {          
+            ctx.filter = filtros_por_pieza[index];// Cada pieza tiene su propio filtro
+        } else {        
+            ctx.filter = filtro_actual;// Todas las piezas con el mismo filtro
         }
     }
     ctx.translate(canvasX + pieceWidth / 2, canvasY + pieceHeight / 2);
@@ -315,6 +421,20 @@ function drawPiece(index, canvasX, canvasY, imgX, imgY, sin_filtros = false) {
         imgX, imgY, pieceWidth, pieceHeight,  // Corte de la imagen original
         -pieceWidth / 2, -pieceHeight / 2, pieceWidth, pieceHeight  // Posición en el canvas
     );
+    
+    ctx.restore();
+}
+
+function drawOriginal(){
+    if (!imageLoaded) return;
+
+    ctx.clearRect(0, 0, width, height);
+
+    ctx.save();
+    
+    ctx.translate(0, 0);
+    
+    ctx.drawImage(originalImage, 0, 0);
     
     ctx.restore();
 }
@@ -331,7 +451,9 @@ function getPieceIndex(x, y) {
 
 function rotatePiece(pieceIndex, direction) {
     if (pieceIndex < 0 || pieceIndex > 3) return;
-    
+
+    if (piezas_bloqueadas[pieceIndex]) return; 
+
     if (direction === 'left') {
         rotations[pieceIndex] = (rotations[pieceIndex] - 90 + 360) % 360;
     } else {
@@ -347,8 +469,10 @@ function checkResult() {
     if (solved && juego_activo) {
         console.log("nivel superado");
         detenerTiempo();    
-        mostrarTiempoVictoria(); 
-        irAVictoria();
+        mostrarTiempoVictoria();
+        blockPieces();
+        drawOriginal();
+        setTimeout(irAVictoria, 2000); //2 segundos
     }
 
     return solved;
@@ -357,6 +481,7 @@ function checkResult() {
 function resetGame() {
     imageLoaded = false;
     juego_activo = true;
+    piezas_bloqueadas = [false, false, false, false];
     detenerTiempo();      
     iniciarTiempo();
     loadRandomImage();
@@ -382,7 +507,30 @@ canvas.addEventListener('contextmenu', (e) => {
     rotatePiece(pieceIndex, 'right');
 });
 
-btn_reset.addEventListener('click', resetGame());
+btn_ayudita.addEventListener('click', () => {
+    if (!juego_activo) return;
+
+    let pieceIndex = rotations.findIndex((r, i) => r !== correctRotations[i]);
+
+    if (pieceIndex !== -1) {
+        rotations[pieceIndex] = correctRotations[pieceIndex];
+        piezas_bloqueadas[pieceIndex] = true;
+        tiempo_transcurrido += 5;
+        actualizarDisplayTiempo();
+        drawPuzzle();
+
+        
+    }
+});
+
+function blockPieces(){
+    for (let i = 0; i < piezas_bloqueadas.length; i++) {
+        piezas_bloqueadas[i] = true;
+    }
+}
+
+
+btn_reset.addEventListener('click', resetGame);
 
 // Para que cargue la primer imagen
 loadRandomImage();

@@ -1,5 +1,5 @@
 .contenedor_jugable {
-    border-radius: 15px;
+    border-radius: 15px 15px 0 0;
     background: #011f06a1;
     backdrop-filter: blur(4px);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
@@ -80,6 +80,10 @@
     scale: 1;
 }
 
+#btn_start h1 {
+    font-size: 2.5rem;
+}
+
 
 /* ==================== PANTALLA DE COMIENZO ==================== */
 
@@ -107,7 +111,7 @@
     gap: 15px;
 }
 
-.pantalla_comienzo .btn {
+.btn {
     background: #2c2c2c;
     color: #4caf50;
     border: none;
@@ -197,19 +201,6 @@
     padding-top: 20px;
 }
 
-.pantalla_instrucciones .btn {
-    background: #2c2c2c;
-    color: #4caf50;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.1em;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    min-width: 200px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    transition: transform 0.2s ease;
-}
 
 .pantalla_instrucciones .btn:hover {
     transform: scale(0.95);
@@ -270,18 +261,7 @@
     width: 100%;
 }
 
-.pantalla_jugable .btn {
-    background: #2c2c2c;
-    color: #4caf50;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.1em;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    transition: transform 0.2s ease;
-}
+
 
 .pantalla_jugable .btn:hover {
     transform: scale(0.95);
@@ -321,21 +301,82 @@
     flex-wrap: wrap;
 }
 
-.pantalla_victoria .btn {
-    background: #2c2c2c;
-    color: #4caf50;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.1em;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    min-width: 200px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    transition: transform 0.2s ease;
-}
+
 
 .pantalla_victoria .btn:hover {
+    transform: scale(0.95);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.flex_vertical {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+/* ==================== pantalla final ==================== */
+
+.pantalla_final {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    padding: 30px;
+    background-color: rgba(3, 37, 5, 0);
+}
+
+
+.pantalla_final h2 {
+    color: #f7f7f7;
+    font-size: 2em;
+    margin: 0;
+}
+
+.pantalla_final > div:last-child {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.pantalla_final .btn:hover {
+    transform: scale(0.95);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+
+
+/* ==================== pantalla de derrota ==================== */
+
+.pantalla_derrota {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    padding: 30px;
+    background-color: rgba(103, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.pantalla_derrota h2 {
+    color: #ff4444;
+    font-size: 2em;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+}
+
+.pantalla_derrota p {
+    margin: 10px 0;
+}
+
+.pantalla_derrota > div:last-child {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.pantalla_derrota .btn:hover {
     transform: scale(0.95);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }

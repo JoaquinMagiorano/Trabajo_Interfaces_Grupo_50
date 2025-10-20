@@ -54,7 +54,6 @@ main {
     position: absolute;
     width: 100%;
     height: 100%;
-    z-index: 1;
 }
 
 .juego button{
@@ -75,14 +74,18 @@ main {
 }
 
 .datos_barra {
+    background-color: #011f06a1;
+    backdrop-filter: blur(4px);
     padding-left: 10px;
     padding-right: 10px;
+    border-radius: 0 0 15px 15px ;
     margin-top: opx;
     margin-bottom: 0px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid #444;
+    z-index: 10;
 }
 
 .datos_barra h1 {
@@ -114,7 +117,8 @@ main {
     width: 100%;
     height: 60px;
     z-index: 5;
-    bottom: 11.5%;
+    bottom: 100%;
+    right: 0%;
 }
 
 #menu_compartir img{
@@ -148,7 +152,7 @@ main {
 /* ===================== INFORMACIÓN DEL JUEGO ===================== */
 .juego_info {
     backdrop-filter: blur(4px);
-background: #011f06a1;
+    background: #011f06a1;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 0 15px rgba(0,0,0,0.6);

@@ -69,16 +69,15 @@
                 
                 <div id="blur_screen" class="juego">
                     <img src="./img/frogames/puzzle_frog.png" alt="">
-                    <button id="btn_start"><h1>JUGAR</h1></button>
+                    <button id="btn_start"><h1>&#9654;</h1></button>
                 </div>
 
                 <!-- pantalla priuncipal que aparece en el menu -->
                 <div class="pantalla_comienzo hidden">
-                    <h1>froger lover</h1>
 
                     <div class="menu_btn">
-                        <button class="btn" id="btn_instrucciones">instrucciones</button>
-                        <button class="btn" id="btn_comenzar_jugar">comenzar a jugar</button>
+                        <button class="btn" id="btn_comenzar_jugar">Comenzar a jugar</button>
+                        <button class="btn" id="btn_instrucciones">Instrucciones</button>
                     </div>
 
                     <div class="galeria">
@@ -98,33 +97,33 @@
                     <div class="instrucciones">
                         <h2>Cómo Jugar</h2>
                         <p><strong>Objetivo:</strong> Rotar las 4 piezas de la imagen hasta formar la imagen completa correctamente.</p>
-                    <h3>Controles:</h3>
-                    <ul>
-                        <li><strong>Clic Izquierdo:</strong> Rota la pieza hacia la IZQUIERDA (90°)</li>
-                        <li><strong>Clic Derecho:</strong> Rota la pieza hacia la DERECHA (90°)</li>
-                    </ul>
-                    <h3>Niveles:</h3>
-                    <ul>
-                        <li><strong>Nivel 1:</strong> Filtro de Escala de Grises</li>
-                        <li><strong>Nivel 2:</strong> Filtro de Brillo</li>
-                        <li><strong>Nivel 3:</strong> Filtro Negativo</li>
-                    </ul>
+                        <h3>Controles:</h3>
+                        <ul>
+                            <li><strong>Clic Izquierdo:</strong> Rota la pieza hacia la IZQUIERDA (90°)</li>
+                            <li><strong>Clic Derecho:</strong> Rota la pieza hacia la DERECHA (90°)</li>
+                        </ul>
+                        <h3>Niveles:</h3>
+                        <ul>
+                            <li><strong>Nivel 1:</strong> Filtro de Escala de Grises</li>
+                            <li><strong>Nivel 2:</strong> Filtro de Brillo</li>
+                            <li><strong>Nivel 3:</strong> Filtro Negativo</li>
+                        </ul>
 
-                    <h3>Ayudita:</h3>
-                    <p>Si necesitas ayuda, puedes usar el botón "Ayudita" que colocará correctamente una pieza</p>
+                        <h3>Ayudita:</h3>
+                        <p>Si necesitas ayuda, puedes usar el botón "Ayudita" que colocará correctamente una pieza</p>
 
-                    <h3>Victoria:</h3>
-                    <p>Cuando todas las piezas estén en su posición correcta, ¡ganarás! Los filtros desaparecerán y verás la imagen original.</p>
+                        <h3>Victoria:</h3>
+                        <p>Cuando todas las piezas estén en su posición correcta, ¡ganarás! Los filtros desaparecerán y verás la imagen original.</p>
                     </div>
                     <div>
-                        <button class="btn" id="btn_volver_menu">volver al menu</button>
+                        <button class="btn" id="btn_volver_menu">Volver al menú</button>
                     </div>
                 </div>
 
                 <!-- pantalla priuncipal jugable -->
                 <div class="pantalla_jugable hidden" >
                     <div class="info_juego">
-                        <div class="info_nivel">nivel: <span id="nivel_numero">1</span></div>
+                        <div class="info_nivel">Nivel: <span id="nivel_numero">1</span></div>
                         <div class="tiempo"> <span id="tiempo"> 00:00</span></div>
                     </div>
                     
@@ -132,9 +131,9 @@
                         <canvas id="canvas" width="500" height="500"></canvas>
                     </div>
                     <div>
-                        <button id="btn_ayudita" class="btn"> ayudita </button>
+                        <button id="btn_ayudita" class="btn"> Ayudita </button>
                         <button id="btn_reset" class="btn"> Reset </button>
-                        <button class="btn"> volver al menu</button>
+                        <button class="btn"> Volver al menú</button>
                     </div>
                 </div>   
 
@@ -144,31 +143,48 @@
                     <div class="tiempo_victoria">
                         Tu tiempo: <span id="tiempo_final">00:00</span>
                     </div>
-                    <div>
+                    <div class="flex_vertical">
                         <button id="btn_siguiente" class="btn" > Siguiente Nivel</button>
                         <button class="btn" > Menú Principal</button>
                     </div>
                 </div>
+                
+                <!-- pantalla de derrota -->
+                <div class="pantalla_derrota hidden">
+                    <h2>Tiempo agotado pancho</h2>
+                    <p>No  pudiste completar el nivel a tiempo</p>
+                    <div class="reintentar flex_vertical">
+                        <button id="btn_reintentar" class="btn">Reintentar</button>
+                        <button class="btn">Menu principal</button>
+                    </div>
+                </div>
+
+
+
+
+                
+                <div class="pantalla_final hidden">
+                    <h2>GANASTE</h2>
+                    <div>
+                        <button class="btn" > Menú Principal</button>
+                    </div>
+                </div>
+            
             </div>
 
-
-
-
-
-
-            <div id="menu_compartir" class="hidden">
-                <button><img src="./iconos/Platforms_X_Twitter.png" alt="x"></button>
-                <button><img src="./iconos/Platforms_Facebook.png" alt="facebook"></button>
-                <button><img src="./iconos/Platforms_Instagram.png" alt="instagram"></button>
-            </div>
 
             <div class="datos_barra">
                 <img src="./img/frogames/logo.png" alt="logo" width="50px" height="50px">
-                <h1>Peg solitare-frog ver.</h1>
+                <h1>Blocka Frog Puzzle</h1>
                 <div class="redes">
                     <button id="btn_compartir" class="btn_compartir"><img src="./iconos/Software_Share_Button_Social_Media_Send_Connection_1.png" alt="compartir"></button>
                     <button><img src="./iconos/RPG_Stat_HP_Health_Heart.png" alt="favorito"></button>
                     <button><img src="./iconos/Software_Window_Fullscreen_Mode_Select_1.png" alt="pantalla_completa"></button>
+                </div>
+                <div id="menu_compartir" class="hidden">
+                    <button><img src="./iconos/Platforms_X_Twitter.png" alt="x"></button>
+                    <button><img src="./iconos/Platforms_Facebook.png" alt="facebook"></button>
+                    <button><img src="./iconos/Platforms_Instagram.png" alt="instagram"></button>
                 </div>
             </div>
         </div>
@@ -339,6 +355,7 @@
                 <img src="iconos/Platforms_X_Twitter.png" alt="twitter">
             </a>
         </div>
+        
     </footer>
 </body>
     <section class="menu_container"></section>
