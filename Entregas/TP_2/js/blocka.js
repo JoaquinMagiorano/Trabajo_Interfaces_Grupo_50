@@ -33,7 +33,150 @@ let tiempo_transcurrido = 0;
 const timer_display = document.getElementById('tiempo');
 let tiempo_limite = 0;
 let tiene_limite = false;
+
 /*//////////////////////////////////////*/ 
+let imagen_seleccionada_index = -1;
+let animacion_ruleta_activa = false;
+
+function animacionRuleta() {
+    if (animacion_ruleta_activa) return;
+    animacion_ruleta_activa = true;
+    
+    btn_comenzar_jugar.classList.add('disabled');
+    
+    const imagenes_galeria = Array.from(document.querySelectorAll('.galeria .vista_previa'));
+    if (imagenes_galeria.length === 0) {
+        animacion_ruleta_activa = false;
+        btn_comenzar_jugar.classList.remove('disabled');
+        return;
+    }
+    
+    imagen_seleccionada_index = Math.floor(Math.random() * imagenes_galeria.length);
+    
+    let velocidad_inicial = 100; 
+    let velocidad_actual = velocidad_inicial;
+    let index_actual = 0;
+    let vueltas_completadas = 0;
+    const vueltas_minimas = 3; 
+    
+    function siguienteImagen() {
+        imagenes_galeria.forEach(img => img.classList.remove('ruleta-activa'));        
+        imagenes_galeria[index_actual].classList.add('ruleta-activa');
+        
+        let debe_detenerse = false;
+        
+        if (vueltas_completadas >= vueltas_minimas) {
+            velocidad_actual += 50; 
+            
+            if (index_actual === imagen_seleccionada_index && velocidad_actual > 400) {
+                debe_detenerse = true;
+            }
+        }
+        
+        if (debe_detenerse) {
+            finalizarSeleccion(imagenes_galeria);
+            return;
+        }
+        
+        index_actual++;
+        
+        if (index_actual >= imagenes_galeria.length) {
+            index_actual = 0;
+            vueltas_completadas++;
+        }
+
+        setTimeout(siguienteImagen, velocidad_actual);
+    }
+
+    siguienteImagen();
+}
+
+function finalizarSeleccion(imagenes_galeria) {
+    imagenes_galeria.forEach(img => img.classList.remove('ruleta-activa'));
+    
+    imagenes_galeria[imagen_seleccionada_index].classList.add('seleccionada-final');
+
+    imagenes_galeria.forEach((img, index) => {
+        if (index !== imagen_seleccionada_index) {
+            img.classList.add('no-seleccionada');
+        }
+    });
+
+    setTimeout(() => {
+        btn_comenzar_jugar.classList.remove('disabled');
+        animacion_ruleta_activa = false;
+
+        imagenes_galeria.forEach(img => {
+            img.classList.remove('seleccionada-final', 'no-seleccionada', 'ruleta-activa');
+        });
+
+        irAJugarConImagenSeleccionada();
+    }, 1500);
+}
+
+function irAJugarConImagenSeleccionada() {
+    mostrarPantalla(pantalla_jugable);
+    resetGameConImagenSeleccionada();
+    actualizarDisplayNivel();
+}
+
+function resetGameConImagenSeleccionada() {
+    imageLoaded = false;
+    juego_activo = true;
+    piezas_bloqueadas = [false, false, false, false];
+    detenerTiempo();      
+    iniciarTiempo();
+    
+    const imagenes_galeria = Array.from(document.querySelectorAll('.galeria .vista_previa'));
+    let selectedImage = null;
+    
+    if (imagenes_galeria.length && imagen_seleccionada_index >= 0 && imagen_seleccionada_index < imagenes_galeria.length) {
+        selectedImage = imagenes_galeria[imagen_seleccionada_index].src;
+    } else if (typeof imageArray !== 'undefined' && imageArray[imagen_seleccionada_index]) {
+        selectedImage = imageArray[imagen_seleccionada_index];
+    } else if (typeof imageArray !== 'undefined' && imageArray.length > 0) {
+        selectedImage = imageArray[0];
+    } else {
+        console.error('No hay imágenes disponibles para iniciar el juego.');
+        return;
+    }
+    
+    console.log("Cargando imagen seleccionada:", selectedImage);
+    
+    originalImage.onload = () => {
+        imageLoaded = true;
+        randomizeRotations();
+        setDificultad();
+        drawPuzzle();
+    }
+    
+    originalImage.onerror = () => {
+        console.error("No se pudo cargar la imagen:", selectedImage);
+    }
+    
+    originalImage.src = selectedImage;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 const canvas = document.getElementById('canvas');
@@ -51,7 +194,6 @@ const imageArray = [
     "./img/frogames/sapo 2.png",
     "./img/frogames/sapo 3.png",
     "./img/frogames/sapo 4.png",
-    "./img/frogames/sapo 5.png",
     "./img/frogames/sapo 6.png",
     "./img/frogames/sapo 7.png",
     "./img/frogames/sapo 8.png"
@@ -155,6 +297,13 @@ function setDificultad(){
     }
 }
 
+function actualizarDisplayNivel() {
+    const nivel_display = document.getElementById('nivel_numero');
+    if (nivel_display) {
+        nivel_display.textContent = nivel_actual;
+    }
+}
+
 function pantallaVictoriaFinal(){
 console.log("terminaste");
 }
@@ -194,15 +343,14 @@ function actualizarDisplayTiempo() {
         const seg_limite = tiempo_limite % 60;
         
         const restante = `${String(min_restante).padStart(2, '0')}:${String(seg_restante).padStart(2, '0')}`;
-        const limite = `${String(min_limite).padStart(2, '0')}:${String(seg_limite).padStart(2, '0')}`;
         
         if (timer_display) {
             timer_display.textContent = `${restante}`;
             
-            if (tiempo_restante <= 10) {
+            if (tiempo_restante <= 50) {
                 timer_display.style.color = 'red';
                 timer_display.style.fontWeight = 'bold';
-            } else if (tiempo_restante <= 30) {
+            } else if (tiempo_restante <= 15) {
                 timer_display.style.color = 'orange';
                 timer_display.style.fontWeight = 'bold';
             } else {
@@ -211,7 +359,7 @@ function actualizarDisplayTiempo() {
             }
         }
     } else {
-        // Sin límite: mostrar tiempo normal
+        // Sin límite
         const minutos = Math.floor(tiempo_transcurrido / 60);
         const segundos = tiempo_transcurrido % 60;
         
@@ -259,6 +407,7 @@ function irAlMenu() {
     mostrarPantalla(pantalla_comienzo);
     detenerTiempo()
     nivel_actual = 1
+    actualizarDisplayNivel();
 }
 
 // Ir a instrucciones
@@ -270,6 +419,7 @@ function irAInstrucciones() {
 function irAJugar() {
     mostrarPantalla(pantalla_jugable);
     resetGame();
+    actualizarDisplayNivel();
 }
 
 // Ir a victoria
@@ -286,24 +436,25 @@ function irADerrota() {
 function reintentarNivel() {
     mostrarPantalla(pantalla_jugable);
     resetGame();
+    actualizarDisplayNivel();
 }
 
 function irAPantallaFinal(){
     mostrarPantalla(pantalla_final);
 }
 
-// Siguiente nivel
+
 function siguientNivel() {
     mostrarPantalla(pantalla_jugable);
     nivel_actual++;
+    actualizarDisplayNivel();
     resetGame();
-
     
 }
 
 btn_start.addEventListener('click', irAlMenu);
 btn_instrucciones.addEventListener('click', irAInstrucciones);
-btn_comenzar_jugar.addEventListener('click', irAJugar);
+btn_comenzar_jugar.addEventListener('click', animacionRuleta);
 btn_volver_menu.addEventListener('click', irAlMenu);
 btn_volver_menu_jugable.addEventListener('click', irAlMenu);
 btn_siguiente.addEventListener('click', siguientNivel);
@@ -319,19 +470,6 @@ if (btn_menu_derrota) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 function loadRandomImage() {
     const randomIndex = Math.floor(Math.random() * imageArray.length);
     const selectedImage = imageArray[randomIndex];
@@ -341,12 +479,12 @@ function loadRandomImage() {
     originalImage.onload = () => {
         imageLoaded = true;
         randomizeRotations();
-        setDificultad(); //setea la dificultad(filtros)
+        setDificultad(); 
         drawPuzzle();
     }
     
     originalImage.onerror = () => {
-        console.error("No se pudo cargar la imagen:", selectedImage); //Se puede borrar despues
+        console.error("No se pudo cargar la imagen:", selectedImage); 
     }
     
     originalImage.src = selectedImage;
