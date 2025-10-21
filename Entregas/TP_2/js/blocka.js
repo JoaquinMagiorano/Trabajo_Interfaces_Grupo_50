@@ -33,6 +33,7 @@ let tiempo_transcurrido = 0;
 const timer_display = document.getElementById('tiempo');
 let tiempo_limite = 0;
 let tiene_limite = false;
+/*let ayudita_usada = false;*/
 
 /*//////////////////////////////////////*/ 
 let imagen_seleccionada_index = -1;
@@ -43,7 +44,6 @@ function animacionRuleta() {
     animacion_ruleta_activa = true;
     
     btn_comenzar_jugar.classList.add('disabled');
-    
     const imagenes_galeria = Array.from(document.querySelectorAll('.galeria .vista_previa'));
     if (imagenes_galeria.length === 0) {
         animacion_ruleta_activa = false;
@@ -60,7 +60,7 @@ function animacionRuleta() {
     const vueltas_minimas = 3; 
     
     function siguienteImagen() {
-        imagenes_galeria.forEach(img => img.classList.remove('ruleta-activa'));        
+        imagenes_galeria.forEach(img => img.classList.remove('ruleta-activa'));
         imagenes_galeria[index_actual].classList.add('ruleta-activa');
         
         let debe_detenerse = false;
@@ -68,6 +68,7 @@ function animacionRuleta() {
         if (vueltas_completadas >= vueltas_minimas) {
             velocidad_actual += 50; 
             
+
             if (index_actual === imagen_seleccionada_index && velocidad_actual > 400) {
                 debe_detenerse = true;
             }
@@ -77,17 +78,16 @@ function animacionRuleta() {
             finalizarSeleccion(imagenes_galeria);
             return;
         }
-        
         index_actual++;
         
         if (index_actual >= imagenes_galeria.length) {
             index_actual = 0;
             vueltas_completadas++;
         }
-
+        
         setTimeout(siguienteImagen, velocidad_actual);
     }
-
+    
     siguienteImagen();
 }
 
@@ -95,21 +95,21 @@ function finalizarSeleccion(imagenes_galeria) {
     imagenes_galeria.forEach(img => img.classList.remove('ruleta-activa'));
     
     imagenes_galeria[imagen_seleccionada_index].classList.add('seleccionada-final');
-
+    
     imagenes_galeria.forEach((img, index) => {
         if (index !== imagen_seleccionada_index) {
             img.classList.add('no-seleccionada');
         }
     });
-
+    
     setTimeout(() => {
         btn_comenzar_jugar.classList.remove('disabled');
         animacion_ruleta_activa = false;
-
+        
         imagenes_galeria.forEach(img => {
             img.classList.remove('seleccionada-final', 'no-seleccionada', 'ruleta-activa');
         });
-
+        
         irAJugarConImagenSeleccionada();
     }, 1500);
 }
@@ -126,6 +126,9 @@ function resetGameConImagenSeleccionada() {
     piezas_bloqueadas = [false, false, false, false];
     detenerTiempo();      
     iniciarTiempo();
+    /*ayudita_usada = false; 
+    btn_ayudita.disabled = false; 
+    btn_ayudita.style.opacity = '1';*/
     
     const imagenes_galeria = Array.from(document.querySelectorAll('.galeria .vista_previa'));
     let selectedImage = null;
@@ -379,6 +382,11 @@ function perderPorTiempo() {
 }
 
 function mostrarPantalla(pantalla) {
+    if (pantalla === pantalla_victoria || pantalla === pantalla_derrota || pantalla === pantalla_final) {
+        pantalla.classList.remove('hidden');
+        return;
+    }
+
     blur_screen.classList.add('hidden');
     pantalla_comienzo.classList.add('hidden');
     pantalla_instrucciones.classList.add('hidden');
@@ -611,6 +619,9 @@ function resetGame() {
     piezas_bloqueadas = [false, false, false, false];
     detenerTiempo();      
     iniciarTiempo();
+    /*ayudita_usada = false; 
+    btn_ayudita.disabled = false; 
+    btn_ayudita.style.opacity = '1';*/
     loadRandomImage();
 }
 
@@ -636,6 +647,7 @@ canvas.addEventListener('contextmenu', (e) => {
 
 btn_ayudita.addEventListener('click', () => {
     if (!juego_activo) return;
+    /*if (ayudita_usada) return;*/
 
     let pieceIndex = rotations.findIndex((r, i) => r !== correctRotations[i]);
 
