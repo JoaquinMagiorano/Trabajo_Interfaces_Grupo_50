@@ -546,10 +546,10 @@ function drawPuzzle() {
     checkResult();
 }
 
-function drawPiece(index, canvasX, canvasY, imgX, imgY, sin_filtros = false) {
+function drawPiece(index, canvasX, canvasY, imgX, imgY) {
     ctx.save();
     
-    if (sin_filtros) {    
+    if (filtro_actual == 'none') {    
         ctx.filter = 'none';// Sin filtro (imagen original RGB)
     } else {// Aplica filtro según configuración del nivel     
         if (usar_filtros_mixtos) {          
