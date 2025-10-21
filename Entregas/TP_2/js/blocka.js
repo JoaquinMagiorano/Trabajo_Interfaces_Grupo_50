@@ -157,27 +157,15 @@ function resetGameConImagenSeleccionada() {
     originalImage.src = selectedImage;
 }
 
+function animateCanvas() {
+    canvas.classList.add('scale_canvas');
+    
+    setTimeout(() => {
+        canvas.classList.remove('scale_canvas');
+    }, 500);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+///////////////////////////////
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext("2d"); 
@@ -610,6 +598,7 @@ function checkResult() {
         mostrarTiempoVictoria();
         blockPieces();
         drawOriginal();
+        animateCanvas();
         setTimeout(irAVictoria, 2000); //2 segundos
     }
 
