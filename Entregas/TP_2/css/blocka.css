@@ -25,6 +25,7 @@
 .pantalla_comienzo,
 .pantalla_instrucciones,
 .pantalla_jugable,
+.pantalla_derrota,
 .pantalla_victoria,
 #blur_screen {
     width: 100%;
@@ -326,7 +327,8 @@
     text-align: center;
     gap: 20px;
     padding: 30px;
-    background-color: rgba(3, 37, 5, 0);
+    background-color: #0325059b;
+    backdrop-filter: blur(4px);
 }
 
 
@@ -358,18 +360,19 @@
     text-align: center;
     gap: 20px;
     padding: 30px;
-    background-color: rgba(103, 0, 0, 0.5);
+    background-color: #67000080;
     backdrop-filter: blur(4px);
 }
 
 .pantalla_derrota h2 {
-    color: #ff4444;
+    color: #ff6b6b;
     font-size: 2em;
     margin: 0;
-    text-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
 }
 
 .pantalla_derrota p {
+    font-size: 1.5em;
+    color: #ffcccc;
     margin: 10px 0;
 }
 
@@ -385,13 +388,16 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
+.flex_vertical {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
 
 
 
 
-
-
-/* Animación de selección activa */
+/* ==================== ANIMACION DE LA RULETA ==================== */
 .vista_previa.ruleta-activa {
     transform: scale(1.1);
     box-shadow: 0 8px 25px rgba(102, 234, 122, 0.4);
@@ -400,7 +406,6 @@
     transition: all 0.1s ease;
 }
 
-/* Animación final cuando se selecciona */
 .vista_previa.seleccionada-final {
     animation: pulsoSeleccion 0.8s ease-in-out;
     transform: scale(1.2);
@@ -420,13 +425,12 @@
     }
 }
 
-/* Opacar las imágenes no seleccionadas */
 .vista_previa.no-seleccionada {
     opacity: 0.3;
     transition: opacity 0.5s ease;
 }
 
-/* Deshabilitar botón durante la animación */
+
 .btn.disabled {
     opacity: 0.5;
     cursor: not-allowed;
