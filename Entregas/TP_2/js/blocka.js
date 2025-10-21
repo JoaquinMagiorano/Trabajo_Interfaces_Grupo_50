@@ -44,10 +44,12 @@ function animacionRuleta() {
     animacion_ruleta_activa = true;
     
     btn_comenzar_jugar.classList.add('disabled');
+    btn_instrucciones.classList.add('disabled');
     const imagenes_galeria = Array.from(document.querySelectorAll('.galeria .vista_previa'));
     if (imagenes_galeria.length === 0) {
         animacion_ruleta_activa = false;
         btn_comenzar_jugar.classList.remove('disabled');
+        btn_instrucciones.classList.remove('disabled');
         return;
     }
     
@@ -104,6 +106,7 @@ function finalizarSeleccion(imagenes_galeria) {
     
     setTimeout(() => {
         btn_comenzar_jugar.classList.remove('disabled');
+        btn_instrucciones.classList.remove('disabled');
         animacion_ruleta_activa = false;
         
         imagenes_galeria.forEach(img => {
@@ -160,27 +163,15 @@ function resetGameConImagenSeleccionada() {
     originalImage.src = selectedImage;
 }
 
+function animateCanvas() {
+    canvas.classList.add('scale_canvas');
+    
+    setTimeout(() => {
+        canvas.classList.remove('scale_canvas');
+    }, 500);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+///////////////////////////////
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext("2d"); 
@@ -201,6 +192,10 @@ const imageArray = [
     "./img/frogames/sapo 7.png",
     "./img/frogames/sapo 8.png"
 ];
+
+function pantallaPreNivel(){
+
+}
 
 // Rotaciones actuales (representadas en grados) y animaciones
 let rotations = [0, 0, 0, 0];
@@ -342,15 +337,15 @@ function actualizarDisplayTiempo() {
         const min_restante = Math.floor(Math.abs(tiempo_restante) / 60);
         const seg_restante = Math.abs(tiempo_restante) % 60;
         
-        const min_limite = Math.floor(tiempo_limite / 60);
-        const seg_limite = tiempo_limite % 60;
+        //const min_limite = Math.floor(tiempo_limite / 60);
+        //const seg_limite = tiempo_limite % 60;
         
         const restante = `${String(min_restante).padStart(2, '0')}:${String(seg_restante).padStart(2, '0')}`;
         
         if (timer_display) {
             timer_display.textContent = `${restante}`;
             
-            if (tiempo_restante <= 50) {
+            if (tiempo_restante <= 5) {
                 timer_display.style.color = 'red';
                 timer_display.style.fontWeight = 'bold';
             } else if (tiempo_restante <= 15) {
@@ -394,7 +389,7 @@ function perderPorTiempo() {
 }
 
 function mostrarPantalla(pantalla) {
-    if (pantalla === pantalla_victoria || pantalla === pantalla_derrota || pantalla === pantalla_final) {
+    if (pantalla === pantalla_victoria || pantalla === pantalla_derrota) {
         pantalla.classList.remove('hidden');
         return;
     }
@@ -457,7 +452,6 @@ function siguientNivel() {
     nivel_actual++;
     actualizarDisplayNivel();
     resetGame();
-    
 }
 
 btn_start.addEventListener('click', irAlMenu);
@@ -618,7 +612,15 @@ function checkResult() {
         mostrarTiempoVictoria();
         blockPieces();
         drawOriginal();
-        setTimeout(irAVictoria, 2000); //2 segundos
+        animateCanvas();
+        if (nivel_actual == 8) {
+            setTimeout(irAPantallaFinal, 2000); 
+        } else if (nivel_actual < 8) {
+            setTimeout(irAVictoria, 2000);
+        } else if (nivel_actual > 8) {
+            irAlMenu();
+        }
+        
     }
 
     return solved;
@@ -628,12 +630,12 @@ function resetGame() {
     imageLoaded = false;
     juego_activo = true;
     piezas_bloqueadas = [false, false, false, false];
-    detenerTiempo();      
+    detenerTiempo();
+    loadRandomImage();  
     iniciarTiempo();
     /*ayudita_usada = false; 
     btn_ayudita.disabled = false; 
     btn_ayudita.style.opacity = '1';*/
-    loadRandomImage();
 }
 
 canvas.addEventListener('click', (e) => {
