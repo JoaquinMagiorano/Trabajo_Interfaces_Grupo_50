@@ -94,7 +94,7 @@
     text-align: center;
     gap: 20px;
     padding: 40px 30px 30px 30px;
-    background-color: rgb(87, 163, 125);
+    background-color: rgb(26, 58, 58);
 }
 
 .pantalla_comienzo h1 {
@@ -163,53 +163,118 @@
 /* ==================== PANTALLA DE INSTRUCCIONES ==================== */
 
 .pantalla_instrucciones {
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding: 30px;
-    overflow-y: auto;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden;
     text-align: left;
-    background-color: darkslateblue;
+    background: linear-gradient(135deg, #2c5364 0%, #203a43 50%, #0f2027 100%);
+    gap: 15px;
 }
 
 .instrucciones {
     width: 100%;
-    line-height: 1.8;
-    color: #2fff00;
+    max-width: 900px;
+    line-height: 1.4;
+    color: #e0e0e0;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px 25px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(102, 234, 122, 0.2);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
 .instrucciones h2 {
     color: #66ea7a;
     font-size: 1.8em;
     margin: 0 0 15px 0;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px rgba(102, 234, 122, 0.4);
+    grid-column: 1 / -1;
 }
 
 .instrucciones h3 {
     color: #66ea7a;
     font-size: 1.1em;
-    margin: 20px 0 10px 0;
+    margin: 10px 0 8px 0;
+    padding-bottom: 5px;
+    border-bottom: 2px solid rgba(102, 234, 122, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.instrucciones h3::before {
+    content: "▶";
+    font-size: 0.7em;
+    color: #4caf50;
+}
+
+.instrucciones p {
+    margin: 5px 0;
+    font-size: 0.95em;
+}
+
+.instrucciones strong {
+    color: #66ea7a;
+    font-weight: 600;
 }
 
 .instrucciones ul {
-    margin: 0 0 15px 20px;
+    margin: 8px 0 10px 5px;
     padding: 0;
+    list-style: none;
 }
 
 .instrucciones li {
-    margin-bottom: 10px;
-    font-size: 0.95em;
+    margin-bottom: 6px;
+    font-size: 0.9em;
+    padding-left: 20px;
+    position: relative;
+}
+
+.instrucciones li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #4caf50;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.instrucciones li strong {
+    display: inline-block;
+    min-width: 120px;
+}
+
+.instrucciones > div {
+    display: flex;
+    flex-direction: column;
 }
 
 .pantalla_instrucciones > div:last-child {
     text-align: center;
     width: 100%;
-    margin-top: auto;
-    padding-top: 20px;
+    margin-top: 0;
+    padding-top: 0;
 }
 
+.pantalla_instrucciones .btn {
+    min-width: 220px;
+    font-size: 1em;
+    padding: 12px 30px;
+}
 
 .pantalla_instrucciones .btn:hover {
-    transform: scale(0.95);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+    background: #3a3a3a;
 }
 
 
@@ -221,6 +286,7 @@
     align-items: center;
     padding: 20px;
     gap: 10px;
+    background-color: rgb(11, 45, 44);
 }
 
 .info_juego {
@@ -232,7 +298,7 @@
     background: #f0f0f0;
     border-radius: 10px;
     box-sizing: border-box;
-    background-color: seagreen;
+    background-color: rgb(102, 234, 191);
 }
 .info_nivel,
 .tiempo {
@@ -257,7 +323,9 @@
     max-width: 100%;
     max-height: 100%;
     transform-origin: center center;
+    transition: box-shadow 0.2s ease; /* Transición suave */
 }
+
 
 .scale_canvas {
     animation: scaleUp 0.5s ease-in-out;
@@ -455,3 +523,37 @@
     cursor: not-allowed;
     pointer-events: none;
 }
+/* ==================== ANIMACION DEL CANVAS ==================== */
+
+@keyframes rotatePieceLeft {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-90deg);
+    }
+}
+
+@keyframes rotatePieceRight {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(90deg);
+    }
+}
+
+#canvas.rotating-left {
+    animation: none; /* Resetea cualquier animación previa */
+}
+
+#canvas.rotating-right {
+    animation: none;
+}
+
+/* Clase para indicar que se está rotando una pieza */
+.piece-rotating {
+    transition: opacity 0.2s ease;
+}
+
+

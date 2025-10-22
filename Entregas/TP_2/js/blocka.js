@@ -586,19 +586,71 @@ function getPieceIndex(x, y) {
     return row * 2 + col;
 }
 
+let isAnimating = false;
+const ANIMATION_DURATION = 200;
+
 function rotatePiece(pieceIndex, direction) {
     if (pieceIndex < 0 || pieceIndex > 3) return;
+    if (piezas_bloqueadas[pieceIndex]) return;
+    if (isAnimating) return; // Evita clicks durante la animación
 
-    if (piezas_bloqueadas[pieceIndex]) return; 
+    isAnimating = true;
 
+    // Guarda la rotación inicial
+    const rotacionInicial = rotations[pieceIndex];
+    
+    // Calcula la rotación final
     if (direction === 'left') {
         rotations[pieceIndex] = (rotations[pieceIndex] - 90 + 360) % 360;
     } else {
         rotations[pieceIndex] = (rotations[pieceIndex] + 90) % 360;
     }
-    
-    drawPuzzle();
+
+    // Anima la rotación
+    animateRotation(pieceIndex, rotacionInicial, rotations[pieceIndex], direction);
 }
+
+function animateRotation(pieceIndex, fromAngle, toAngle, direction) {
+    const startTime = performance.now();
+    
+    function animate(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / ANIMATION_DURATION, 1);
+        
+        // Easing suave (ease-out)
+        const easeProgress = progress;
+        
+        // Calcula el ángulo intermedio
+        let angleDiff;
+        if (direction === 'left') {
+            angleDiff = -90 * easeProgress;
+        } else {
+            angleDiff = 90 * easeProgress;
+        }
+        
+        // Dibuja con el ángulo animado
+        const currentAngle = (fromAngle + angleDiff + 360) % 360;
+        
+        // Temporalmente sobrescribe la rotación para el dibujo
+        const originalRotation = rotations[pieceIndex];
+        rotations[pieceIndex] = currentAngle;
+        drawPuzzle();
+        rotations[pieceIndex] = originalRotation;
+        
+        if (progress < 1) {
+            requestAnimationFrame(animate);
+        } else {
+            // Animación completada
+            isAnimating = false;
+            drawPuzzle(); // Dibuja el estado final
+        }
+    }
+    
+    requestAnimationFrame(animate);
+}
+
+
+
 
 function checkResult() {
     const solved = rotations.every((r, i) => r === correctRotations[i]);
@@ -635,6 +687,8 @@ function resetGame() {
 }
 
 canvas.addEventListener('click', (e) => {
+    if (isAnimating) return; // Ignora clicks durante animación
+    
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -645,6 +699,7 @@ canvas.addEventListener('click', (e) => {
 
 canvas.addEventListener('contextmenu', (e) => {
     e.preventDefault();
+    if (isAnimating) return; // Ignora clicks durante animación
     
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
