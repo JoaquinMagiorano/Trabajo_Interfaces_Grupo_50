@@ -33,7 +33,7 @@ let tiempo_transcurrido = 0;
 const timer_display = document.getElementById('tiempo');
 let tiempo_limite = 0;
 let tiene_limite = false;
-/*let ayudita_usada = false;*/
+let ayudita_usada = false;
 
 /*//////////////////////////////////////*/ 
 let imagen_seleccionada_index = -1;
@@ -128,10 +128,9 @@ function resetGameConImagenSeleccionada() {
     juego_activo = true;
     piezas_bloqueadas = [false, false, false, false];
     detenerTiempo();      
-    iniciarTiempo();
-    /*ayudita_usada = false; 
+    ayudita_usada = false; 
     btn_ayudita.disabled = false; 
-    btn_ayudita.style.opacity = '1';*/
+    btn_ayudita.style.opacity = '1';
     
     const imagenes_galeria = Array.from(document.querySelectorAll('.galeria .vista_previa'));
     let selectedImage = null;
@@ -154,6 +153,7 @@ function resetGameConImagenSeleccionada() {
         randomizeRotations();
         setDificultad();
         drawPuzzle();
+        iniciarTiempo();
     }
     
     originalImage.onerror = () => {
@@ -192,10 +192,6 @@ const imageArray = [
     "./img/frogames/sapo 7.png",
     "./img/frogames/sapo 8.png"
 ];
-
-function pantallaPreNivel(){
-
-}
 
 // Rotaciones actuales (representadas en grados) y animaciones
 let rotations = [0, 0, 0, 0];
@@ -389,7 +385,7 @@ function perderPorTiempo() {
 }
 
 function mostrarPantalla(pantalla) {
-    if (pantalla === pantalla_victoria || pantalla === pantalla_derrota) {
+    if (pantalla === pantalla_victoria || pantalla === pantalla_derrota || pantalla === pantalla_final) {
         pantalla.classList.remove('hidden');
         return;
     }
@@ -483,6 +479,7 @@ function loadRandomImage() {
         randomizeRotations();
         setDificultad(); 
         drawPuzzle();
+        iniciarTiempo();
     }
     
     originalImage.onerror = () => {
@@ -632,10 +629,9 @@ function resetGame() {
     piezas_bloqueadas = [false, false, false, false];
     detenerTiempo();
     loadRandomImage();  
-    iniciarTiempo();
-    /*ayudita_usada = false; 
+    ayudita_usada = false; 
     btn_ayudita.disabled = false; 
-    btn_ayudita.style.opacity = '1';*/
+    btn_ayudita.style.opacity = '1';
 }
 
 canvas.addEventListener('click', (e) => {
@@ -660,7 +656,7 @@ canvas.addEventListener('contextmenu', (e) => {
 
 btn_ayudita.addEventListener('click', () => {
     if (!juego_activo) return;
-    /*if (ayudita_usada) return;*/
+    if (ayudita_usada) return;
 
     let pieceIndex = rotations.findIndex((r, i) => r !== correctRotations[i]);
 
@@ -669,6 +665,13 @@ btn_ayudita.addEventListener('click', () => {
         piezas_bloqueadas[pieceIndex] = true;
         tiempo_transcurrido += 5;
         actualizarDisplayTiempo();
+
+        ayudita_usada = true;
+
+        btn_ayudita.disabled = true;
+        btn_ayudita.style.opacity = '0.5';
+        btn_ayudita.style.cursor = 'not-allowed';
+
         drawPuzzle();
 
         
