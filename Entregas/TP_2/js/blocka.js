@@ -333,9 +333,6 @@ function actualizarDisplayTiempo() {
         const min_restante = Math.floor(Math.abs(tiempo_restante) / 60);
         const seg_restante = Math.abs(tiempo_restante) % 60;
         
-        //const min_limite = Math.floor(tiempo_limite / 60);
-        //const seg_limite = tiempo_limite % 60;
-        
         const restante = `${String(min_restante).padStart(2, '0')}:${String(seg_restante).padStart(2, '0')}`;
         
         if (timer_display) {
@@ -472,7 +469,7 @@ function loadRandomImage() {
     const randomIndex = Math.floor(Math.random() * imageArray.length);
     const selectedImage = imageArray[randomIndex];
     
-    console.log("Cargando imagen:", selectedImage); //Se puede borrar despues
+    console.log("Cargando imagen:", selectedImage);
     
     originalImage.onload = () => {
         imageLoaded = true;
@@ -596,17 +593,14 @@ function rotatePiece(pieceIndex, direction) {
 
     isAnimating = true;
 
-    // Guarda la rotación inicial
     const rotacionInicial = rotations[pieceIndex];
     
-    // Calcula la rotación final
     if (direction === 'left') {
         rotations[pieceIndex] = (rotations[pieceIndex] - 90 + 360) % 360;
     } else {
         rotations[pieceIndex] = (rotations[pieceIndex] + 90) % 360;
     }
 
-    // Anima la rotación
     animateRotation(pieceIndex, rotacionInicial, rotations[pieceIndex], direction);
 }
 
@@ -617,10 +611,8 @@ function animateRotation(pieceIndex, fromAngle, toAngle, direction) {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / ANIMATION_DURATION, 1);
         
-        // Easing suave (ease-out)
         const easeProgress = progress;
         
-        // Calcula el ángulo intermedio
         let angleDiff;
         if (direction === 'left') {
             angleDiff = -90 * easeProgress;
@@ -628,10 +620,8 @@ function animateRotation(pieceIndex, fromAngle, toAngle, direction) {
             angleDiff = 90 * easeProgress;
         }
         
-        // Dibuja con el ángulo animado
         const currentAngle = (fromAngle + angleDiff + 360) % 360;
         
-        // Temporalmente sobrescribe la rotación para el dibujo
         const originalRotation = rotations[pieceIndex];
         rotations[pieceIndex] = currentAngle;
         drawPuzzle();
@@ -640,17 +630,12 @@ function animateRotation(pieceIndex, fromAngle, toAngle, direction) {
         if (progress < 1) {
             requestAnimationFrame(animate);
         } else {
-            // Animación completada
             isAnimating = false;
-            drawPuzzle(); // Dibuja el estado final
         }
     }
     
     requestAnimationFrame(animate);
 }
-
-
-
 
 function checkResult() {
     const solved = rotations.every((r, i) => r === correctRotations[i]);
@@ -669,7 +654,6 @@ function checkResult() {
         } else if (nivel_actual > 8) {
             irAlMenu();
         }
-        
     }
 
     return solved;
