@@ -524,36 +524,16 @@
     pointer-events: none;
 }
 /* ==================== ANIMACION DEL CANVAS ==================== */
-/*
-@keyframes rotatePieceLeft {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(-90deg);
-    }
-}
-
-@keyframes rotatePieceRight {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(90deg);
-    }
-}
 
 #canvas.rotating-left {
-    animation: none; /* Resetea cualquier animación previa 
+    animation: none; /* Resetea cualquier animación previa */
 }
 
 #canvas.rotating-right {
     animation: none;
 }
 
-/* Clase para indicar que se está rotando una pieza 
+/* Clase para indicar que se está rotando una pieza */
 .piece-rotating {
     transition: opacity 0.2s ease;
 }
-*/
-
