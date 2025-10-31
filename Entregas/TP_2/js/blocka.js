@@ -25,6 +25,11 @@ const pantalla_derrota = document.querySelector('.pantalla_derrota');
 const btn_reintentar = document.querySelector('.pantalla_derrota #btn_reintentar');
 const btn_menu_derrota = document.querySelectorAll('.pantalla_derrota .btn')[1];
 
+const boton_compartir = document.querySelector('#btn_compartir');
+
+boton_compartir.addEventListener('click', function(){
+    menu_compartir.classList.toggle('hidden')
+});
 
 /*variables para el funcionamiento del juego, tiempo, etc...*/
 let juego_activo = false;
