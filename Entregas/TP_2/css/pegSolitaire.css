@@ -14,19 +14,12 @@
     overflow: hidden;
 }
 
-
 /* ==================== PANTALLAS BASE ==================== */
-
-.pantalla {
-    margin-top: 20px;
-}
-
-
 .pantalla_comienzo,
 .pantalla_instrucciones,
 .pantalla_jugable,
 .pantalla_derrota,
-.pantalla_victoria,
+.pantalla_final,
 #blur_screen {
     width: 100%;
     height: 100%;
@@ -42,9 +35,7 @@
     display: none !important;
 }
 
-
 /* ==================== PANTALLA DE INICIO ==================== */
-
 #blur_screen {
     justify-content: center;
     align-items: center;
@@ -85,16 +76,14 @@
     font-size: 2.5rem;
 }
 
-
 /* ==================== PANTALLA DE COMIENZO ==================== */
-
 .pantalla_comienzo {
     justify-content: space-between;
     align-items: center;
     text-align: center;
     gap: 20px;
     padding: 40px 30px 30px 30px;
-    background-color: rgb(26, 58, 58);
+    background: linear-gradient(135deg, #1a3a3a 0%, #0f2a2a 100%);
 }
 
 .pantalla_comienzo h1 {
@@ -128,40 +117,12 @@
     transition: transform 0.2s ease;
 }
 
-.pantalla_comienzo .btn:hover {
+.btn:hover {
     transform: scale(0.95);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.galeria {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    width: 100%;
-    padding: 20px 0;
-}
-
-.galeria img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-    border: 3px solid transparent;
-    position: relative; 
-}
-
-.vista_previa:hover {
-   transform: scale(1.1);
-   box-shadow: 0 8px 25px rgba(102, 234, 122, 0.4);
-   border: 3px solid #66ea7a;
-   z-index: 10;
-}
 /* ==================== PANTALLA DE INSTRUCCIONES ==================== */
-
 .pantalla_instrucciones {
     justify-content: center;
     align-items: center;
@@ -205,15 +166,6 @@
     margin: 10px 0 8px 0;
     padding-bottom: 5px;
     border-bottom: 2px solid rgba(102, 234, 122, 0.3);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.instrucciones h3::before {
-    content: "▶";
-    font-size: 0.7em;
-    color: #4caf50;
 }
 
 .instrucciones p {
@@ -240,22 +192,10 @@
 }
 
 .instrucciones li::before {
-    content: "✓";
+    content: "🐸";
     position: absolute;
     left: 0;
-    color: #4caf50;
-    font-weight: bold;
-    font-size: 1em;
-}
-
-.instrucciones li strong {
-    display: inline-block;
-    min-width: 120px;
-}
-
-.instrucciones > div {
-    display: flex;
-    flex-direction: column;
+    font-size: 0.8em;
 }
 
 .pantalla_instrucciones > div:last-child {
@@ -265,28 +205,22 @@
     padding-top: 0;
 }
 
-.pantalla_instrucciones .btn {
-    min-width: 220px;
-    font-size: 1em;
-    padding: 12px 30px;
-}
-
-.pantalla_instrucciones .btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
-    background: #3a3a3a;
-}
-
-
-
 /* ==================== PANTALLA JUGABLE ==================== */
-
 .pantalla_jugable {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
     gap: 10px;
-    background-color: rgb(11, 45, 44);
+    background: linear-gradient(135deg, #0b2d2c 0%, #083434 100%);
+}
+
+.pantalla_jugable img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0.3;
 }
 
 .info_juego {
@@ -295,11 +229,13 @@
     align-items: center;
     width: 100%;
     padding: 15px;
-    background: #f0f0f0;
+    background: rgba(102, 234, 191, 0.9);
     border-radius: 10px;
     box-sizing: border-box;
-    background-color: rgb(102, 234, 191);
+    z-index: 2;
+    position: relative;
 }
+
 .info_nivel,
 .tiempo {
     font-size: 1.2em;
@@ -313,6 +249,8 @@
     align-items: center;
     width: 100%;
     flex-grow: 1;
+    z-index: 2;
+    position: relative;
 }
 
 #canvas {
@@ -322,25 +260,8 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     max-width: 100%;
     max-height: 100%;
-    transform-origin: center center;
-    transition: box-shadow 0.2s ease; /* Transición suave */
-}
-
-
-.scale_canvas {
-    animation: scaleUp 0.5s ease-in-out;
-}
-
-@keyframes scaleUp {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.2);
-    }
-    100% {
-        transform: scale(1);
-    }
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
 }
 
 .pantalla_jugable > div:last-child {
@@ -349,80 +270,26 @@
     gap: 15px;
     flex-wrap: wrap;
     width: 100%;
+    z-index: 2;
+    position: relative;
 }
 
-
-
-.pantalla_jugable .btn:hover {
-    transform: scale(0.95);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-
-/* ==================== PANTALLA DE VICTORIA ==================== */
-
-.pantalla_victoria {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 20px;
-    padding: 30px;
-    background-color: #0325059b;
-    backdrop-filter: blur(4px);
-
-}
-
-.pantalla_victoria h2 {
-    color: #f7f7f7;
-    font-size: 2em;
-    margin: 0;
-}
-
-.tiempo_victoria {
-    font-size: 1.5em;
-    color: #000000;
-    margin: 0;
-}
-
-.pantalla_victoria > div:last-child {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.pantalla_victoria .btn:hover {
-    transform: scale(0.95);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-.flex_vertical {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-}
-
-/* ==================== pantalla final ==================== */
-
+/* ==================== PANTALLA FINAL (VICTORIA) ==================== */
 .pantalla_final {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 100%;
-    height: 100%;
     gap: 20px;
     padding: 30px;
-    background-color: #0325059b;
+    background: linear-gradient(135deg, #032505 0%, #0a5c2a 100%);
     backdrop-filter: blur(4px);
 }
-
 
 .pantalla_final h2 {
     color: #f7f7f7;
     font-size: 2em;
     margin: 0;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
 .pantalla_final > div:last-child {
@@ -432,22 +299,14 @@
     flex-wrap: wrap;
 }
 
-.pantalla_final .btn:hover {
-    transform: scale(0.95);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-
-
-/* ==================== pantalla de derrota ==================== */
-
+/* ==================== PANTALLA DE DERROTA ==================== */
 .pantalla_derrota {
     justify-content: center;
     align-items: center;
     text-align: center;
     gap: 20px;
     padding: 30px;
-    background-color: #67000080;
+    background: linear-gradient(135deg, #670000 0%, #8b0000 100%);
     backdrop-filter: blur(4px);
 }
 
@@ -470,90 +329,36 @@
     flex-wrap: wrap;
 }
 
-.pantalla_derrota .btn:hover {
-    transform: scale(0.95);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
 .flex_vertical {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    gap: 10px;
 }
 
-
-
-
-/* ==================== ANIMACION DE LA RULETA ==================== */
-.vista_previa.ruleta-activa {
-    transform: scale(1.1);
-    box-shadow: 0 8px 25px rgba(102, 234, 122, 0.4);
-    border: 3px solid #66ea7a;
-    z-index: 10;
-    transition: all 0.1s ease;
-}
-
-.vista_previa.seleccionada-final {
-    animation: pulsoSeleccion 0.8s ease-in-out;
-    transform: scale(1.2);
-    box-shadow: 0 10px 35px rgba(102, 234, 122, 0.8);
-    border: 4px solid #4caf50;
-    z-index: 10;
-}
-
-@keyframes pulsoSeleccion {
-    0%, 100% {
-        transform: scale(1.2);
-        box-shadow: 0 10px 35px rgba(102, 234, 122, 0.8);
-    }
-    50% {
-        transform: scale(1.35);
-        box-shadow: 0 15px 45px rgba(102, 234, 122, 1);
-    }
-}
-
-.vista_previa.no-seleccionada {
-    opacity: 0.3;
-    transition: opacity 0.5s ease;
-}
-
-
+/* ==================== ESTADOS ESPECIALES ==================== */
 .btn.disabled {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
 }
-/* ==================== ANIMACION DEL CANVAS ==================== */
-/*
-@keyframes rotatePieceLeft {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(-90deg);
-    }
+
+/* Efectos de selección para el canvas */
+#canvas.frog-selected {
+    box-shadow: 0 0 20px rgba(102, 234, 122, 0.8);
+    border-color: #4caf50;
 }
 
-@keyframes rotatePieceRight {
-    0% {
-        transform: rotate(0deg);
+/* Animación para movimientos válidos */
+@keyframes validMove {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
     }
-    100% {
-        transform: rotate(90deg);
+    50% {
+        box-shadow: 0 0 20px rgba(76, 175, 80, 0.8);
     }
 }
 
-#canvas.rotating-left {
-    animation: none; /* Resetea cualquier animación previa 
+.valid-move {
+    animation: validMove 1s ease-in-out infinite;
 }
-
-#canvas.rotating-right {
-    animation: none;
-}
-
-/* Clase para indicar que se está rotando una pieza 
-.piece-rotating {
-    transition: opacity 0.2s ease;
-}
-*/
-
