@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="./css/game_page.css">
+    <link rel="stylesheet" href="./css/peg.css">
+
     <title>Frogames</title>
 </head>
 <body> 
@@ -59,48 +61,121 @@
     </div>
     
     <main>
-        <!-- 
-        <div class="pantallaJugable hidden">
-            <div class="juego">
-                <img src="./img/frogames/frog_peg.png" alt="">
-                <button><h1>JUGAR</h1></button>
-            </div>
-            <div class="datos_barra">
-                <img src="./img/frogames/logo.png" alt="logo" width="50px" height="50px">
-                <h1>Peg solitare-frog ver.</h1>
-                <div class="redes">
-                    <button id="btn_compartir" class="btn_compartir"><img src="./iconos/Software_Share_Button_Social_Media_Send_Connection_1.png" alt="compartir"></button>
-                    <button><img src="./iconos/RPG_Stat_HP_Health_Heart.png" alt="favorito"></button>
-                    <button><img src="./iconos/Software_Window_Fullscreen_Mode_Select_1.png" alt="pantalla_completa"></button>
-                </div>
-                <div id="menu_compartir" class="hidden">
-                    <button><img src="./iconos/Platforms_X_Twitter.png" alt="x"></button>
-                    <button><img src="./iconos/Platforms_Facebook.png" alt="facebook"></button>
-                    <button><img src="./iconos/Platforms_Instagram.png" alt="instagram"></button>
-                </div>
-            </div>
-        </div>
-        -->
+        <div class="pantalla">
+            <div class="contenedor_jugable">
+                <!-- pantalla principal, que aparece en la game_page -->
 
-        <div class="pantalla_jugable">
-            <div class="info_juego">
-                <div class="info_nivel">Nivel: <span id="nivel_numero">1</span></div>
-                <div class="tiempo"> <span id="tiempo"> 00:00</span></div>
-                <div class="fichas_restantes">Fichas: <span id="status">32</span></div>
-            </div>
-            
-            <div class="pantalla_juego">
-                <canvas id="canvas" width="600" height="600"></canvas>
-            </div>
-            
-            <div class="controles_juego">
-                <button id="resetBtn" class="btn">Reset</button>
-                <button id="btn_menu" class="btn">Volver al menú</button>
+                <div id="blur_screen" class="juego">
+                    <img src="./img/frogames/peg_solitary_fondo.png" alt="">
+                    <button id="btn_start"><h1>&#9654;</h1></button>
+                </div>
+
+                <!-- pantalla priuncipal que aparece en el menu -->
+
+                <div class="pantalla_comienzo hidden">
+                    <img src="./img/frogames/fondo_de_inicio_peg_solitary.png" alt="">
+                    <h1>peg solitary <br> Frog Puzzle</h1>
+                    
+                    <div class="menu_btn">
+                        <button class="btn" id="btn_comenzar_jugar">Comenzar a jugar</button>
+                        <button class="btn" id="btn_instrucciones">Instrucciones</button>
+                    </div>
+                </div>
+
+                <!-- pantalla de instrucciones -->
+
+                <div class="pantalla_instrucciones hidden">
+                    <div class="instrucciones">
+                        <h2>Cómo Jugar</h2>
+                        
+                        <div>
+                            <p><strong>Objetivo:</strong> Rotar las 4 piezas hasta formar la imagen completa.</p>
+                            
+                            <h3>Controles:</h3>
+                            <ul>
+                                <li><strong>Clic Izquierdo:</strong> Rota 90° izquierda</li>
+                                <li><strong>Clic Derecho:</strong> Rota 90° derecha</li>
+                            </ul>
+
+                            <h3>Ayudita:</h3>
+                        </div>
+
+                        <div>
+                            <h3>Victoria:</h3>
+                            <p>Cuando todas las piezas estén correctas, ¡ganarás! Los filtros desaparecerán.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn" id="btn_volver_menu">Volver al menú</button>
+                    </div>
+                </div>
+
+                <!-- pantalla priuncipal jugable -->
+                <div class="pantalla_jugable hidden" >
+                    <img src="./img/frogames/fondo_de_juego_peg_solitary.png" alt="">
+
+                    <div class="controles_juego">
+                        <button id="btn_reset" class="btn">Reset</button>
+                        <button id="btn_menu" class="btn">Volver al menú</button>
+                    </div>
+                    
+                    <div class="pantalla_juego">
+                        <canvas id="canvas" width="600" height="600"></canvas>
+                    </div>
+                    
+                    <div class="info_juego">
+                        <div class="tiempo"> <span id="tiempo"> 00:00</span></div>
+                        <div class="fichas_restantes"><span id="status">fichas restantes: 32</span></div>
+                    </div>
+                    
+                </div>
+
+                <!-- pantalla final -->
+
+                <div class="pantalla_final hidden">
+                    <h2>GANASTE</h2>
+                    <div>
+                        <button id="btn_menu" class="btn">Volver al menú</button>
+                    </div>
+                </div>
+                
+                <!-- pantalla de derrota por tiempo -->
+
+                <div class="pantalla_derrota_tiempo hidden">
+                    <h2>Tiempo agotado</h2>
+                    <p>No pudiste completar el nivel a tiempo</p>
+                    <div class="flex_vertical">
+                        <button id="btn_reset" class="btn">Reset</button>
+                        <button id="btn_menu" class="btn">Volver al menú</button>
+                    </div>
+                </div>
+
+                <!-- pantalla de derrota por falta de movimientos -->
+
+                <div class="pantalla_derrota_movimiento hidden">
+                    <h2>movimientos agotado</h2>
+                    <p>Te quedaste sin movimientos validos</p>
+                    <div class="flex_vertical">
+                        <button id="btn_reset" class="btn">Reset</button>
+                        <button id="btn_menu" class="btn">Volver al menú</button>
+                    </div>
+                </div>
+
+
+
+
+
             </div>
         </div>
+
+
+
+
+
+        
         <div class="datos_barra">
             <img src="./img/frogames/logo.png" alt="logo" width="50px" height="50px">
-            <h1>Blocka - Puzzle Frog</h1>
+            <h1>peg solitary - Puzzle Frog</h1>
             <div class="redes">
                 <button id="btn_compartir" class="btn_compartir"><img src="./iconos/Software_Share_Button_Social_Media_Send_Connection_1.png" alt="compartir"></button>
                 <button><img src="./iconos/RPG_Stat_HP_Health_Heart.png" alt="favorito"></button>
@@ -111,8 +186,7 @@
                 <button><img src="./iconos/Platforms_Facebook.png" alt="facebook"></button>
                 <button><img src="./iconos/Platforms_Instagram.png" alt="instagram"></button>
             </div>
-        </div>
-        
+        </div>    
         <div class="secciones_inferiores">
             <div class="izquierda">
                 <div class="juego_info">
@@ -233,6 +307,7 @@
                     <img src="./img/frogames/publicidad_rana.png" >
                 </div>
             </div>
+        </div>
         </div>
     </main>
    
