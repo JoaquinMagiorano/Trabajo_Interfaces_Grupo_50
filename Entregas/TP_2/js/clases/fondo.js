@@ -47,10 +47,10 @@ export class Fondo {
             this.spaces[row] = [];
             
             for (let col = 0; col < colLayout; col++) {
-                const x =  col * this.spaceSize;
-                const y =  row * this.spaceSize;
+                const x =  col * this.spaceSize+10;
+                const y =  row * this.spaceSize+10;
                 
-                const space = new Espacio(row, col, this.spaceSize, x, y);//crea un espacio
+                const space = new Espacio(row, col,this.spaceSize, x, y);//crea un espacio
                 space.isValid = layout[row][col] === valorValido;//registra el valor en pos row col es valido(1) o no
                 
 
