@@ -90,7 +90,7 @@ export class Fondo {
         }
     }
 
-    getPegAt(x, y) {
+    getPegAt(x, y) {//busca si hay una ficha en dicha pos
         for (let i = this.pegs.length - 1; i >= 0; i--) {
             if (this.pegs[i].contains(x, y)) {
                 return this.pegs[i];
@@ -99,7 +99,7 @@ export class Fondo {
         return null;
     }
 
-    getSpaceAt(x, y) {
+    getSpaceAt(x, y) {//busca si hay un espacio en dicha pos
         for (let row = 0; row < 7; row++) {
             for (let col = 0; col < 7; col++) {
                 const space = this.spaces[row][col];
@@ -139,26 +139,27 @@ export class Fondo {
         const moves = [];
         const directions = [[-2, 0], [2, 0], [0, -2], [0, 2]]; // arriba, abajo, izq, der
 
-        for (const [dr, dc] of directions) {
+        directions.forEach(direction => {
+            const dr = direction[0];//direccion row
+            const dc = direction[1];//direccion column
             const newRow = peg.row + dr;
             const newCol = peg.col + dc;
-
-            if (newRow >= 0 && newRow < 7 && newCol >= 0 && newCol < 7) {
-                if (this.isValidMove(peg.row, peg.col, newRow, newCol)) {
-                    moves.push(this.spaces[newRow][newCol]);
+                if (newRow >= 0 && newRow < 7 && newCol >= 0 && newCol < 7) {//checkea si no esta en los bordes
+                    if (this.isValidMove(peg.row, peg.col, newRow, newCol)) {//checkea si es un movimiento valido
+                        moves.push(this.spaces[newRow][newCol]);
+                    }
                 }
-            }
-        }
+            });
 
         return moves;
-    }
+    };
 
     highlightValidMoves(peg) {
         // Limpiar resaltados previos
         for (let row = 0; row < 7; row++) {
             for (let col = 0; col < 7; col++) {
                 this.spaces[row][col].isHighlighted = false;
-            }
+            }   
         }
 
         // Resaltar movimientos válidos
@@ -176,24 +177,42 @@ export class Fondo {
         }
     }
 
-    movePeg(peg, toSpace) {
-        // Actualizar espacios
-        this.spaces[peg.row][peg.col].hasPeg = false;
-        toSpace.hasPeg = true;
+    movePeg(peg, space) {
+        //mueve la ficha
+        this.updateSpaces(peg, space);
+        
+        //Elimina la ficha del medio
+        this.removeMiddlePeg(peg, space);
+        
+        //actualiza la ficha movida
+        peg.updatePosition(space.row, space.col, space.x, space.y);
+    }
 
-        // Eliminar la ficha del medio
-        const middleRow = (peg.row + toSpace.row) / 2;
-        const middleCol = (peg.col + toSpace.col) / 2;
+    updateSpaces(peg, space) {
+        this.spaces[peg.row][peg.col].hasPeg = false;//la posision donde habia una ficha y ahora no la hay(no es borrar la comida es el movimiento)
+        space.hasPeg = true;//la nueva posicion de la ficha
+    }
+
+    removeMiddlePeg(peg, space) {
+        //marca donde estaba la ficha comida
+        const middleRow = (peg.row + space.row) / 2;
+        const middleCol = (peg.col + space.col) / 2;
+        
+        // establece que no hay ficha
         this.spaces[middleRow][middleCol].hasPeg = false;
-
-        // Eliminar la ficha del medio del array
-        const middlePegIndex = this.pegs.findIndex(p => p.row === middleRow && p.col === middleCol);
+        
+        // ubica la ficha
+        let middlePegIndex = -1;
+        for (let i = 0; i < this.pegs.length; i++) {
+            if (this.pegs[i].row === middleRow && this.pegs[i].col === middleCol) {
+                middlePegIndex = i;
+                break;
+            }
+        }
+        //si la encontro la borra
         if (middlePegIndex !== -1) {
             this.pegs.splice(middlePegIndex, 1);
         }
-
-        // Actualizar posición de la ficha
-        peg.updatePosition(toSpace.row, toSpace.col, toSpace.x, toSpace.y);
     }
 
     hasValidMoves() {
