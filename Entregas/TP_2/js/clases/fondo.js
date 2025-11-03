@@ -17,7 +17,7 @@ export class Fondo {
         this.emptyImg = new Image();
         this.pegImg = new Image();
         
-        this.boardImg.src = './img/peg/fondo.jpg';
+        this.boardImg.src = './img/peg/fondo_peg.png';
         this.emptyImg.src = './img/peg/nenufar.png';
         this.pegImg.src = './img/peg/rana_prueba.png';
         
@@ -69,22 +69,22 @@ export class Fondo {
     }
 
     draw() {
-        // Limpiar canvas
+        // 1.Limpiar canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
-        // Dibujar fondo del tablero
+        // 2.Dibujar fondo del tablero
         if (this.boardImg.complete && this.boardImg.src) {
             this.ctx.drawImage(this.boardImg, 0, 0, this.canvas.width, this.canvas.height);
         }
 
-        // Dibujar espacios
+        // 3.Dibujar espacios
         for (let row = 0; row < 7; row++) {
             for (let col = 0; col < 7; col++) {
                 this.spaces[row][col].draw(this.ctx, this.boardImg, this.emptyImg);
             }
         }
 
-        // Dibujar fichas
+        // 4.Dibujar fichas
         for (const peg of this.pegs) {
             peg.draw(this.ctx, this.pegImg);
         }
