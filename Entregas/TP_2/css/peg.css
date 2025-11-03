@@ -331,12 +331,10 @@
 }
 
 #canvas {
-    border: 3px solid #66ea7a;
+    border: 3px solid #77441A;
     border-radius: 10px;
     cursor: pointer;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    /* NO uses max-width/max-height aquí, dejá las dimensiones fijas */
-    width: 600px;
     height: 600px;
     transform-origin: center center;
     transition: box-shadow 0.2s ease;

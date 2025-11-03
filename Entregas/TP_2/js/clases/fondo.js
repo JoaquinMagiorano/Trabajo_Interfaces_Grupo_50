@@ -19,7 +19,7 @@ export class Fondo {
         
         this.boardImg.src = './img/peg/fondo.jpg';
         this.emptyImg.src = './img/peg/nenufar.png';
-        this.pegImg.src = './img/peg/sapo.png';
+        this.pegImg.src = './img/peg/rana_prueba.png';
         
         this.initializeBoard();
     }
