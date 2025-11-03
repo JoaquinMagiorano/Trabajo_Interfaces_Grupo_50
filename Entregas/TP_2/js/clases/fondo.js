@@ -15,10 +15,9 @@ export class Fondo {
         this.emptyImg = new Image();
         this.pegImg = new Image();
         
-        // IMPORTANTE: Reemplaza estas rutas con tus propias imágenes
-        this.boardImg.src = './img/peg/fondo.jpg';
+        this.boardImg.src = './img/peg/fondo2.jpg';
         this.emptyImg.src = './img/peg/nenufar.png';
-        this.pegImg.src = './img/peg/sapo.png';
+        this.pegImg.src = './img/peg/rana_prueba.png';
         
         this.initializeBoard();
     }
