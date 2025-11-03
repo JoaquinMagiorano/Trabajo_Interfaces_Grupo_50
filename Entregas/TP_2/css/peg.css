@@ -367,6 +367,20 @@
     z-index: 10;
 }
 
+.pantalla_final > img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 80%;
+    max-height: 80%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    z-index: -1;
+}
+
+
 .pantalla_final h2 {
     color: #66ea7a;
     font-size: 3em;
