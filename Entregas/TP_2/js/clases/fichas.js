@@ -9,14 +9,22 @@ export class Ficha {
         this.originalY = y;
         this.isDragging = false;
 
-        this.pegImg = new Image();
+        this.pegImg1 = new Image();
         this.pegImg2 = new Image();
+        this.pegImg3 = new Image();
+        this.pegImg4 = new Image();
+        this.pegImg5 = new Image();
+        this.pegImg6 = new Image();
         
-        this.pegImg.src = './img/peg/rana_prueba.png';
-        this.pegImg2.src = './img/peg/sapo.png';
-        
-        const option= Math.floor(Math.random() * 2);
-        const images=[this.pegImg,this.pegImg2];
+        this.pegImg1.src = './img/peg/sapo1.png';
+        this.pegImg2.src = './img/peg/sapo2.png';
+        this.pegImg3.src = './img/peg/sapo3.png';
+        this.pegImg4.src = './img/peg/sapo4.png';
+        this.pegImg5.src = './img/peg/sapo5.png';
+        this.pegImg6.src = './img/peg/sapo6.png';
+
+        const option= Math.floor(Math.random() * 6);
+        const images=[this.pegImg1,this.pegImg2,this.pegImg3,this.pegImg4,this.pegImg5,this.pegImg6];
         this.pegImgChosen = images[option];
            
     }
