@@ -8,6 +8,12 @@ export class Juego {
         this.mouseX = 0;
         this.mouseY = 0;
         
+        // Variables para el temporizador
+        this.tiempoLimite = 5 * 60; // 5 minutos en segundos
+        this.tiempoRestante = this.tiempoLimite;
+        this.timerInterval = null;
+        this.juegoActivo = false;
+        
         this.setupEventListeners();
         this.gameLoop();
     }
@@ -16,33 +22,70 @@ export class Juego {
         this.canvas.addEventListener('mousedown', (e) => this.onMouseDown(e));
         this.canvas.addEventListener('mousemove', (e) => this.onMouseMove(e));
         this.canvas.addEventListener('mouseup', (e) => this.onMouseUp(e));
+    }
+
+    // Método para iniciar el juego
+    iniciar() {
+        this.juegoActivo = true;
+        this.tiempoRestante = this.tiempoLimite;
+        this.iniciarTemporizador();
+        this.updateStatus();
+    }
+
+    // Método para detener el juego
+    detener() {
+        this.juegoActivo = false;
+        this.detenerTemporizador();
+    }
+
+    // Iniciar el temporizador
+    iniciarTemporizador() {
+        this.detenerTemporizador(); // Limpiar cualquier temporizador previo
         
-        // Touch events para móviles
-        this.canvas.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            const touch = e.touches[0];
-            const mouseEvent = new MouseEvent('mousedown', {
-                clientX: touch.clientX,
-                clientY: touch.clientY
-            });
-            this.canvas.dispatchEvent(mouseEvent);
-        });
+        this.timerInterval = setInterval(() => {
+            if (!this.juegoActivo) {
+                this.detenerTemporizador();
+                return;
+            }
+
+            this.tiempoRestante--;
+            this.actualizarDisplayTiempo();
+
+            // Verificar si se acabó el tiempo
+            if (this.tiempoRestante <= 0) {
+                this.detenerTemporizador();
+                this.derrotaPorTiempo();
+            }
+        }, 1000);
+    }
+
+    // Detener el temporizador
+    detenerTemporizador() {
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+    }
+
+    // Actualizar el display del tiempo
+    actualizarDisplayTiempo() {
+        const minutos = Math.floor(this.tiempoRestante / 60);
+        const segundos = this.tiempoRestante % 60;
+        const tiempoFormateado = `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
         
-        this.canvas.addEventListener('touchmove', (e) => {
-            e.preventDefault();
-            const touch = e.touches[0];
-            const mouseEvent = new MouseEvent('mousemove', {
-                clientX: touch.clientX,
-                clientY: touch.clientY
-            });
-            this.canvas.dispatchEvent(mouseEvent);
-        });
-        
-        this.canvas.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            const mouseEvent = new MouseEvent('mouseup', {});
-            this.canvas.dispatchEvent(mouseEvent);
-        });
+        const tiempoElement = document.getElementById('tiempo');
+        if (tiempoElement) {
+            tiempoElement.textContent = tiempoFormateado;
+            
+            // Cambiar color si queda poco tiempo
+            if (this.tiempoRestante <= 30) {
+                tiempoElement.style.color = '#ff0000';
+            } else if (this.tiempoRestante <= 60) {
+                tiempoElement.style.color = '#ff6600';
+            } else {
+                tiempoElement.style.color = '#333';
+            }
+        }
     }
 
     getMousePos(e) {
@@ -54,6 +97,8 @@ export class Juego {
     }
 
     onMouseDown(e) {
+        if (!this.juegoActivo) return;
+        
         const pos = this.getMousePos(e);
         const peg = this.board.getPegAt(pos.x, pos.y);
         
@@ -65,7 +110,7 @@ export class Juego {
     }
 
     onMouseMove(e) {
-        if (this.draggedPeg) {
+        if (this.draggedPeg && this.juegoActivo) {
             const pos = this.getMousePos(e);
             this.draggedPeg.x = pos.x - this.draggedPeg.size / 2;
             this.draggedPeg.y = pos.y - this.draggedPeg.size / 2;
@@ -73,7 +118,7 @@ export class Juego {
     }
 
     onMouseUp(e) {
-        if (this.draggedPeg) {
+        if (this.draggedPeg && this.juegoActivo) {
             const pos = this.getMousePos(e);
             const targetSpace = this.board.getSpaceAt(pos.x, pos.y);
             
@@ -87,10 +132,8 @@ export class Juego {
                 this.board.movePeg(this.draggedPeg, targetSpace);
                 this.updateStatus();
                 
-                // Verificar si el juego terminó
-                if (!this.board.hasValidMoves()) {
-                    this.endGame();
-                }
+                // Verificar condiciones de fin de juego
+                this.verificarEstadoJuego();
             } else {
                 // Movimiento inválido, regresar a posición original
                 this.draggedPeg.resetPosition();
@@ -102,33 +145,75 @@ export class Juego {
         }
     }
 
-    updateStatus() {
+    verificarEstadoJuego() {
         const count = this.board.getPegCount();
-        document.getElementById('status').textContent = `Fichas restantes: ${count}`;
-    }
-
-    endGame() {
-        const count = this.board.getPegCount();
-        let message = '';
         
+        // Victoria: solo queda 1 ficha
         if (count === 1) {
-            message = '¡PERFECTO! ¡Has ganado! Solo queda 1 ficha.';
-        } else if (count <= 3) {
-            message = `¡Muy bien! Terminaste con ${count} fichas.`;
-        } else {
-            message = `Juego terminado. Quedan ${count} fichas.`;
+            this.victoria();
+            return;
         }
         
+        // Derrota: no hay movimientos válidos
+        if (!this.board.hasValidMoves()) {
+            this.derrotaPorMovimientos();
+            return;
+        }
+    }
+
+    updateStatus() {
+        const count = this.board.getPegCount();
+        const statusElement = document.getElementById('status');
+        if (statusElement) {
+            statusElement.textContent = `Fichas restantes: ${count}`;
+        }
+    }
+
+    // Victoria
+    victoria() {
+        this.juegoActivo = false;
+        this.detenerTemporizador();
+        
+        // Esperar un momento antes de mostrar la pantalla
         setTimeout(() => {
-            alert(message + '\n\n Haz clic en "Reiniciar Juego" para jugar de nuevo.');
-        }, 100);
+            if (typeof window.mostrarPantallaVictoria === 'function') {
+                window.mostrarPantallaVictoria();
+            }
+        }, 500);
+    }
+
+    // Derrota por tiempo
+    derrotaPorTiempo() {
+        this.juegoActivo = false;
+        
+        setTimeout(() => {
+            if (typeof window.mostrarPantallaDerrotaTiempo === 'function') {
+                window.mostrarPantallaDerrotaTiempo();
+            }
+        }, 500);
+    }
+
+    // Derrota por movimientos
+    derrotaPorMovimientos() {
+        this.juegoActivo = false;
+        this.detenerTemporizador();
+        
+        setTimeout(() => {
+            if (typeof window.mostrarPantallaDerrotaMovimiento === 'function') {
+                window.mostrarPantallaDerrotaMovimiento();
+            }
+        }, 500);
     }
 
     reset() {
-        this.board.initializeBoard();
-        this.draggedPeg = null;
-        this.updateStatus();
-    }
+    this.detenerTemporizador();
+    this.board.initializeBoard();
+    this.draggedPeg = null;
+    this.tiempoRestante = this.tiempoLimite;
+    this.juegoActivo = false;
+    this.updateStatus();
+    this.actualizarDisplayTiempo();
+}
 
     gameLoop() {
         this.board.draw();

@@ -2,20 +2,22 @@ import { Espacio } from './espacios.js';
 import { Ficha } from './fichas.js';
 
 export class Fondo {
+    
+   
+
     constructor(canvas) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
-        this.spaceSize = 70;
-        this.padding = 50;
+        this.spaceSize = 85;
         this.spaces = [];
         this.pegs = [];
         
-        // Cargar imágenes
+        //imágenes
         this.boardImg = new Image();
         this.emptyImg = new Image();
         this.pegImg = new Image();
         
-        this.boardImg.src = './img/peg/fondo2.jpg';
+        this.boardImg.src = './img/peg/fondo.jpg';
         this.emptyImg.src = './img/peg/nenufar.png';
         this.pegImg.src = './img/peg/rana_prueba.png';
         
@@ -23,7 +25,6 @@ export class Fondo {
     }
 
     initializeBoard() {
-        // Layout del Peg Solitaire tradicional (forma de cruz)
         // 1 = espacio válido, 0 = no válido
         const layout = [
             [0, 0, 1, 1, 1, 0, 0],
@@ -38,19 +39,25 @@ export class Fondo {
         this.spaces = [];
         this.pegs = [];
 
-        for (let row = 0; row < 7; row++) {
+        const rowLayout=layout.length; //layout.length son las filas de layout
+        const colLayout=layout[0].length;//layout[0].length son las columnas
+        const valorValido=1;
+       
+        for (let row = 0; row < rowLayout; row++) {
             this.spaces[row] = [];
-            for (let col = 0; col < 7; col++) {
-                const x = this.padding + col * this.spaceSize;
-                const y = this.padding + row * this.spaceSize;
+            
+            for (let col = 0; col < colLayout; col++) {
+                const x =  col * this.spaceSize;
+                const y =  row * this.spaceSize;
                 
-                const space = new Espacio(row, col, this.spaceSize, x, y);
-                space.isValid = layout[row][col] === 1;
+                const space = new Espacio(row, col, this.spaceSize, x, y);//crea un espacio
+                space.isValid = layout[row][col] === valorValido;//registra el valor en pos row col es valido(1) o no
                 
-                // El espacio central empieza vacío
-                if (row === 3 && col === 3) {
+
+                // Genera una ficha excepto en el medio
+                if (row === Math.trunc(rowLayout/2) && col === Math.trunc(colLayout/2)) {//si es el medio no genera
                     space.hasPeg = false;
-                } else if (space.isValid) {
+                } else if (space.isValid) {//si es valido asigna una ficha
                     space.hasPeg = true;
                     const peg = new Ficha(row, col, this.spaceSize, x, y);
                     this.pegs.push(peg);

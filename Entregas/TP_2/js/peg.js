@@ -23,15 +23,13 @@ ctx.fillRect(1400,0,width,height); */
 // main.js - Punto de entrada principal
 import { Juego } from './clases/juego.js';
 
+// Variable global para el juego
+let game = null;
+
 // Inicializar el juego cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('canvas');
-    const game = new Juego(canvas);
-
-    // Botón de reinicio
-    document.getElementById('btn_reset').addEventListener('click', () => {
-        game.reset();
-    });
+    game = new Juego(canvas);
 
     console.log('Peg Solitaire Game iniciado!');
 });
