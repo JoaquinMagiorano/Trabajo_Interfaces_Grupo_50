@@ -15,11 +15,11 @@ export class Fondo {
         //imágenes
         this.boardImg = new Image();
         this.emptyImg = new Image();
-        this.pegImg = new Image();
-        
+
+
         this.boardImg.src = './img/peg/fondo.jpg';
         this.emptyImg.src = './img/peg/nenufar.png';
-        this.pegImg.src = './img/peg/rana_prueba.png';
+        
         
         this.initializeBoard();
     }
@@ -85,8 +85,10 @@ export class Fondo {
         }
 
         // Dibujar fichas
+ 
         for (const peg of this.pegs) {
-            peg.draw(this.ctx, this.pegImg);
+
+            peg.draw(this.ctx);
         }
     }
 

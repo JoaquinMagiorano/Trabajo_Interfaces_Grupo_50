@@ -8,12 +8,24 @@ export class Ficha {
         this.originalX = x;
         this.originalY = y;
         this.isDragging = false;
+
+        this.pegImg = new Image();
+        this.pegImg2 = new Image();
+        
+        this.pegImg.src = './img/peg/rana_prueba.png';
+        this.pegImg2.src = './img/peg/sapo.png';
+        
+        const option= Math.floor(Math.random() * 2);
+        const images=[this.pegImg,this.pegImg2];
+        this.pegImgChosen = images[option];
+           
     }
 
-    draw(ctx, pegImg) {
-        if (pegImg && pegImg.complete) {
-            ctx.drawImage(pegImg, this.x, this.y, this.size, this.size);
-        } else {
+    draw(ctx) {
+        
+            if (this.pegImgChosen && this.pegImgChosen.complete && this.pegImgChosen.naturalHeight !== 0) {
+                ctx.drawImage(this.pegImgChosen, this.x, this.y, this.size, this.size);
+            } else {
             // Fallback si no hay imagen
             ctx.fillStyle = '#8B0000';
             ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
