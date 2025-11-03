@@ -86,14 +86,33 @@ function mostrarPantalla(pantalla) {
         pantalla_derrota_movimiento
     ];
 
-    // Ocultar todas las pantallas
-    pantallas.forEach(p => {
-        if (p) p.classList.add('hidden');
-    });
+    // Pantallas que se muestran sobre el juego (overlays)
+    const pantallasOverlay = [
+        pantalla_final,
+        pantalla_derrota_tiempo,
+        pantalla_derrota_movimiento
+    ];
 
-    // Mostrar la pantalla solicitada
-    if (pantalla) {
-        pantalla.classList.remove('hidden');
+    // Si es una pantalla overlay, solo ocultar las demás pero mantener pantalla_jugable
+    if (pantallasOverlay.includes(pantalla)) {
+        pantallas.forEach(p => {
+            if (p && p !== pantalla_jugable && p !== pantalla) {
+                p.classList.add('hidden');
+            }
+        });
+        // Mostrar la pantalla solicitada
+        if (pantalla) {
+            pantalla.classList.remove('hidden');
+        }
+    } else {
+        // Para pantallas normales, ocultar todas
+        pantallas.forEach(p => {
+            if (p) p.classList.add('hidden');
+        });
+        // Mostrar la pantalla solicitada
+        if (pantalla) {
+            pantalla.classList.remove('hidden');
+        }
     }
 }
 
