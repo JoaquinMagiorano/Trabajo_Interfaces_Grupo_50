@@ -1,27 +1,12 @@
+import { Juego } from './clases/juego.js';
+
+
 const boton_compartir = document.querySelector('#btn_compartir');
 
 boton_compartir.addEventListener('click', function(){
     menu_compartir.classList.toggle('hidden')
 });
 
-//const canvas = document.getElementById('canvas');
-//const ctx = canvas.getContext("2d");
-
-/*
-const width = canvas.width;
-const height = canvas.height;
-
-ctx.fillStyle = "brown";
-ctx.fillRect(0,0,200,height);
-
-ctx.fillStyle = "blue";
-ctx.fillRect(200,0,width,height);
-
-ctx.fillStyle = "brown";
-ctx.fillRect(1400,0,width,height); */
-
-// main.js - Punto de entrada principal
-import { Juego } from './clases/juego.js';
 
 // Variable global para el juego
 let game = null;
@@ -31,27 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('canvas');
     game = new Juego(canvas);
 
-    console.log('Peg Solitaire Game iniciado!');
+    console.log('Juego iniciado');
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ======================funcionamiento de la pagina del juego====================== //
+// ====================== Funcionamiento de la pagina del juego ====================== //
 const btn_start = document.querySelector('#btn_start');
 const blur_screen = document.querySelector('#blur_screen');
 // Pantallas
@@ -117,46 +86,38 @@ function mostrarPantalla(pantalla) {
 }
 
 // ==================== FUNCIONES DE NAVEGACIÓN ==================== //
-// Ir al menú principal
+
 function irAlMenu() {
     mostrarPantalla(pantalla_comienzo);
-    // Detener el juego si está corriendo
     if (game) {
         game.detener();
     }
 }
 
-// Ir a instrucciones
 function irAInstrucciones() {
     mostrarPantalla(pantalla_instrucciones);
 }
 
-// Ir a jugar
 function irAJugar() {
     mostrarPantalla(pantalla_jugable);
-    // Iniciar o reiniciar el juego
     if (game) {
         game.reset();
         game.iniciar();
     }
 }
 
-// Ir a pantalla final (victoria)
 function irAPantallaFinal() {
     mostrarPantalla(pantalla_final);
 }
 
-// Ir a derrota por tiempo
 function irADerrotaTiempo() {
     mostrarPantalla(pantalla_derrota_tiempo);
 }
 
-// Ir a derrota por movimientos
 function irADerrotaMovimiento() {
     mostrarPantalla(pantalla_derrota_movimiento);
 }
 
-// Resetear juego
 function resetearJuego() {
     mostrarPantalla(pantalla_jugable);
     if (game) {

@@ -9,7 +9,7 @@ export class Juego {
         this.mouseY = 0;
         
         // Variables para el temporizador
-        this.tiempoLimite = 5 * 60; // 5 minutos en segundos
+        this.tiempoLimite = 5 * 60;
         this.tiempoRestante = this.tiempoLimite;
         this.timerInterval = null;
         this.juegoActivo = false;
@@ -24,7 +24,6 @@ export class Juego {
         this.canvas.addEventListener('mouseup', (e) => this.onMouseUp(e));
     }
 
-    // Método para iniciar el juego
     iniciar() {
         this.juegoActivo = true;
         this.tiempoRestante = this.tiempoLimite;
@@ -32,15 +31,13 @@ export class Juego {
         this.updateStatus();
     }
 
-    // Método para detener el juego
     detener() {
         this.juegoActivo = false;
         this.detenerTemporizador();
     }
 
-    // Iniciar el temporizador
     iniciarTemporizador() {
-        this.detenerTemporizador(); // Limpiar cualquier temporizador previo
+        this.detenerTemporizador();
         
         this.timerInterval = setInterval(() => {
             if (!this.juegoActivo) {
@@ -51,7 +48,6 @@ export class Juego {
             this.tiempoRestante--;
             this.actualizarDisplayTiempo();
 
-            // Verificar si se acabó el tiempo
             if (this.tiempoRestante <= 0) {
                 this.detenerTemporizador();
                 this.derrotaPorTiempo();
@@ -59,7 +55,6 @@ export class Juego {
         }, 1000);
     }
 
-    // Detener el temporizador
     detenerTemporizador() {
         if (this.timerInterval) {
             clearInterval(this.timerInterval);
@@ -67,7 +62,6 @@ export class Juego {
         }
     }
 
-    // Actualizar el display del tiempo
     actualizarDisplayTiempo() {
         const minutos = Math.floor(this.tiempoRestante / 60);
         const segundos = this.tiempoRestante % 60;
@@ -77,7 +71,7 @@ export class Juego {
         if (tiempoElement) {
             tiempoElement.textContent = tiempoFormateado;
             
-            // Cambiar color si queda poco tiempo
+            //Cambia el color si queda poco tiempo
             if (this.tiempoRestante <= 30) {
                 tiempoElement.style.color = '#ff0000';
             } else if (this.tiempoRestante <= 60) {
@@ -128,14 +122,13 @@ export class Juego {
                 targetSpace.row, 
                 targetSpace.col
             )) {
-                // Movimiento válido
+                //Movimiento válido
                 this.board.movePeg(this.draggedPeg, targetSpace);
                 this.updateStatus();
                 
-                // Verificar condiciones de fin de juego
                 this.verificarEstadoJuego();
             } else {
-                // Movimiento inválido, regresar a posición original
+                //Movimiento inválido, regresar a posición original
                 this.draggedPeg.resetPosition();
             }
             
@@ -148,13 +141,11 @@ export class Juego {
     verificarEstadoJuego() {
         const count = this.board.getPegCount();
         
-        // Victoria: solo queda 1 ficha
         if (count === 1) {
             this.victoria();
             return;
         }
         
-        // Derrota: no hay movimientos válidos
         if (!this.board.hasValidMoves()) {
             this.derrotaPorMovimientos();
             return;
@@ -169,12 +160,10 @@ export class Juego {
         }
     }
 
-    // Victoria
     victoria() {
         this.juegoActivo = false;
         this.detenerTemporizador();
         
-        // Esperar un momento antes de mostrar la pantalla
         setTimeout(() => {
             if (typeof window.mostrarPantallaVictoria === 'function') {
                 window.mostrarPantallaVictoria();
@@ -182,7 +171,6 @@ export class Juego {
         }, 500);
     }
 
-    // Derrota por tiempo
     derrotaPorTiempo() {
         this.juegoActivo = false;
         
@@ -193,7 +181,6 @@ export class Juego {
         }, 500);
     }
 
-    // Derrota por movimientos
     derrotaPorMovimientos() {
         this.juegoActivo = false;
         this.detenerTemporizador();

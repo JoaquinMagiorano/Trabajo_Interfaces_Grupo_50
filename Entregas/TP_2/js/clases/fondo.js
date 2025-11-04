@@ -3,8 +3,6 @@ import { Ficha } from './fichas.js';
 
 export class Fondo {
     
-   
-
     constructor(canvas) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
@@ -12,11 +10,11 @@ export class Fondo {
         this.spaces = [];
         this.pegs = [];
         
-        //imágenes
         this.boardImg = new Image();
         this.emptyImg = new Image();
         this.pegImg = new Image();
         
+        //Direccion de las imagenes para fondo, ficha y espacios
         this.boardImg.src = './img/peg/fondo_peg.png';
         this.emptyImg.src = './img/peg/nenufar2.png';
         this.pegImg.src = './img/peg/rana_prueba.png';
@@ -25,7 +23,7 @@ export class Fondo {
     }
 
     initializeBoard() {
-        // 1 = espacio válido, 0 = no válido
+        // 1 = espacio válido, 0 = espacio no válido
         const layout = [
             [0, 0, 1, 1, 1, 0, 0],
             [0, 0, 1, 1, 1, 0, 0],
@@ -39,9 +37,9 @@ export class Fondo {
         this.spaces = [];
         this.pegs = [];
 
-        const rowLayout=layout.length; //layout.length son las filas de layout
-        const colLayout=layout[0].length;//layout[0].length son las columnas
-        const valorValido=1;
+        const rowLayout = layout.length; //layout.length son las filas de layout
+        const colLayout = layout[0].length; //layout[0].length son las columnas
+        const valorValido = 1;
        
         for (let row = 0; row < rowLayout; row++) {
             this.spaces[row] = [];
@@ -50,14 +48,13 @@ export class Fondo {
                 const x =  col * this.spaceSize;
                 const y =  row * this.spaceSize;
                 
-                const space = new Espacio(row, col, this.spaceSize, x, y);//crea un espacio
-                space.isValid = layout[row][col] === valorValido;//registra el valor en pos row col es valido(1) o no
+                const space = new Espacio(row, col, this.spaceSize, x, y);
+                space.isValid = layout[row][col] === valorValido; //registra el valor en la posicion row col si en el layout hay un 1 (o sea, si es valido)
                 
 
-                // Genera una ficha excepto en el medio
-                if (row === Math.trunc(rowLayout/2) && col === Math.trunc(colLayout/2)) {//si es el medio no genera
+                if (row === Math.trunc(rowLayout/2) && col === Math.trunc(colLayout/2)) { //si es en el medio no genera
                     space.hasPeg = false;
-                } else if (space.isValid) {//si es valido asigna una ficha
+                } else if (space.isValid) {
                     space.hasPeg = true;
                     const peg = new Ficha(row, col, this.spaceSize, x, y);
                     this.pegs.push(peg);
@@ -68,29 +65,29 @@ export class Fondo {
         }
     }
 
-    draw() {
-        // 1.Limpiar canvas
+    draw(){
+        //Limpiar canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
-        // 2.Dibujar fondo del tablero
+        //Dibujar fondo 
         if (this.boardImg.complete && this.boardImg.src) {
             this.ctx.drawImage(this.boardImg, 0, 0, this.canvas.width, this.canvas.height);
         }
 
-        // 3.Dibujar espacios
+        //Dibujar espacios
         for (let row = 0; row < 7; row++) {
             for (let col = 0; col < 7; col++) {
                 this.spaces[row][col].draw(this.ctx, this.boardImg, this.emptyImg);
             }
         }
 
-        // 4.Dibujar fichas
+        //Dibujar fichas
         for (const peg of this.pegs) {
             peg.draw(this.ctx, this.pegImg);
         }
     }
 
-    getPegAt(x, y) {//busca si hay una ficha en dicha pos
+    getPegAt(x, y) {//busca si hay una ficha en dicha posicion
         for (let i = this.pegs.length - 1; i >= 0; i--) {
             if (this.pegs[i].contains(x, y)) {
                 return this.pegs[i];
@@ -99,7 +96,7 @@ export class Fondo {
         return null;
     }
 
-    getSpaceAt(x, y) {//busca si hay un espacio en dicha pos
+    getSpaceAt(x, y) {//busca si hay un espacio en dicha posicion
         for (let row = 0; row < 7; row++) {
             for (let col = 0; col < 7; col++) {
                 const space = this.spaces[row][col];
@@ -117,17 +114,14 @@ export class Fondo {
             return false;
         }
 
-        // Calcular diferencia
+        //Calcular diferencia
         const rowDiff = toRow - fromRow;
         const colDiff = toCol - fromCol;
 
-        // Debe moverse exactamente 2 espacios en una dirección (horizontal o vertical)
-        if (Math.abs(rowDiff) === 2 && colDiff === 0) {
-            // Movimiento vertical
+        if (Math.abs(rowDiff) === 2 && colDiff === 0) { // Movimiento vertical
             const middleRow = fromRow + rowDiff / 2;
             return this.spaces[middleRow][fromCol].hasPeg;
-        } else if (Math.abs(colDiff) === 2 && rowDiff === 0) {
-            // Movimiento horizontal
+        } else if (Math.abs(colDiff) === 2 && rowDiff === 0) { // Movimiento horizontal
             const middleCol = fromCol + colDiff / 2;
             return this.spaces[fromRow][middleCol].hasPeg;
         }
@@ -140,29 +134,28 @@ export class Fondo {
         const directions = [[-2, 0], [2, 0], [0, -2], [0, 2]]; // arriba, abajo, izq, der
 
         directions.forEach(direction => {
-            const dr = direction[0];//direccion row
-            const dc = direction[1];//direccion column
+            const dr = direction[0]; //direccion row
+            const dc = direction[1]; //direccion column
             const newRow = peg.row + dr;
             const newCol = peg.col + dc;
-                if (newRow >= 0 && newRow < 7 && newCol >= 0 && newCol < 7) {//checkea si no esta en los bordes
-                    if (this.isValidMove(peg.row, peg.col, newRow, newCol)) {//checkea si es un movimiento valido
+                if (newRow >= 0 && newRow < 7 && newCol >= 0 && newCol < 7) { //chequea si no esta en los bordes
+                    if (this.isValidMove(peg.row, peg.col, newRow, newCol)) {
                         moves.push(this.spaces[newRow][newCol]);
                     }
                 }
-            });
-
+        });
         return moves;
     };
 
     highlightValidMoves(peg) {
-        // Limpiar resaltados previos
+        //Limpiar los resaltados previos
         for (let row = 0; row < 7; row++) {
             for (let col = 0; col < 7; col++) {
                 this.spaces[row][col].isHighlighted = false;
             }   
         }
 
-        // Resaltar movimientos válidos
+        //Resalta movimientos válidos
         const validMoves = this.getValidMoves(peg);
         for (const space of validMoves) {
             space.isHighlighted = true;
@@ -181,7 +174,7 @@ export class Fondo {
         //mueve la ficha
         this.updateSpaces(peg, space);
         
-        //Elimina la ficha del medio
+        //elimina la ficha del medio
         this.removeMiddlePeg(peg, space);
         
         //actualiza la ficha movida
@@ -189,8 +182,8 @@ export class Fondo {
     }
 
     updateSpaces(peg, space) {
-        this.spaces[peg.row][peg.col].hasPeg = false;//la posision donde habia una ficha y ahora no la hay(no es borrar la comida es el movimiento)
-        space.hasPeg = true;//la nueva posicion de la ficha
+        this.spaces[peg.row][peg.col].hasPeg = false;
+        space.hasPeg = true;
     }
 
     removeMiddlePeg(peg, space) {
@@ -198,10 +191,10 @@ export class Fondo {
         const middleRow = (peg.row + space.row) / 2;
         const middleCol = (peg.col + space.col) / 2;
         
-        // establece que no hay ficha
+        //marca que no hay una ficha
         this.spaces[middleRow][middleCol].hasPeg = false;
         
-        // ubica la ficha
+        //ubica la ficha
         let middlePegIndex = -1;
         for (let i = 0; i < this.pegs.length; i++) {
             if (this.pegs[i].row === middleRow && this.pegs[i].col === middleCol) {
@@ -209,7 +202,7 @@ export class Fondo {
                 break;
             }
         }
-        //si la encontro la borra
+        //si la encontró la borra
         if (middlePegIndex !== -1) {
             this.pegs.splice(middlePegIndex, 1);
         }

@@ -30,11 +30,9 @@ export class Ficha {
     }
 
     draw(ctx) {
-        
-            if (this.pegImgChosen && this.pegImgChosen.complete && this.pegImgChosen.naturalHeight !== 0) {
-                ctx.drawImage(this.pegImgChosen, this.x, this.y, this.size, this.size);
-            } else {
-            // Fallback si no hay imagen
+        if (this.pegImgChosen && this.pegImgChosen.complete && this.pegImgChosen.naturalHeight !== 0) {
+            ctx.drawImage(this.pegImgChosen, this.x, this.y, this.size, this.size);
+        } else {
             ctx.fillStyle = '#8B0000';
             ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
             ctx.shadowBlur = 10;
@@ -49,11 +47,16 @@ export class Ficha {
         }
 
         if (this.isDragging) {
+            ctx.shadowColor = '#FFD700';
+            ctx.shadowBlur = 20;   
             ctx.strokeStyle = '#FFD700';
             ctx.lineWidth = 3;
             ctx.beginPath();
             ctx.arc(this.x + this.size/2, this.y + this.size/2, this.size * 0.4, 0, Math.PI * 2);
             ctx.stroke();
+
+            ctx.shadowBlur = 0;
+            ctx.shadowColor = 'transparent';
         }
     }
 

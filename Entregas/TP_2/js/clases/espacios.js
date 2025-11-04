@@ -6,7 +6,7 @@ export class Espacio {
         this.x = x;
         this.y = y;
         this.hasPeg = true;
-        this.isValid = true; // Si es una posición válida del tablero
+        this.isValid = true;
         this.isHighlighted = false;
     }
 
@@ -14,35 +14,32 @@ export class Espacio {
     if (!this.isValid) return;
 
 
-        // SEGUNDO: Dibujar el nenúfar encima del efecto
+    //Dibujar el nenúfar encima del efecto
     if (emptyImg && emptyImg.complete) {
-        const shrinkFactor = 0.85; // Reduce el nenúfar al 85% (ajusta este valor)
+        const shrinkFactor = 0.85; //Tamaño del nenufar
         const newSize = this.size * shrinkFactor;
-        const offset = (this.size - newSize) / 2; // Centrar la imagen
+        const offset = (this.size - newSize) / 2;
         
         ctx.drawImage(emptyImg, this.x + offset, this.y + offset, newSize, newSize);
     } else {
-        // Fallback si no hay imagen
+        //Fallback por si no hay imagen
         ctx.fillStyle = '#D2691E';
         ctx.beginPath();
         ctx.arc(this.x + this.size/2, this.y + this.size/2, this.size * 0.4, 0, Math.PI * 2);
         ctx.fill();
     }
 
-    // PRIMERO: Resaltar si es un movimiento válido (DIBUJA EL EFECTO PRIMERO)
+    //Resaltar si es un movimiento válido (DIBUJA EL EFECTO PRIMERO)
     if (this.isHighlighted) {
-        // Obtener tiempo para la animación
         const time = Date.now() / 1000;
         const pulse = 0.85 + Math.sin(time * 3) * 0.15;
         
         const centerX = this.x + this.size/2;
         const centerY = this.y + this.size/2;
         
-        // Resplandor exterior
         ctx.shadowBlur = 20;
         ctx.shadowColor = 'rgba(255, 215, 0, 0.8)';
         
-        // Círculo dorado brillante
         ctx.fillStyle = `rgba(255, 215, 0, ${0.3 * pulse})`;
         ctx.beginPath();
         ctx.arc(centerX, centerY, this.size * 0.35 * pulse, 0, Math.PI * 2);
@@ -55,11 +52,8 @@ export class Espacio {
         //ctx.arc(centerX, centerY, this.size * 0.42, 0, Math.PI * 2);
         //ctx.stroke();
         
-        // Limpiar sombra
         ctx.shadowBlur = 0;
     }
-
-    
 }
 
     contains(x, y) {
