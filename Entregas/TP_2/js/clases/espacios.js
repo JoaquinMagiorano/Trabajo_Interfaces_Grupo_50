@@ -42,7 +42,7 @@ export class Espacio {
         
         ctx.fillStyle = `rgba(255, 215, 0, ${0.3 * pulse})`;
         ctx.beginPath();
-        ctx.arc(centerX, centerY, this.size * 0.35 * pulse, 0, Math.PI * 2);
+        ctx.arc(centerX, centerY, this.size * 0.45 * pulse, 0, Math.PI * 2); //grosor del resplandor
         ctx.fill();
         
         // Anillo exterior
