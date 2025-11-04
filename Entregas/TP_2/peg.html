@@ -89,20 +89,29 @@
                         <h2>Cómo Jugar</h2>
                         
                         <div>
-                            <p><strong>Objetivo:</strong> Rotar las 4 piezas hasta formar la imagen completa.</p>
+                            <p><strong>Objetivo:</strong> Eliminar todas las ranas del tablero excepto una, que debe quedar en el centro.</p>
                             
                             <h3>Controles:</h3>
                             <ul>
-                                <li><strong>Clic Izquierdo:</strong> Rota 90° izquierda</li>
-                                <li><strong>Clic Derecho:</strong> Rota 90° derecha</li>
+                                <li><strong>Clic y Arrastrar:</strong> Selecciona una rana y arrástrala a un espacio válido</li>
+                                <li><strong>Movimiento Válido:</strong> Debes saltar sobre otra rana en línea recta (horizontal o vertical)</li>
                             </ul>
 
-                            <h3>Ayudita:</h3>
+                            <h3>Reglas:</h3>
+                            <ul>
+                                <li>Solo puedes saltar sobre una rana adyacente hacia un espacio vacío</li>
+                                <li>La rana que saltas se elimina del tablero</li>
+                                <li>No puedes moverte en diagonal</li>
+                                <li>Los espacios válidos se resaltan en dorado cuando seleccionas una rana</li>
+                            </ul>
                         </div>
 
                         <div>
                             <h3>Victoria:</h3>
-                            <p>Cuando todas las piezas estén correctas, ¡ganarás! Los filtros desaparecerán.</p>
+                            <p>Cuando solo quede una rana en el tablero, ¡ganarás!</p>
+                            
+                            <h3>Derrota:</h3>
+                            <p>Perderás si se agota el tiempo (5 minutos) o si no quedan movimientos válidos.</p>
                         </div>
                     </div>
                     <div>
@@ -115,7 +124,7 @@
                     <img src="./img/frogames/fondo_de_juego_peg_solitary.png" alt="">
 
                     <div class="controles_juego">
-                        <button id="btn_reset" class="btn">Reset</button>
+                        <button id="btn_reset" class="btn">Reiniciar</button>
                         <button id="btn_menu" class="btn">Volver al menú</button>
                     </div>
                     
@@ -146,7 +155,7 @@
                     <h2>Tiempo agotado</h2>
                     <p>No pudiste completar el nivel a tiempo</p>
                     <div class="flex_vertical">
-                        <button id="btn_reset" class="btn">Reset</button>
+                        <button id="btn_reset" class="btn">Reiniciar</button>
                         <button id="btn_menu" class="btn">Volver al menú</button>
                     </div>
                 </div>
@@ -157,7 +166,7 @@
                     <h2>movimientos agotado</h2>
                     <p>Te quedaste sin movimientos validos</p>
                     <div class="flex_vertical">
-                        <button id="btn_reset" class="btn">Reset</button>
+                        <button id="btn_reset" class="btn">Reiniciar</button>
                         <button id="btn_menu" class="btn">Volver al menú</button>
                     </div>
                 </div>

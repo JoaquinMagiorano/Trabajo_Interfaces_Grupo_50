@@ -11,28 +11,53 @@ export class Espacio {
     }
 
     draw(ctx, boardImg, emptyImg) {
-        if (!this.isValid) return;
+    if (!this.isValid) return;
 
-        // Dibujar el espacio del tablero (vacío)
-        if (emptyImg && emptyImg.complete) {
-            ctx.drawImage(emptyImg, this.x, this.y, this.size, this.size);
-        } else {
-            // Fallback si no hay imagen
-            ctx.fillStyle = '#D2691E';
-            ctx.beginPath();
-            ctx.arc(this.x + this.size/2, this.y + this.size/2, this.size * 0.4, 0, Math.PI * 2);
-            ctx.fill();
-        }
-
-        // Resaltar si es un movimiento válido
-        if (this.isHighlighted) {
-            ctx.strokeStyle = '#FFD700';
-            ctx.lineWidth = 4;
-            ctx.beginPath();
-            ctx.arc(this.x + this.size/2, this.y + this.size/2, this.size * 0.45, 0, Math.PI * 2);
-            ctx.stroke();
-        }
+    // PRIMERO: Resaltar si es un movimiento válido (DIBUJA EL EFECTO PRIMERO)
+    if (this.isHighlighted) {
+        // Obtener tiempo para la animación
+        const time = Date.now() / 1000;
+        const pulse = 0.85 + Math.sin(time * 3) * 0.15;
+        
+        const centerX = this.x + this.size/2;
+        const centerY = this.y + this.size/2;
+        
+        // Resplandor exterior
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = 'rgba(255, 215, 0, 0.8)';
+        
+        // Círculo dorado brillante
+        ctx.fillStyle = `rgba(255, 215, 0, ${0.3 * pulse})`;
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, this.size * 0.35 * pulse, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Anillo exterior
+        ctx.strokeStyle = '#FFD700';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, this.size * 0.42, 0, Math.PI * 2);
+        ctx.stroke();
+        
+        // Limpiar sombra
+        ctx.shadowBlur = 0;
     }
+
+    // SEGUNDO: Dibujar el nenúfar encima del efecto
+    if (emptyImg && emptyImg.complete) {
+        const shrinkFactor = 0.85; // Reduce el nenúfar al 85% (ajusta este valor)
+        const newSize = this.size * shrinkFactor;
+        const offset = (this.size - newSize) / 2; // Centrar la imagen
+        
+        ctx.drawImage(emptyImg, this.x + offset, this.y + offset, newSize, newSize);
+    } else {
+        // Fallback si no hay imagen
+        ctx.fillStyle = '#D2691E';
+        ctx.beginPath();
+        ctx.arc(this.x + this.size/2, this.y + this.size/2, this.size * 0.4, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
 
     contains(x, y) {
         const dx = x - (this.x + this.size/2);

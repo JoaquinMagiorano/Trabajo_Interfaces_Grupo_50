@@ -15,17 +15,11 @@ export class Fondo {
         //imágenes
         this.boardImg = new Image();
         this.emptyImg = new Image();
-<<<<<<< HEAD
         this.pegImg = new Image();
         
         this.boardImg.src = './img/peg/fondo_peg.png';
-=======
-
-
-        this.boardImg.src = './img/peg/fondo.jpg';
->>>>>>> fd91a6eeba4038020adfcf30e929ebc15b63c919
-        this.emptyImg.src = './img/peg/nenufar.png';
-        
+        this.emptyImg.src = './img/peg/nenufar2.png';
+        this.pegImg.src = './img/peg/rana_prueba.png';
         
         this.initializeBoard();
     }
@@ -53,10 +47,10 @@ export class Fondo {
             this.spaces[row] = [];
             
             for (let col = 0; col < colLayout; col++) {
-                const x =  col * this.spaceSize+10;
-                const y =  row * this.spaceSize+10;
+                const x =  col * this.spaceSize;
+                const y =  row * this.spaceSize;
                 
-                const space = new Espacio(row, col,this.spaceSize, x, y);//crea un espacio
+                const space = new Espacio(row, col, this.spaceSize, x, y);//crea un espacio
                 space.isValid = layout[row][col] === valorValido;//registra el valor en pos row col es valido(1) o no
                 
 
@@ -90,15 +84,9 @@ export class Fondo {
             }
         }
 
-<<<<<<< HEAD
         // 4.Dibujar fichas
-=======
-        // Dibujar fichas
- 
->>>>>>> fd91a6eeba4038020adfcf30e929ebc15b63c919
         for (const peg of this.pegs) {
-
-            peg.draw(this.ctx);
+            peg.draw(this.ctx, this.pegImg);
         }
     }
 
