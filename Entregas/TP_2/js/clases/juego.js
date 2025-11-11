@@ -193,14 +193,14 @@ export class Juego {
     }
 
     reset() {
-    this.detenerTemporizador();
-    this.board.initializeBoard();
-    this.draggedPeg = null;
-    this.tiempoRestante = this.tiempoLimite;
-    this.juegoActivo = false;
-    this.updateStatus();
-    this.actualizarDisplayTiempo();
-}
+        this.detenerTemporizador();
+        this.board.initializeBoard();
+        this.draggedPeg = null;
+        this.tiempoRestante = this.tiempoLimite;
+        this.juegoActivo = false;
+        this.updateStatus();
+        this.actualizarDisplayTiempo();
+    }
 
     gameLoop() {
         this.board.draw();
