@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/game_page.css">
+    <link rel="stylesheet" href="./css/peg.css">
+
+    <title>Frogames</title>
+</head>
+<body> 
+ <header>  
+        <div> 
+            <button class="hamburguesa_btn">
+                <img src="./img/frogames/menu_frog.png" alt="menu_hamburguesa" class="menu_hamburguesa">
+            </button>
+            <img src="./img/frogames/logo.png" 
+     alt="Logo" 
+     onmouseover="this.src='./img/frogames/logo_hover.png'"
+     onmouseout="this.src='./img/frogames/logo.png'"
+     onclick="this.src='./img/frogames/logo_click.png'">
+            <a href="index.html"><img src="./img/frogames/logo_texto.png" alt="Nombre_logo" width="200px" height="50px" class="nombre_logo"></a>
+        </div>
+        <div class="left-header-div">
+            <input type="text" id="barra_busqueda" placeholder="Tu busqueda">
+            <button class="btn_configuracion">
+                <img src="./img/random/quePicardia.png" id="foto_perfil" alt="foto_perfil">
+            </button>
+        </div>
+    </header>
+    
+    <div class="menu_desplegable">
+        <ul class="lista_menu">
+            <li><button class="btn_menu"><img src="./iconos/categoria_caballero.png" alt="categoria" class="img_menu"><h4> Medievales</h4></button></li>
+            <li><button class="btn_menu"><img src="./iconos/categoria_astronauta.png" alt="categoria" class="img_menu"><h4> Espaciales</h4></button></li>
+            <li><button class="btn_menu"><img src="./iconos/categoria_cartas.png" alt="categoria" class="img_menu"><h4> Cartas</h4></button></li>
+            <li><button class="btn_menu"><img src="./iconos/categoria_vaquero.png" alt="categoria" class="img_menu"><h4> Vaqueros</h4></button></li>
+            <li><button class="btn_menu"><img src="./iconos/categoria_supervivencia.png" alt="categoria" class="img_menu"><h4> Postapocalipticos</h4></button></li>
+            <li><button class="btn_menu"><img src="./iconos/categoria_dinamita.png" alt="categoria" class="img_menu"><h4> Minecraft</h4></button></li>
+            <li><button class="btn_menu"><img src="./iconos/categoria_tanque.png" alt="categoria" class="img_menu"><h4> Guerra</h4></button></li>
+            <li><button class="btn_menu"><img src="./iconos/categoria_helicoptero.png" alt="categoria" class="img_menu"><h4> Simuladores de vuelo</h4></button></li>
+            <li><button class="btn_menu"><img src="./iconos/categoria_puzzle.png" alt="categoria" class="img_menu"><h4> Puzzle</h4></button></li>
+            <li><button class="btn_menu"><img src="./iconos/categoria_deportes.png" alt="categoria" class="img_menu"><h4> Deportes</h4></button></li>
+            <li><button class="btn_menu"><img src="./iconos/RPG_Stat_HP_Health_Heart.png" alt="categoria" class="img_menu"><h4> RPG</h4></button></li>
+            <li><button class="btn_menu"><img src="./iconos/categoria_aliens.png" alt="categoria" class="img_menu"><h4> Retro</h4></button></li>
+            <li><button class="btn_menu"><img src="./iconos/categoria_musica.png" alt="categoria" class="img_menu"><h4> Música</h4></button></li>
+            <li><button class="btn_menu"><img src="./iconos/categoria_terror.png" alt="categoria" class="img_menu"><h4> Terror</h4></button></li>
+            <li><button class="btn_menu"><img src="./iconos/categoria_shoter.png" alt="categoria" class="img_menu"><h4> Disparos</h4></button></li>
+            <li><button class="btn_menu"><img src="./img/frogames/logo.png" alt="categoria" class="img_menu"><h4> Ranas</h4></button></li>
+        </ul>
+    </div>
+
+    <div class="menu_configuracion_desplegable">
+        <ul class="lista_menu">
+            <li><button class="btn_menu"><img src="./iconos/Travel_Person_Player_Character_Single.png" alt="img_Perfil" class="img_menu"><h4> Perfil</h4></button></li>
+            <li><button class="btn_menu"><img src="./iconos/corona.png" alt="img_gestion_de_membresia" class="img_menu"><h4> Gestion de membresia</h4></button></li>
+            <li><button class="btn_menu"><img src="./iconos/tuerca.png" alt="img_Configuracion" class="img_menu"><h4> Configuracion</h4></button></li>
+            <li><a href="./login.html"><button class="btn_menu"><img src="./iconos/salida.png" alt="img_cerrar_sesion" class="img_menu"><h4> Cerrar sesion</h4></button></a></li>
+        </ul>
+    </div>
+    
+    <main>
+        <div class="pantalla">
+            <div class="contenedor_jugable">
+                <!-- pantalla principal, que aparece en la game_page -->
+
+                <div id="blur_screen" class="juego">
+                    <img src="./img/frogames/peg_solitary_fondo.png" alt="">
+                    <button id="btn_start"><h1>&#9654;</h1></button>
+                </div>
+
+                <!-- pantalla priuncipal que aparece en el menu -->
+
+                <div class="pantalla_comienzo hidden">
+                    <img src="./img/frogames/fondo_de_inicio_peg_solitary.png" alt="">
+                    <h1>peg solitary <br> Frog Puzzle</h1>
+                    
+                    <div class="menu_btn">
+                        <button class="btn" id="btn_comenzar_jugar">Comenzar a jugar</button>
+                        <button class="btn" id="btn_instrucciones">Instrucciones</button>
+                    </div>
+                </div>
+
+                <!-- pantalla de instrucciones -->
+
+                <div class="pantalla_instrucciones hidden">
+                    <div class="instrucciones">
+                        <h2>Cómo Jugar</h2>
+                        
+                        <div>
+                            <p><strong>Objetivo:</strong> Eliminar todas las ranas del tablero excepto una, que debe quedar en el centro.</p>
+                            
+                            <h3>Controles:</h3>
+                            <ul>
+                                <li><strong>Clic y Arrastrar:</strong> Selecciona una rana y arrástrala a un espacio válido</li>
+                                <li><strong>Movimiento Válido:</strong> Debes saltar sobre otra rana en línea recta (horizontal o vertical)</li>
+                            </ul>
+
+                            <h3>Reglas:</h3>
+                            <ul>
+                                <li>Solo puedes saltar sobre una rana adyacente hacia un espacio vacío</li>
+                                <li>La rana que saltas se elimina del tablero</li>
+                                <li>No puedes moverte en diagonal</li>
+                                <li>Los espacios válidos se resaltan en dorado cuando seleccionas una rana</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3>Victoria:</h3>
+                            <p>Cuando solo quede una rana en el tablero, ¡ganarás!</p>
+                            
+                            <h3>Derrota:</h3>
+                            <p>Perderás si se agota el tiempo (5 minutos) o si no quedan movimientos válidos.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn" id="btn_volver_menu">Volver al menú</button>
+                    </div>
+                </div>
+
+                <!-- pantalla priuncipal jugable -->
+                <div class="pantalla_jugable hidden" >
+                    <img src="./img/frogames/fondo_de_juego_peg_solitary.png" alt="">
+
+                    
+                    <div class="pantalla_juego">
+
+                        <div class="layer layer-6"></div>
+                        <div class="layer layer-5"></div>
+                        <div class="layer layer-4"></div>
+                        <div class="layer layer-3"></div>
+                        <div class="layer layer-2"></div>
+                        <div class="layer layer-1"></div>
+                        <canvas id="canvas" width="1100" height="600"></canvas>
+                        <div class="layer layer-0"></div>
+
+
+                    </div>
+                    
+                    
+                </div>
+
+                <!-- pantalla final -->
+
+                <div class="pantalla_final hidden">
+                    <img src="./img/frogames/fondo_pantalla_victoria.png" alt="">
+                    <h2>GANASTE</h2>
+                    <div>
+                        <button id="btn_menu" class="btn">Volver al menú</button>
+                    </div>
+                </div>
+                
+                <!-- pantalla de derrota por tiempo -->
+
+                <div class="pantalla_derrota_tiempo hidden">
+                    <h2>Tiempo agotado</h2>
+                    <p>No pudiste completar el nivel a tiempo</p>
+                    <div class="flex_vertical">
+                        <button id="btn_reset" class="btn">Reiniciar</button>
+                        <button id="btn_menu" class="btn">Volver al menú</button>
+                    </div>
+                </div>
+
+                <!-- pantalla de derrota por falta de movimientos -->
+
+                <div class="pantalla_derrota_movimiento hidden">
+                    <h2>Movimientos agotados</h2>
+                    <p>Te quedaste sin movimientos validos</p>
+                    <div class="flex_vertical">
+                        <button id="btn_reset" class="btn">Reiniciar</button>
+                        <button id="btn_menu" class="btn">Volver al menú</button>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+
+
+
+
+
+        
+        <div class="datos_barra">
+            <img src="./img/frogames/logo.png" alt="logo" width="50px" height="50px">
+            <h1>Peg solitaire</h1>
+            <div class="redes">
+                <button id="btn_compartir" class="btn_compartir"><img src="./iconos/Software_Share_Button_Social_Media_Send_Connection_1.png" alt="compartir"></button>
+                <button><img src="./iconos/RPG_Stat_HP_Health_Heart.png" alt="favorito"></button>
+                <button><img src="./iconos/Software_Window_Fullscreen_Mode_Select_1.png" alt="pantalla_completa"></button>
+            </div>
+            <div id="menu_compartir" class="hidden">
+                <button><img src="./iconos/Platforms_X_Twitter.png" alt="x"></button>
+                <button><img src="./iconos/Platforms_Facebook.png" alt="facebook"></button>
+                <button><img src="./iconos/Platforms_Instagram.png" alt="instagram"></button>
+            </div>
+        </div>    
+        <div class="secciones_inferiores">
+            <div class="izquierda">
+                <div class="juego_info">
+                    <div class="info_titulo">
+                        <h4> <a href="index.html">Juegos</a> » <a href="index.html">Puzzle</a> » <a href="peg.html">PEG solitare-frog ver</a></h4>
+                        <h1>Sobre el juego</h1>
+                            <p>Desarrollador: Team Froggy</p>
+                            <p>Calificacion: 9.3 (15.345 reseñas)</p>
+                            <p>Fecha de publicacion: Septiembre de 2025</p>
+                    <div class="tipo_categoria">
+                        <div class="categoria_juego"><p>Rompecabezas</p></div>
+                        <div class="categoria_juego"><p>Rana</p></div>
+                        <div class="categoria_juego"><p>Estrategia</p></div>
+                    </div>        
+                    </div>
+
+                    <div class="info_jugar">
+                        <h2>Como jugar</h2>
+                        <p>¡Poné a prueba tu ingenio! Empezás con casi todo el tablero lleno y un solo espacio vacío. Saltá una clavija sobre otra para hacerla desaparecer… ¡y seguí encadenando saltos! Solo podés saltar en línea recta, y cada clavija que saltes se va del tablero. Objetivo: quedarte con una sola clavija. ¿Podrás lograrlo o te rendirás antes?</p>
+                        <img src="./iconos/Software_Hardware_Mouse_Click_Input1.png" alt="mouse">     
+                    </div>
+                    <div class="info_que_es">
+                        <h2>Que es PEG?</h2>
+                        <p>PEG es un juego de lógica y estrategia individual. Consiste en un tablero con hoyos donde se colocan clavijas (pegs), dejando uno vacío al inicio. El jugador mueve las clavijas saltando una sobre otra en línea recta (horizontal o vertical) hacia un espacio vacío, eliminando la clavija que fue saltada. El desafío es pensar cada movimiento para que, al final, quede solo una clavija en el tablero. Es un pasatiempo clásico que combina paciencia, planificación y pensamiento lógico.</p>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/BY6RT0TK5no?si=JPHtGgsJ-P6mhM8o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <h2>Más sobre la historia de PEG solitaire</h2>
+                        <a href="https://en.wikipedia.org/wiki/Peg_solitaire">¡Quiero saber mas!</a>
+                    </div>
+                </div>
+
+                <div class="seccion_comentarios">
+                    <div class="comentar_usuario">
+                        <img src="./img/random/quePicardia.png" class="avatar_usuario" alt=""  width="50px" height="50px">
+                        <input type="text" class="input_comentario" placeholder="Deja tu comentario...">
+                        <button class="btn_enviar">➤</button>
+                    </div>
+
+                    <div class="comentarios">
+                        <div class="comentario">
+                            <div class="comentario_head">
+                                <img src="./img/random/cr7.jpg" class="avatar_usuario" alt=""  width="50px" height="50px">
+                                <span class="nombre_usuario">dimlink12</span>
+                            </div>
+                            <span class="comentario_texto">Muy disfrutable, 100% recomendado</span>
+                            <div class="comentario_foot">
+                                <button class="action-btn"> <img src="./iconos/Emoji_Hand_Thumbs_Up.png" alt="like"> <span class="like-count">19</span> </button>
+                                <button class="action-btn"> <img src="./iconos/Emoji_Hand_Thumbs_Down.png" alt="dislike"> <span class="dislike-count">2</span> </button>
+                                <button class="action-btn"> <img src="./iconos/Software_Speech_Bubble_Three_Dots_Dialogue.png" alt="chat"> Responder </button>                            </div>
+                        </div>
+                        <div class="comentario">
+                            <div class="comentario_head">
+                                <img src="./img/random/te_garcho.jpeg" class="avatar_usuario" alt=""  width="50px" height="50px">
+                                <span class="nombre_usuario">Zama ザマ</span>
+                            </div>
+                            <span class="comentario_texto">Juego bien elaborado, con buena complejidad y ademas agradable para pasar horas ante él.</span>
+                            <div class="comentario_foot">
+                                <button class="action-btn"> <img src="./iconos/Emoji_Hand_Thumbs_Up.png" alt="like"> <span class="like-count">15</span> </button>
+                                <button class="action-btn"> <img src="./iconos/Emoji_Hand_Thumbs_Down.png" alt="dislike"> <span class="dislike-count">1</span> </button>
+                                <button class="action-btn"> <img src="./iconos/Software_Speech_Bubble_Three_Dots_Dialogue.png" alt="chat"> Responder </button>
+                            </div>
+                        </div>
+                        <div class="comentario">
+                            <div class="comentario_head">
+                                <img src="./img/random/ms.jpg" class="avatar_usuario" alt=""  width="50px" height="50px">
+                                <span class="nombre_usuario">juanceto01</span>
+                            </div>
+                            <span class="comentario_texto">Una basura</span>
+                            <div class="comentario_foot">
+                                <button class="action-btn"> <img src="./iconos/Emoji_Hand_Thumbs_Up.png" alt="like"> <span class="like-count">1</span> </button>
+                                <button class="action-btn"> <img src="./iconos/Emoji_Hand_Thumbs_Down.png" alt="dislike"> <span class="dislike-count">4</span> </button>
+                                <button class="action-btn"> <img src="./iconos/Software_Speech_Bubble_Three_Dots_Dialogue.png" alt="chat"> Responder </button>
+                            </div>
+                        </div>
+                        <div class="comentario">
+                            <div class="comentario_head">
+                                <img src="./img/random/la_bestia.jpg" class="avatar_usuario" alt=""  width="50px" height="50px">
+                                <span class="nombre_usuario">_La bestia_</span>
+                            </div>
+                            <span class="comentario_texto">Arte</span>
+                           <div class="comentario_foot">
+                                <button class="action-btn"> <img src="./iconos/Emoji_Hand_Thumbs_Up.png" alt="like"> <span class="like-count">2</span> </button>
+                                <button class="action-btn"> <img src="./iconos/Emoji_Hand_Thumbs_Down.png" alt="dislike"> <span class="dislike-count">1</span> </button>
+                                <button class="action-btn"> <img src="./iconos/Software_Speech_Bubble_Three_Dots_Dialogue.png" alt="chat"> Responder </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="derecha"> 
+                <div class="recomendados">
+                    <h2>Similares</h2>
+                    <div class="categoria-item">
+                        <img src="./img/juegos/7dtd.webp" alt="7daytodie">
+                        <div class="categoria-nombre">7 days to die</div>
+                    </div>
+                    <div class="categoria-item">
+                        <img src="./img/juegos/hd2.webp" alt="Helldivers2">
+                        <div class="categoria-nombre">Helldivers2</div>
+                    </div>
+                    <div class="categoria-item">
+                        <img src="./img/juegos/ds2sotfs.jpg" alt="DarkSouls2">
+                        <div class="categoria-nombre">Dark Souls 2</div>
+                    </div>
+                    <div class="categoria-item">
+                        <img src="./img/juegos/cs2.webp" alt="CounterStrike">
+                        <div class="categoria-nombre">Counter Strike</div>
+                    </div>
+                    <div class="categoria-item">
+                        <img src="./img/juegos/silson.png" alt="Silksong">
+                        <div class="categoria-nombre">Silksong</div>
+                    </div>
+                    <div class="categoria-item">
+                        <img src="./img/juegos/sv.jpeg" alt="StardewValley">
+                        <div class="categoria-nombre">Stardew Valley</div>
+                    </div>
+                </div>
+                <div class="anuncios">
+                    <img src="./img/frogames/publicidad_rana.png" >
+                </div>
+            </div>
+        </div>
+        </div>
+    </main>
+   
+    <footer>
+        <div class="footer_text">
+            <div class="footer_links">
+                <h2>Soporte</h2>
+                <a href="">FAQ's</a>
+                <a href="">Contacto</a>
+                <a href="">Centro de ayuda</a>
+            </div>
+            <div class="footer_links">
+                <h2>Sobre nosotros</h2>
+                <a href="">Nuestra historia</a>
+                <a href="">Nuestros asociados</a>
+            </div>
+            <div class="footer_links">
+                <h2>Trabajar con nosotros</h2>
+                <a href="">¿Quieres trabajar con nosotros?</a>
+                <a href="">Nuestros creadores</a>
+            </div>
+            <div class="footer_links">
+                <h2>Merchandising</h2>
+                <a href="https://articulo.mercadolibre.com.ar/MLA-1495063689-peluche-rana-rene-calidad-exelente-_JM?has_official_store=false&highlight=false&searchVariation=188327295687&headerTopBrand=false#polycard_client=search-nordic&searchVariation=188327295687&search_layout=stack&position=2&type=item&tracking_id=3a9e859e-946e-4dde-9d63-159a204ffc35">Nuestra merch</a>
+            </div>
+        </div>
+        
+        <div class="footer_logo">
+            <img src="./img/frogames/logo.png" alt="Logo" width="50" height="50">
+            <img src="./img/frogames/logo_texto.png" alt="Nombre_logo" width="200" height="50">
+        </div>
+        
+        <div class="social_media">
+            <a href="index.html">
+                <img src="iconos/Platforms_Google.png" alt="google">
+            </a>
+            <a href="index.html">
+                <img src="iconos/Platforms_Facebook.png" alt="facebook">
+            </a>
+            <a href="index.html">
+                <img src="iconos/Platforms_Instagram.png" alt="instagram">
+            </a>
+            <a href="index.html">
+                <img src="iconos/Platforms_X_Twitter.png" alt="twitter">
+            </a>
+        </div>
+    </footer>
+
+</body>
+    <section class="menu_container"></section>
+    <script type="module" src="./js/leapy_Frog.js"></script>
+    <script src="./js/menu.js"></script>
+</html>
