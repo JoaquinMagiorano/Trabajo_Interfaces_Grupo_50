@@ -12,12 +12,10 @@ export class Fondo {
         
         this.boardImg = new Image();
         this.emptyImg = new Image();
-        this.pegImg = new Image();
         
-        //Direccion de las imagenes para fondo, ficha y espacios
+        //Direccion de las imagenes para fondo y espacios
         this.boardImg.src = './img/peg/fondo_peg.png';
         this.emptyImg.src = './img/peg/nenufar2.png';
-        this.pegImg.src = './img/peg/rana_prueba.png';
         
         this.initializeBoard();
     }
@@ -83,7 +81,7 @@ export class Fondo {
 
         //Dibujar fichas
         for (const peg of this.pegs) {
-            peg.draw(this.ctx, this.pegImg);
+            peg.draw(this.ctx);
         }
     }
 
