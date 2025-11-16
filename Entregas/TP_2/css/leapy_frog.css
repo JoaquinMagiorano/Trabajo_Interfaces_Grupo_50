@@ -1,0 +1,505 @@
+/* ==================== CONTENEDOR PRINCIPAL ==================== */
+.contenedor_jugable {
+    border-radius: 15px 15px 0 0;
+    background: #011f06a1;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    width: 100%;
+    margin: 0 auto;
+    height: 660px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ==================== PANTALLAS BASE ==================== */
+.pantalla {
+    margin-top: 20px;
+}
+
+/* Todas las pantallas ocupan el 100% del contenedor */
+.contenedor_jugable > div:not(.pantalla_jugable) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ==================== PANTALLA DE INICIO (BLUR SCREEN) ==================== */
+#blur_screen {
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 5;
+}
+
+#blur_screen img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+#btn_start {
+    position: relative;
+    z-index: 2;
+    background-color: #47CA7D;
+    border-radius: 35%;
+    border: none;
+    width: 10%;
+    aspect-ratio: 1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#btn_start:hover {
+    background-color: #4caf50;
+    transform: scale(1.2);
+}
+
+#btn_start:active {
+    background-color: #4caf50;
+    transform: scale(1);
+}
+
+#btn_start h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    color: white;
+}
+
+/* ==================== PANTALLA DE COMIENZO ==================== */
+.pantalla_comienzo {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+    padding: 40px 30px;
+    background-color: rgb(26, 58, 58);
+    z-index: 4;
+}
+
+.pantalla_comienzo > img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    top: 0;
+    left: 0;
+}
+
+.pantalla_comienzo h1 {
+    color: #66ea7a;
+    font-size: 3em;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    margin: 20px 0;
+    text-shadow: 0 0 20px rgba(102, 234, 122, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+.menu_btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+.btn {
+    background: #2c2c2c;
+    color: #4caf50;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    min-width: 200px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease;
+}
+
+.pantalla_comienzo .btn:hover {
+    transform: scale(0.95);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* ==================== PANTALLA DE INSTRUCCIONES ==================== */
+.pantalla_instrucciones {
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto;
+    text-align: left;
+    background: linear-gradient(135deg, #2c5364 0%, #203a43 50%, #0f2027 100%);
+    gap: 15px;
+    z-index: 4;
+}
+
+.instrucciones {
+    width: 100%;
+    max-width: 900px;
+    line-height: 1.4;
+    color: #e0e0e0;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px 25px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(102, 234, 122, 0.2);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.instrucciones h2 {
+    color: #66ea7a;
+    font-size: 1.8em;
+    margin: 0 0 15px 0;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px rgba(102, 234, 122, 0.4);
+    grid-column: 1 / -1;
+}
+
+.instrucciones h3 {
+    color: #66ea7a;
+    font-size: 1.1em;
+    margin: 10px 0 8px 0;
+    padding-bottom: 5px;
+    border-bottom: 2px solid rgba(102, 234, 122, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.instrucciones h3::before {
+    content: "▶";
+    font-size: 0.7em;
+    color: #4caf50;
+}
+
+.instrucciones p {
+    margin: 5px 0;
+    font-size: 0.95em;
+}
+
+.instrucciones strong {
+    color: #66ea7a;
+    font-weight: 600;
+}
+
+.instrucciones ul {
+    margin: 8px 0 10px 5px;
+    padding: 0;
+    list-style: none;
+}
+
+.instrucciones li {
+    margin-bottom: 6px;
+    font-size: 0.9em;
+    padding-left: 20px;
+    position: relative;
+}
+
+.instrucciones li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #4caf50;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.instrucciones > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.pantalla_instrucciones > div:last-child {
+    text-align: center;
+    width: 100%;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.pantalla_instrucciones .btn {
+    min-width: 220px;
+    font-size: 1em;
+    padding: 12px 30px;
+}
+
+.pantalla_instrucciones .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+    background: #3a3a3a;
+}
+
+/* ==================== PANTALLA JUGABLE ==================== */
+.pantalla_jugable {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    z-index: 3;
+}
+
+.pantalla_jugable > img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    top: 0;
+    left: 0;
+}
+
+.pantalla_juego {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    width: 1300px;
+    height: 600px;
+}
+
+#canvas {
+    border: 3px solid #77441A;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 1300px;
+    height: 600px;
+    position: relative;
+    z-index: 7;
+    transform-origin: center center;
+    transition: box-shadow 0.2s ease;
+}
+
+/* ==================== PANTALLA FINAL (VICTORIA) ==================== */
+.pantalla_final {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    padding: 30px;
+    background-color: #03250554;
+    backdrop-filter: blur(4px);
+    z-index: 10;
+}
+
+.pantalla_final > img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 80%;
+    max-height: 80%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    z-index: -1;
+}
+
+.pantalla_final h2 {
+    color: #66ea7a;
+    font-size: 3em;
+    margin: 0;
+    text-shadow: 0 0 20px rgba(102, 234, 122, 0.8);
+}
+
+.pantalla_final > div {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.pantalla_final .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+}
+
+/* ==================== PANTALLAS DE DERROTA ==================== */
+.pantalla_derrota_tiempo,
+.pantalla_derrota_movimiento {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    padding: 30px;
+    background-color: #6700005e;
+    backdrop-filter: blur(4px);
+    z-index: 10;
+}
+
+.pantalla_derrota_tiempo h2,
+.pantalla_derrota_movimiento h2 {
+    color: #ff6b6b;
+    font-size: 2.5em;
+    margin: 0;
+    text-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
+    text-transform: uppercase;
+}
+
+.pantalla_derrota_tiempo p,
+.pantalla_derrota_movimiento p {
+    font-size: 1.3em;
+    color: #ffcccc;
+    margin: 10px 0;
+}
+
+.pantalla_derrota_tiempo .flex_vertical,
+.pantalla_derrota_movimiento .flex_vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.pantalla_derrota_tiempo .btn:hover,
+.pantalla_derrota_movimiento .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+}
+
+.flex_vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* ==================== UTILIDADES ==================== */
+.btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.scale_canvas {
+    animation: scaleUp 0.5s ease-in-out;
+}
+
+@keyframes scaleUp {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Transiciones suaves */
+.contenedor_jugable > div:not(.hidden) {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+
+/* ==================== ANIMACION PARALLAX ==================== */
+
+@keyframes parallax {
+    0% {background-position: 0px;}
+    100% {background-position: -1920px;}
+}
+
+.layer {
+    border-radius: 10px;
+    min-height: 600px;
+    width: 1300px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-repeat: repeat-x;
+    background-size: cover;
+    pointer-events: none;
+}
+
+.layer-6 {
+    background-image: url("/img/leapy_frog/fondo_6.png");
+    animation: parallax 180s linear infinite;
+    z-index: 1;
+}
+
+.layer-5 {
+    background-image: url("/img/leapy_frog/fondo_5.png");
+    animation: parallax 150s linear infinite;
+    z-index: 2;
+}
+
+.layer-4 {
+    background-image: url("/img/leapy_frog/fondo_4.png");
+    animation: parallax 120s linear infinite;
+    z-index: 3;
+}
+
+.layer-3 {
+    background-image: url("/img/leapy_frog/fondo_3.png");
+    animation: parallax 90s linear infinite;
+    z-index: 4;
+}
+
+.layer-2 {
+    background-image: url("/img/leapy_frog/fondo_2.png");
+    animation: parallax 60s linear infinite;
+    z-index: 5;
+}
+
+.layer-1 {
+    background-image: url("/img/leapy_frog/fondo_1.png");
+    animation: parallax 40s linear infinite;
+    z-index: 6;
+}
+
+#canvas {
+    position: relative;
+    z-index: 7; 
+}
+
+.layer-0 {
+    background-image: url("/img/leapy_frog/fondo_0.png");
+    animation: parallax 30s linear infinite;
+    z-index: 8;
+}

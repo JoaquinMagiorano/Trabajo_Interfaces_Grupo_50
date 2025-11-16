@@ -1,4 +1,4 @@
-import { Juego } from './clases/juego.js';
+import { Juego } from './peg/juego.js';
 
 
 const boton_compartir = document.querySelector('#btn_compartir');

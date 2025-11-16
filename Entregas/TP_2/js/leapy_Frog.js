@@ -1,12 +1,10 @@
-import { Juego } from './clases/juego.js';
-
+import { Juego } from './leapy/Juego.js';
 
 const boton_compartir = document.querySelector('#btn_compartir');
 
 boton_compartir.addEventListener('click', function(){
     menu_compartir.classList.toggle('hidden')
 });
-
 
 // Variable global para el juego
 let game = null;
