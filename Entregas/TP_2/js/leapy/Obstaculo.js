@@ -1,69 +1,73 @@
-// Clase Obstaculos - Maneja todos los obstáculos del juego
-export class Obstaculos {
+// Clase Obstaculo - Maneja todos los obstáculos del juego
+export class Obstaculo {
     constructor(canvas) {
         this.canvas = canvas;
-        this.pipes = [];
-        this.pipeGap = 200;
-        this.pipeWidth = 80;
-        this.pipeSpeed = 3;
+        this.obstacles = [];
+        this.obstacleGap = 200;
+        this.obstacleWidth = 80;
+        this.obstacleSpeed = 3;
         this.frameCount = 0;
     }
 
-    update() {
+    update(renacuajo) {
         // Generar nuevos obstáculos
         this.frameCount++;
         if (this.frameCount % 90 === 0) {
-            this.generarObstaculo();
+            const minHeight = 50;
+            const maxHeight = this.canvas.height - this.obstacleGap - 50;
+            const topHeight = Math.random() * (maxHeight - minHeight) + minHeight;
+            
+            this.obstacles.push({
+                x: this.canvas.width,
+                topHeight: topHeight,
+                bottomY: topHeight + this.obstacleGap,
+                passed: false
+            });
         }
 
         // Actualizar posición de obstáculos existentes
-        for (let i = this.pipes.length - 1; i >= 0; i--) {
-            this.pipes[i].x -= this.pipeSpeed;
+        for (let i = this.obstacles.length - 1; i >= 0; i--) {
+            this.obstacles[i].x -= this.obstacleSpeed;
 
             // Eliminar obstáculos fuera de pantalla
-            if (this.pipes[i].x + this.pipeWidth < 0) {
-                this.pipes.splice(i, 1);
+            if (this.obstacles[i].x + this.obstacleWidth < 0) {
+                this.obstacles.splice(i, 1);
+                continue;
+            }
+
+            // Contar puntos
+            if (!this.obstacles[i].passed && this.obstacles[i].x + this.obstacleWidth < renacuajo.x) {
+                this.obstacles[i].passed = true;
+                return 1; // Retorna 1 punto ganado
             }
         }
-    }
-
-    generarObstaculo() {
-        const minHeight = 50;
-        const maxHeight = this.canvas.height - this.pipeGap - 50;
-        const topHeight = Math.random() * (maxHeight - minHeight) + minHeight;
-        
-        this.pipes.push({
-            x: this.canvas.width,
-            topHeight: topHeight,
-            bottomY: topHeight + this.pipeGap,
-            passed: false
-        });
+        return 0; // No hay puntos ganados
     }
 
     draw(ctx) {
         ctx.fillStyle = '#77441A';
-        for (let pipe of this.pipes) {
+        for (let obstacle of this.obstacles) {
             // Tubo superior
-            ctx.fillRect(pipe.x, 0, this.pipeWidth, pipe.topHeight);
+            ctx.fillRect(obstacle.x, 0, this.obstacleWidth, obstacle.topHeight);
             // Tubo inferior
-            ctx.fillRect(pipe.x, pipe.bottomY, this.pipeWidth, this.canvas.height - pipe.bottomY);
+            ctx.fillRect(obstacle.x, obstacle.bottomY, this.obstacleWidth, this.canvas.height - obstacle.bottomY);
         }
     }
 
     checkCollision(renacuajo) {
-        for (let pipe of this.pipes) {
-            const birdLeft = renacuajo.x;
-            const birdRight = renacuajo.x + renacuajo.width;
-            const birdTop = renacuajo.y;
-            const birdBottom = renacuajo.y + renacuajo.height;
+        for (let obstacle of this.obstacles) {
+            const tadpoleLeft = renacuajo.x - renacuajo.radius;
+            const tadpoleRight = renacuajo.x + renacuajo.radius;
+            const tadpoleTop = renacuajo.y - renacuajo.radius;
+            const tadpoleBottom = renacuajo.y + renacuajo.radius;
 
-            const pipeLeft = pipe.x;
-            const pipeRight = pipe.x + this.pipeWidth;
+            const obstacleLeft = obstacle.x;
+            const obstacleRight = obstacle.x + this.obstacleWidth;
 
             // Verificar si el pájaro está en el rango horizontal del tubo
-            if (birdRight > pipeLeft && birdLeft < pipeRight) {
+            if (tadpoleRight > obstacleLeft && tadpoleLeft < obstacleRight) {
                 // Verificar colisión con tubo superior o inferior
-                if (birdTop < pipe.topHeight || birdBottom > pipe.bottomY) {
+                if (tadpoleTop < obstacle.topHeight || tadpoleBottom > obstacle.bottomY) {
                     return true;
                 }
             }
@@ -71,19 +75,8 @@ export class Obstaculos {
         return false;
     }
 
-    checkScore(renacuajo) {
-        let puntosGanados = 0;
-        for (let pipe of this.pipes) {
-            if (!pipe.passed && pipe.x + this.pipeWidth < renacuajo.x) {
-                pipe.passed = true;
-                puntosGanados++;
-            }
-        }
-        return puntosGanados;
-    }
-
     reset() {
-        this.pipes = [];
+        this.obstacles = [];
         this.frameCount = 0;
     }
 }

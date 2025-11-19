@@ -1,8 +1,7 @@
-// Importar las clases necesarias
 import { Renacuajo } from './Renacuajo.js';
-import { Obstaculos } from './Obstaculos.js';
+import { Obstaculo } from './Obstaculo.js';
 
-// Clase principal del juego Flappy Bird
+// Clase principal
 export class Juego {
     constructor(canvas) {
         this.canvas = canvas;
@@ -14,7 +13,7 @@ export class Juego {
         
         // Componentes del juego
         this.renacuajo = new Renacuajo(canvas);
-        this.obstaculos = new Obstaculos(canvas);
+        this.obstaculos = new Obstaculo(canvas);
         
         // Puntuación
         this.score = 0;
