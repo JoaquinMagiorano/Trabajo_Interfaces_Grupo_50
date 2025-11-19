@@ -5,8 +5,8 @@ export class Renacuajo {
         this.y = canvas.height / 2;
         this.radius = 20;
         this.velocity = 0;
-        this.gravity = 0.25;
-        this.jumpStrength = -7;
+        this.gravity = 0.5;
+        this.jumpStrength = -10;
         /*los pixeles mas arriba son los numeros mas bajos
          por lo tanto para caer tiene que aumentar el valor de y
           el cual aumenta constantemente con la gravedad*/

@@ -1,18 +1,20 @@
 // Clase Obstaculo - Maneja todos los obstáculos del juego
 export class Obstaculo {
-    constructor(canvas) {
+    constructor(canvas, monedasManager) {
         this.canvas = canvas;
+        this.monedasManager = monedasManager;
         this.obstacles = [];
         this.obstacleGap = 200;
         this.obstacleWidth = 80;
-        this.obstacleSpeed = 3;
+        this.obstacleSpeed = 4;
         this.frameCount = 0;
+        this.spawnRate = 60;
     }
 
     update(renacuajo) {
         // Generar nuevos obstáculos
         this.frameCount++;
-        if (this.frameCount % 90 === 0) {
+        if (this.frameCount % this.spawnRate === 0) {
             const minHeight = 50;
             const maxHeight = this.canvas.height - this.obstacleGap - 50;
             const topHeight = Math.random() * (maxHeight - minHeight) + minHeight;
@@ -23,6 +25,21 @@ export class Obstaculo {
                 bottomY: topHeight + this.obstacleGap,
                 passed: false
             });
+
+            if (this.obstacles.length > 1 && Math.random() < 0.4 && this.monedasManager) {
+                const obstaculoAnterior = this.obstacles[this.obstacles.length - 2];
+                const obstaculoNuevo = this.obstacles[this.obstacles.length - 1];
+                
+                // Posición X: que aparezca entre medio de los dos tubos
+                const xEntreMedio = (obstaculoAnterior.x + this.obstacleWidth + obstaculoNuevo.x) / 2; 
+                
+                // Posición Y: altura aleatoria en la zona "segura" (con 30px de margen para arriba y para abajo)
+                const alturaMinima = Math.max(obstaculoAnterior.topHeight, obstaculoNuevo.topHeight) + 30;
+                const alturaMaxima = Math.min(obstaculoAnterior.bottomY, obstaculoNuevo.bottomY) - 30;
+                const yAleatorio = Math.random() * (alturaMaxima - alturaMinima) + alturaMinima;
+                
+                this.monedasManager.generarMonedaEnPosicion(xEntreMedio, yAleatorio);
+            }
         }
 
         // Actualizar posición de obstáculos existentes

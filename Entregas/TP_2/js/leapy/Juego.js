@@ -1,5 +1,6 @@
 import { Renacuajo } from './Renacuajo.js';
 import { Obstaculo } from './Obstaculo.js';
+import { Moneda } from './Moneda.js';
 
 // Clase principal
 export class Juego {
@@ -13,10 +14,12 @@ export class Juego {
         
         // Componentes del juego
         this.renacuajo = new Renacuajo(canvas);
-        this.obstaculos = new Obstaculo(canvas);
+        this.monedas = new Moneda(canvas);
+        this.obstaculos = new Obstaculo(canvas, this.monedas);
         
         // Puntuación
         this.score = 0;
+        this.monedasRecolectadas = 0;
         
         this.setupEventListeners();
     }
@@ -55,7 +58,9 @@ export class Juego {
         console.log('Reseteando juego...');
         this.renacuajo.reset(this.canvas);
         this.obstaculos.reset();
+        this.monedas.reset();
         this.score = 0;
+        this.monedasRecolectadas = 0;
         this.gameOver = false;
         this.juegoActivo = false;
     }
@@ -69,6 +74,9 @@ export class Juego {
         // Actualizar obstáculos y obtener puntos
         const puntosGanados = this.obstaculos.update(this.renacuajo);
         this.score += puntosGanados;
+
+        const monedasNuevas = this.monedas.update(this.renacuajo);
+        this.monedasRecolectadas += monedasNuevas;
         
         // Detectar colisiones con obstáculos
         if (this.obstaculos.checkCollision(this.renacuajo)) {
@@ -84,18 +92,20 @@ export class Juego {
     }
 
     draw() {
-        // Limpiar canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // Dibujar componentes
         this.renacuajo.draw(this.ctx);
         this.obstaculos.draw(this.ctx);
+        this.monedas.draw(this.ctx);
         
         // Dibujar puntuación
         this.ctx.fillStyle = '#fff';
         this.ctx.font = 'bold 40px Arial';
         this.ctx.textAlign = 'center';
         this.ctx.fillText(this.score, this.canvas.width / 2, 50);
+        
+        this.ctx.font = 'bold 20px Arial';
+        this.ctx.fillText(`Monedas: ${this.monedasRecolectadas}`, this.canvas.width / 2, 90);
     }
 
     victoria() {
