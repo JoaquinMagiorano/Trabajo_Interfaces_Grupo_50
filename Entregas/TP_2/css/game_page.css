@@ -79,20 +79,25 @@ main {
     backdrop-filter: blur(4px);
     padding-left: 10px;
     padding-right: 10px;
-    border-radius: 0 0 15px 15px ;
+    border-radius: 0 0 15px 15px;
     margin-bottom: 15px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 10px; 
     z-index: 10;
 }
 
 .datos_barra h1 {
-    color: rgb(255, 255, 255);
+    margin-right: auto;
 }
 
 .redes {
-    padding-left: 500px;
+    display: flex;
+    gap: 5px; 
+}
+
+#menu_compartir {
+    position: absolute; 
 }
 
 .redes img{
@@ -111,6 +116,7 @@ main {
 #menu_compartir{
     position: absolute;
     display: flex;
+    margin-right: 10px;
     flex-direction: row;
     justify-content: end;   
     width: 100%;

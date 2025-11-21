@@ -1,10 +1,14 @@
 import { Juego } from './leapy/Juego.js';
 
-const boton_compartir = document.querySelector('#btn_compartir');
 
-boton_compartir.addEventListener('click', function(){
-    menu_compartir.classList.toggle('hidden')
-});
+const boton_compartir = document.querySelector('#btn_compartir');
+const menu_compartir = document.querySelector('#menu_compartir');
+
+if (boton_compartir && menu_compartir) {
+    boton_compartir.addEventListener('click', function(){
+        menu_compartir.classList.toggle('hidden');
+    });
+}
 
 // Variable global para el juego
 let game = null;
@@ -26,7 +30,6 @@ const pantalla_comienzo = document.querySelector('.pantalla_comienzo');
 const pantalla_instrucciones = document.querySelector('.pantalla_instrucciones');
 const pantalla_jugable = document.querySelector('.pantalla_jugable');
 const pantalla_final = document.querySelector('.pantalla_final');
-const pantalla_derrota_tiempo = document.querySelector('.pantalla_derrota_tiempo');
 const pantalla_derrota_movimiento = document.querySelector('.pantalla_derrota_movimiento');
 // Botones de navegación
 const btn_instrucciones = document.getElementById('btn_instrucciones');
@@ -35,8 +38,6 @@ const btn_volver_menu = document.querySelector('.pantalla_instrucciones .btn');
 const btn_reset = document.getElementById('btn_reset');
 const btn_menu_jugable = document.getElementById('btn_menu');
 const btn_menu_final = document.querySelector('.pantalla_final #btn_menu');
-const btn_reset_derrota_tiempo = document.querySelector('.pantalla_derrota_tiempo #btn_reset');
-const btn_menu_derrota_tiempo = document.querySelector('.pantalla_derrota_tiempo #btn_menu');
 const btn_reset_derrota_movimiento = document.querySelector('.pantalla_derrota_movimiento #btn_reset');
 const btn_menu_derrota_movimiento = document.querySelector('.pantalla_derrota_movimiento #btn_menu');
 
@@ -49,14 +50,12 @@ function mostrarPantalla(pantalla) {
         pantalla_instrucciones,
         pantalla_jugable,
         pantalla_final,
-        pantalla_derrota_tiempo,
         pantalla_derrota_movimiento
     ];
 
     // Pantallas que se muestran sobre el juego (overlays)
     const pantallasOverlay = [
         pantalla_final,
-        pantalla_derrota_tiempo,
         pantalla_derrota_movimiento
     ];
 
@@ -108,9 +107,6 @@ function irAPantallaFinal() {
     mostrarPantalla(pantalla_final);
 }
 
-function irADerrotaTiempo() {
-    mostrarPantalla(pantalla_derrota_tiempo);
-}
 
 function irADerrotaMovimiento() {
     mostrarPantalla(pantalla_derrota_movimiento);
@@ -153,13 +149,6 @@ if (btn_menu_final) {
     btn_menu_final.addEventListener('click', irAlMenu);
 }
 // Botones de pantalla de derrota por tiempo
-if (btn_reset_derrota_tiempo) {
-    btn_reset_derrota_tiempo.addEventListener('click', resetearJuego);
-}
-if (btn_menu_derrota_tiempo) {
-    btn_menu_derrota_tiempo.addEventListener('click', irAlMenu);
-}
-// Botones de pantalla de derrota por movimientos
 if (btn_reset_derrota_movimiento) {
     btn_reset_derrota_movimiento.addEventListener('click', resetearJuego);
 }
@@ -172,9 +161,7 @@ if (btn_menu_derrota_movimiento) {
 window.mostrarPantallaVictoria = function() {
     irAPantallaFinal();
 };
-window.mostrarPantallaDerrotaTiempo = function() {
-    irADerrotaTiempo();
-};
+
 window.mostrarPantallaDerrotaMovimiento = function() {
     irADerrotaMovimiento();
 };
