@@ -458,41 +458,41 @@
 }
 
 .layer-6 {
-    background-image: url("/img/leapy_frog/fondo_6.png");
+    background-image: url("../img/leapy_frog/fondo_6.png");
     animation: parallax 180s linear infinite;
     z-index: 1;
     filter: blur(2px);
 }
 
 .layer-5 {
-    background-image: url("/img/leapy_frog/fondo_5.png");
+    background-image: url("../img/leapy_frog/fondo_5.png");
     animation: parallax 150s linear infinite;
     z-index: 2;
     filter: blur(1px);
 }
 
 .layer-4 {
-    background-image: url("/img/leapy_frog/fondo_4.png");
+    background-image: url("../img/leapy_frog/fondo_4.png");
     animation: parallax 120s linear infinite;
     z-index: 3;
     filter: blur(1px);
 }
 
 .layer-3 {
-    background-image: url("/img/leapy_frog/fondo_3.png");
+    background-image: url("../img/leapy_frog/fondo_3.png");
     animation: parallax 90s linear infinite;
     z-index: 4;
     filter: blur(2px);
 }
 
 .layer-2 {
-    background-image: url("/img/leapy_frog/fondo_2.png");
+    background-image: url("../img/leapy_frog/fondo_2.png");
     animation: parallax 60s linear infinite;
     z-index: 5;
 }
 
 .layer-1 {
-    background-image: url("/img/leapy_frog/fondo_1.png");
+    background-image: url("../img/leapy_frog/fondo_1.png");
     animation: parallax 40s linear infinite;
     z-index: 6;
     filter: blur(1px);
@@ -504,7 +504,7 @@
 }
 
 .layer-0 {
-    background-image: url("/img/leapy_frog/fondo_0.png");
+    background-image: url("../img/leapy_frog/fondo_0.png");
     animation: parallax 30s linear infinite;
     z-index: 8;
     filter: blur(3px);

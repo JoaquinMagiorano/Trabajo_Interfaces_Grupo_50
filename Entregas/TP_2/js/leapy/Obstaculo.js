@@ -7,7 +7,7 @@ export class Obstaculo {
         this.obstacleGap = 250;
         this.obstacleWidth = 120;      // Ancho de colisión (más grande)
         
-        this.obstacleDisplayWidth = 180; // Ancho visual (más grande que colisión)
+        this.obstacleDisplayWidth = 200; // Ancho visual (más grande que colisión)
 
 
 
