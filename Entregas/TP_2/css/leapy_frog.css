@@ -466,34 +466,34 @@
 
 .layer-5 {
     background-image: url("../img/leapy_frog/fondo_5.png");
-    animation: parallax 150s linear infinite;
+    animation: parallax 50s linear infinite;
     z-index: 2;
     filter: blur(1px);
 }
 
 .layer-4 {
     background-image: url("../img/leapy_frog/fondo_4.png");
-    animation: parallax 120s linear infinite;
+    animation: parallax 100s linear infinite;
     z-index: 3;
     filter: blur(1px);
 }
 
 .layer-3 {
     background-image: url("../img/leapy_frog/fondo_3.png");
-    animation: parallax 90s linear infinite;
+    animation: parallax 80s linear infinite;
     z-index: 4;
     filter: blur(2px);
 }
 
 .layer-2 {
     background-image: url("../img/leapy_frog/fondo_2.png");
-    animation: parallax 60s linear infinite;
+    animation: parallax 50s linear infinite;
     z-index: 5;
 }
 
 .layer-1 {
     background-image: url("../img/leapy_frog/fondo_1.png");
-    animation: parallax 40s linear infinite;
+    animation: parallax 60s linear infinite;
     z-index: 6;
     filter: blur(1px);
 }
