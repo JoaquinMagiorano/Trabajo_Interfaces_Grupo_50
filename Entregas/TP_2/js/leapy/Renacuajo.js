@@ -32,6 +32,8 @@ export class Renacuajo {
         // Tamaño del renacuajo en pantalla
         this.drawWidth = 100;   // Ancho al dibujar (ajustable)
         this.drawHeight = 100;  // Alto al dibujar (ajustable)
+        this.offSetX = 15;
+        this.offSetY = 5;
     }
 
     jump() {
@@ -93,8 +95,8 @@ export class Renacuajo {
                 sourceY,           // Posición Y en el sprite sheet
                 this.frameWidth,   // Ancho del frame en el sprite
                 this.frameHeight,  // Alto del frame en el sprite
-                drawX,             // Posición X en el canvas
-                drawY,             // Posición Y en el canvas
+                drawX - this.offSetX,             // Posición X en el canvas
+                drawY + this.offSetY,             // Posición Y en el canvas
                 this.drawWidth,    // Ancho al dibujar
                 this.drawHeight    // Alto al dibujar
             );
