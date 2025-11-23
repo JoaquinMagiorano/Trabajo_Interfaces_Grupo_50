@@ -106,10 +106,10 @@ export class Renacuajo {
             );
             
             // Opcional: círculo de colisión para debug
-            // ctx.strokeStyle = 'red';
-            // ctx.beginPath();
-            // ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            // ctx.stroke();
+             ctx.strokeStyle = 'red';
+             ctx.beginPath();
+             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+             ctx.stroke();
         }
         // Si está vivo y el sprite normal está cargado
         else if (this.spriteLoaded) {
