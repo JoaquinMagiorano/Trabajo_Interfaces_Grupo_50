@@ -123,6 +123,7 @@ export class Juego {
 
     derrotaPorColision() {
         this.juegoActivo = false;
+        this.renacuajo.setDead();
         this.detener();
         
         setTimeout(() => {

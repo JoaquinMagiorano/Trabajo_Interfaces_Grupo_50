@@ -20,6 +20,17 @@ export class Renacuajo {
             console.log('Sprite sheet cargado correctamente');
         };
 
+        this.spriteSheetDead = new Image();
+        this.spriteSheetDead.src = 'img/leapy_frog/renacuajo_muerto.png'; // Tu imagen con X en los ojos
+        this.deadSpriteLoaded = false;
+        this.isDead = false; // Nuevo estado
+
+        this.spriteSheetDead.onload = () => {
+            this.deadSpriteLoaded = true;
+            console.log('Sprite de renacuajo muerto cargado');
+        };
+
+
         // Configuración de la animación
         this.frameWidth = 350;  // Ancho de cada frame
         this.frameHeight = 350; // Alto de cada frame
@@ -75,37 +86,56 @@ export class Renacuajo {
         this.y = canvas.height / 2;
         this.velocity = 0;
         this.isAnimating = false;
-        this.currentFrame = 0; // Volver al frame de reposo
+        this.currentFrame = 0;
         this.frameCounter = 0;
+        this.isDead = false;
     }
 
     draw(ctx) {
-        if (this.spriteLoaded) {
-            // Dibujar el frame actual del sprite sheet
-            const sourceX = this.currentFrame * this.frameWidth;
-            const sourceY = 0; // Si tienes múltiples filas, ajusta esto
+        // Si está muerto y el sprite está cargado, usar el sprite muerto
+        if (this.isDead && this.deadSpriteLoaded) {
+            const drawX = this.x - this.drawWidth / 2;
+            const drawY = this.y - this.drawHeight / 2;
             
-            // Calcular posición para centrar el sprite
+            ctx.drawImage(
+                this.spriteSheetDead,
+                drawX,
+                drawY,
+                this.drawWidth,
+                this.drawHeight
+            );
+            
+            // Opcional: círculo de colisión para debug
+            // ctx.strokeStyle = 'red';
+            // ctx.beginPath();
+            // ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            // ctx.stroke();
+        }
+        // Si está vivo y el sprite normal está cargado
+        else if (this.spriteLoaded) {
+            const sourceX = this.currentFrame * this.frameWidth;
+            const sourceY = 0;
+            
             const drawX = this.x - this.drawWidth / 2;
             const drawY = this.y - this.drawHeight / 2;
             
             ctx.drawImage(
                 this.spriteSheet,
-                sourceX,           // Posición X en el sprite sheet
-                sourceY,           // Posición Y en el sprite sheet
-                this.frameWidth,   // Ancho del frame en el sprite
-                this.frameHeight,  // Alto del frame en el sprite
-                drawX - this.offSetX,             // Posición X en el canvas
-                drawY + this.offSetY,             // Posición Y en el canvas
-                this.drawWidth,    // Ancho al dibujar
-                this.drawHeight    // Alto al dibujar
+                sourceX,
+                sourceY,
+                this.frameWidth,
+                this.frameHeight,
+                drawX,
+                drawY,
+                this.drawWidth,
+                this.drawHeight
             );
             
-            // Opcional: Dibujar círculo de colisión para debug
-             ctx.strokeStyle = 'red';
-             ctx.beginPath();
-             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-             ctx.stroke();
+            // Opcional: círculo de colisión para debug
+            // ctx.strokeStyle = 'red';
+            // ctx.beginPath();
+            // ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            // ctx.stroke();
         } else {
             // Mientras carga el sprite, dibujar círculo simple
             ctx.fillStyle = '#4caf50';
@@ -117,5 +147,10 @@ export class Renacuajo {
 
     isOutOfBounds(canvasHeight) {
         return this.y + this.radius > canvasHeight || this.y - this.radius < 0;
+    }
+
+    setDead() {
+        this.isDead = true;
+        this.isAnimating = false; // Detener animación normal
     }
 }
