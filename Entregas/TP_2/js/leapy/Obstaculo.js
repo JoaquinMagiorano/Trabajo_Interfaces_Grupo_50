@@ -6,8 +6,9 @@ export class Obstaculo {
         this.obstacles = [];
         this.obstacleGap = 250;
         this.obstacleWidth = 120;      // Ancho de colisión (más grande)
+        this.offSetY = 10;
         
-        this.obstacleDisplayWidth = 200; // Ancho visual (más grande que colisión)
+        this.obstacleDisplayWidth = 210; // Ancho visual (más grande que colisión)
 
 
 
@@ -114,7 +115,7 @@ export class Obstaculo {
                     ctx.drawImage(
                         this.imagenSuperior,
                         obstacle.x - offsetX, // Centrar sobre el área de colisión
-                        obstacle.topHeight - (repeticionesSuperior - i) * alturaSuperior,
+                        obstacle.topHeight - (repeticionesSuperior - i) * alturaSuperior + this.offSetY,
                         this.obstacleDisplayWidth, // Usar ancho visual
                         alturaSuperior
                     );
@@ -133,7 +134,7 @@ export class Obstaculo {
                     ctx.drawImage(
                         this.imagenInferior,
                         obstacle.x - offsetX, // Centrar sobre el área de colisión
-                        obstacle.bottomY + i * alturaInferior,
+                        obstacle.bottomY + i * alturaInferior - this.offSetY,
                         this.obstacleDisplayWidth, // Usar ancho visual
                         alturaInferior
                     );
