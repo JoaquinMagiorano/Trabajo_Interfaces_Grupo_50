@@ -99,8 +99,8 @@ export class Renacuajo {
             
             ctx.drawImage(
                 this.spriteSheetDead,
-                drawX,
-                drawY,
+                drawX - this.offSetX,
+                drawY + this.offSetY,
                 this.drawWidth,
                 this.drawHeight
             );
@@ -125,17 +125,17 @@ export class Renacuajo {
                 sourceY,
                 this.frameWidth,
                 this.frameHeight,
-                drawX,
-                drawY,
+                drawX - this.offSetX,
+                drawY + this.offSetY,
                 this.drawWidth,
                 this.drawHeight
             );
             
             // Opcional: círculo de colisión para debug
-            // ctx.strokeStyle = 'red';
-            // ctx.beginPath();
-            // ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            // ctx.stroke();
+            ctx.strokeStyle = 'red';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.stroke();
         } else {
             // Mientras carga el sprite, dibujar círculo simple
             ctx.fillStyle = '#4caf50';
