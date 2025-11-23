@@ -75,6 +75,10 @@ export class Juego {
         const puntosGanados = this.obstaculos.update(this.renacuajo);
         this.score += puntosGanados;
 
+        if(this.monedasRecolectadas>=10){
+            this.victoria();
+        }
+
         const monedasNuevas = this.monedas.update(this.renacuajo);
         this.monedasRecolectadas += monedasNuevas;
         
@@ -98,7 +102,7 @@ export class Juego {
         this.obstaculos.draw(this.ctx);
         this.monedas.draw(this.ctx);
         
-        // Dibujar puntuación
+        // Dibujar puntuacion
         this.ctx.fillStyle = '#fff';
         this.ctx.font = 'bold 40px Arial';
         this.ctx.textAlign = 'center';
@@ -109,7 +113,6 @@ export class Juego {
     }
 
     victoria() {
-        if (this.score >= 2) {
             this.juegoActivo = false;
             this.detener();
             
@@ -118,7 +121,7 @@ export class Juego {
                     window.mostrarPantallaVictoria();
                 }
             }, 500);
-        }
+        
     }
 
     derrotaPorColision() {
