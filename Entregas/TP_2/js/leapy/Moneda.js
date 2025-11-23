@@ -151,4 +151,10 @@ export class Moneda {
         this.currentFrame = 0;
         this.frameCounter = 0;
     }
+
+    setDead() {
+    this.isDead = true;
+    this.isAnimating = false; // Detener animación normal
+    }
+
 }
