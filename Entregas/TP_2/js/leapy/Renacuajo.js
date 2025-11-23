@@ -78,7 +78,7 @@ export class Renacuajo {
     }
 
     draw(ctx) {
-        if (this.spriteLoaded) {
+        if (this.isDead && this.spriteLoaded) {
             // Dibujar el frame actual del sprite sheet
             const sourceX = this.currentFrame * this.frameWidth;
             const sourceY = 0; // Si tienes múltiples filas, ajusta esto

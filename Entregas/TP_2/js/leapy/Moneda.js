@@ -17,6 +17,16 @@ export class Moneda {
             console.log('Sprite sheet de monedas cargado correctamente');
         };
 
+        this.spriteSheetDead = new Image();
+        this.spriteSheetDead.src = 'img/leapy_frog/renacuajo_muerto.png'; // Tu imagen con X en los ojos
+        this.deadSpriteLoaded = false;
+        this.isDead = false; // Nuevo estado
+
+        this.spriteSheetDead.onload = () => {
+            this.deadSpriteLoaded = true;
+            console.log('Sprite de renacuajo muerto cargado');
+        };
+
          // Configuración de la animación
         this.frameWidth = 350;     // Ancho de cada frame en el sprite
         this.frameHeight = 350;    // Alto de cada frame en el sprite
