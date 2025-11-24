@@ -537,3 +537,15 @@
         filter: brightness(1) drop-shadow(0 0 0 transparent);
     }
 }
+
+.moneda-recolectada {
+  animation: recolectar-moneda 0.6s ease-out forwards;
+  position: absolute;
+  pointer-events: none;
+  z-index: 9999;
+  width: 90px;
+  height: 90px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

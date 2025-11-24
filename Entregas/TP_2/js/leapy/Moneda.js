@@ -53,88 +53,73 @@ export class Moneda {
     }
 
     update(renacuajo) {
-        let monedasRecogidas = 0;
+    let monedasRecogidas = 0;
 
-        // Actualizar animación del sprite
-        this.frameCounter++;
-        if (this.frameCounter >= this.frameSpeed) {
-            this.frameCounter = 0;
-            this.currentFrame++;
-            
-            // Volver al primer frame cuando llega al final
-            if (this.currentFrame >= this.totalFrames) {
-                this.currentFrame = 0;
-            }
+    // Actualizar animación del sprite
+    this.frameCounter++;
+    if (this.frameCounter >= this.frameSpeed) {
+        this.frameCounter = 0;
+        this.currentFrame++;
+        
+        if (this.currentFrame >= this.totalFrames) {
+            this.currentFrame = 0;
         }
+    }
 
-        // Actualizar posición de monedas existentes
-        for (let i = this.monedas.length - 1; i >= 0; i--) {
-            const moneda = this.monedas[i];
-            
-            // Si está animando la recolección
-            if (moneda.animandoRecoleccion) {
-                moneda.tiempoRecoleccion++;
-                const progreso = moneda.tiempoRecoleccion / 36; // 36 frames = 0.6s a 60fps
+    // Actualizar posición de monedas existentes
+    for (let i = this.monedas.length - 1; i >= 0; i--) {
+        const moneda = this.monedas[i];
+        
+        if (!moneda.recogida) {
+            moneda.x -= this.coinSpeed;
+
+            // <CHANGE> Verificar colisión y crear elemento DOM con animación CSS
+            if (this.checkCollision(moneda, renacuajo)) {
+                moneda.recogida = true;
+                monedasRecogidas++;
                 
-                // Movimiento hacia arriba (ease-out)
-                const easeOut = 1 - Math.pow(1 - progreso, 3);
-                moneda.offsetY = -150 * easeOut;
+                // Crear elemento DOM para animación CSS
+                this.crearAnimacionRecoleccionDOM(moneda);
                 
-                // Cambio de opacidad
-                if (progreso < 0.5) {
-                    moneda.opacity = 1 - (progreso * 0.2);
-                } else {
-                    moneda.opacity = 0.8 - ((progreso - 0.5) * 1.6);
-                }
-                
-                // Cambio de escala
-                if (progreso < 0.5) {
-                    moneda.scale = 1 + (progreso * 0.6);
-                } else {
-                    moneda.scale = 1.3 - ((progreso - 0.5) * 1.6);
-                }
-                
-                // Efecto de brillo
-                if (progreso < 0.3) {
-                    moneda.brightness = 1 + (progreso * 3.33);
-                    moneda.glowIntensity = progreso * 66.67;
-                } else if (progreso < 0.5) {
-                    moneda.brightness = 2 + ((progreso - 0.3) * 2.5);
-                    moneda.glowIntensity = 20 + ((progreso - 0.3) * 50);
-                } else if (progreso < 0.7) {
-                    moneda.brightness = 2.5 - ((progreso - 0.5) * 2.5);
-                    moneda.glowIntensity = 30 - ((progreso - 0.5) * 25);
-                } else {
-                    moneda.brightness = 2 - ((progreso - 0.7) * 3.33);
-                    moneda.glowIntensity = 25 - ((progreso - 0.7) * 83.33);
-                }
-                
-                // Eliminar cuando termine la animación
-                if (moneda.tiempoRecoleccion >= 36) {
-                    this.monedas.splice(i, 1);
-                }
+                // Eliminar inmediatamente del array
+                this.monedas.splice(i, 1);
                 continue;
             }
-            
-            if (!moneda.recogida) {
-                moneda.x -= this.coinSpeed;
 
-                // Verificar colisión con el renacuajo
-                if (this.checkCollision(moneda, renacuajo)) {
-                    moneda.recogida = true;
-                    moneda.animandoRecoleccion = true; // Iniciar animación
-                    monedasRecogidas++;
-                }
-
-                // Eliminar monedas fuera de pantalla
-                if (moneda.x + this.coinRadius < 0) {
-                    this.monedas.splice(i, 1);
-                }
+            // Eliminar monedas fuera de pantalla
+            if (moneda.x + this.coinRadius < 0) {
+                this.monedas.splice(i, 1);
             }
         }
-
-        return monedasRecogidas;
     }
+
+    return monedasRecogidas;
+}
+
+// <CHANGE> Nuevo método para crear animación DOM con CSS keyframe
+crearAnimacionRecoleccionDOM(moneda) {
+    // Obtener posición del canvas en la página
+    const canvasRect = this.canvas.getBoundingClientRect();
+    
+    // Crear elemento de imagen
+    const monedaDOM = document.createElement('img');
+    monedaDOM.src = 'img/leapy_frog/moneda.png';
+    monedaDOM.className = 'moneda-recolectada';
+    
+    // Posicionar el elemento donde estaba la moneda en el canvas
+    monedaDOM.style.left = `${canvasRect.left + moneda.x - this.drawWidth/2}px`;
+    monedaDOM.style.top = `${canvasRect.top + moneda.y - this.drawHeight/2}px`;
+    
+    // Agregar al body
+    document.body.appendChild(monedaDOM);
+    
+    // Eliminar el elemento cuando termine la animación (0.6s)
+    setTimeout(() => {
+        if (monedaDOM.parentNode) {
+            monedaDOM.parentNode.removeChild(monedaDOM);
+        }
+    }, 600);
+}
 
     checkCollision(moneda, renacuajo) {
         // Colisión círculo a círculo usando distancia entre centros
@@ -146,62 +131,47 @@ export class Moneda {
     }
 
     draw(ctx) {
-        if (this.spriteLoaded) {
-            for (let moneda of this.monedas) {
-                ctx.save(); // Guardar estado del contexto
-                
-                // Aplicar opacidad
-                ctx.globalAlpha = moneda.opacity;
-                
-                // Aplicar brillo y resplandor
-                if (moneda.animandoRecoleccion) {
-                    ctx.filter = `brightness(${moneda.brightness}) drop-shadow(0 0 ${moneda.glowIntensity}px #FFD700)`;
-                }
-                
+    if (this.spriteLoaded) {
+        for (let moneda of this.monedas) {
+            // <CHANGE> Solo dibujar monedas que NO han sido recogidas
+            if (!moneda.recogida) {
                 // Calcular posición del frame actual en el sprite sheet
                 const sourceX = this.currentFrame * this.frameWidth;
-                const sourceY = 0; // Si tienes múltiples filas, ajusta esto
+                const sourceY = 0;
                 
                 // Calcular posición para centrar el sprite
-                const drawX = moneda.x - (this.drawWidth * moneda.scale) / 2;
-                const drawY = moneda.y - (this.drawHeight * moneda.scale) / 2 + moneda.offsetY;
+                const drawX = moneda.x - this.drawWidth / 2;
+                const drawY = moneda.y - this.drawHeight / 2;
                 
                 ctx.drawImage(
                     this.spriteSheet,
-                    sourceX,            // Posición X en el sprite sheet
-                    sourceY,            // Posición Y en el sprite sheet
-                    this.frameWidth,    // Ancho del frame en el sprite
-                    this.frameHeight,   // Alto del frame en el sprite
-                    drawX,              // Posición X en el canvas
-                    drawY,              // Posición Y en el canvas
-                    this.drawWidth * moneda.scale,     // Ancho al dibujar
-                    this.drawHeight * moneda.scale     // Alto al dibujar
+                    sourceX,
+                    sourceY,
+                    this.frameWidth,
+                    this.frameHeight,
+                    drawX,
+                    drawY,
+                    this.drawWidth,
+                    this.drawHeight
                 );
-                
-                ctx.restore(); // Restaurar estado del contexto
-                
-                // Opcional: Dibujar círculo de colisión para debug
-                /* ctx.strokeStyle = 'red';
+            }
+        }
+    } else {
+        // Mientras carga el sprite, dibujar círculos simples
+        ctx.fillStyle = '#FFD700';
+        for (let moneda of this.monedas) {
+            if (!moneda.recogida) {
                 ctx.beginPath();
                 ctx.arc(moneda.x, moneda.y, this.coinRadius, 0, Math.PI * 2);
-                ctx.stroke(); */
-            }
-        } else {
-            // Mientras carga el sprite, dibujar círculos simples
-            ctx.fillStyle = '#FFD700';
-            for (let moneda of this.monedas) {
-                if (!moneda.recogida) {
-                    ctx.beginPath();
-                    ctx.arc(moneda.x, moneda.y, this.coinRadius, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    ctx.strokeStyle = '#FFA500';
-                    ctx.lineWidth = 2;
-                    ctx.stroke();
-                }
+                ctx.fill();
+                
+                ctx.strokeStyle = '#FFA500';
+                ctx.lineWidth = 2;
+                ctx.stroke();
             }
         }
     }
+}
 
     reset() {
         this.monedas = [];
