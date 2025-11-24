@@ -180,7 +180,7 @@ export class Moneda {
                 
                 ctx.restore(); // Restaurar estado del contexto
                 
-                // Opcional: Dibujar círculo de colisión para debug
+                // Dibujar círculo de colisión para debug
                 /* ctx.strokeStyle = 'red';
                 ctx.beginPath();
                 ctx.arc(moneda.x, moneda.y, this.coinRadius, 0, Math.PI * 2);
