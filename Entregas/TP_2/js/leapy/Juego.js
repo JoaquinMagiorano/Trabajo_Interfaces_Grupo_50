@@ -106,7 +106,7 @@ export class Juego {
         this.ctx.fillStyle = '#fff';
         this.ctx.font = 'bold 40px Arial';
         this.ctx.textAlign = 'center';
-        this.ctx.fillText(this.score, this.canvas.width / 2, 50);
+        this.ctx.fillText(`Puntuación: ${this.score}`, this.canvas.width / 2, 50);
         
         this.ctx.font = 'bold 20px Arial';
         this.ctx.fillText(`Monedas: ${this.monedasRecolectadas}`, this.canvas.width / 2, 90);
