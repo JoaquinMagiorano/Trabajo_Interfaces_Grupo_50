@@ -140,11 +140,11 @@ export class Obstaculo {
                     );
                 }
                 
-                // OPCIONAL: Dibujar el área de colisión para debug
-                 ctx.strokeStyle = 'red';
-                 ctx.lineWidth = 2;
-                 ctx.strokeRect(obstacle.x, 0, this.obstacleWidth, obstacle.topHeight);
-                 ctx.strokeRect(obstacle.x, obstacle.bottomY, this.obstacleWidth, this.canvas.height - obstacle.bottomY);
+                // Rectangulo de hitbox para debug
+                //  ctx.strokeStyle = 'red';
+                //  ctx.lineWidth = 2;
+                //  ctx.strokeRect(obstacle.x, 0, this.obstacleWidth, obstacle.topHeight);
+                //  ctx.strokeRect(obstacle.x, obstacle.bottomY, this.obstacleWidth, this.canvas.height - obstacle.bottomY);
             }
         } else {
             // Mientras cargan las imágenes, dibujar rectángulos simples

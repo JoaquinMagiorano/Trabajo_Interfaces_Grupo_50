@@ -113,11 +113,11 @@ export class Moneda {
                         this.drawHeight     // Alto al dibujar
                     );
                     
-                    // Opcional: Dibujar círculo de colisión para debug
-                     ctx.strokeStyle = 'red';
-                     ctx.beginPath();
-                     ctx.arc(moneda.x, moneda.y, this.coinRadius, 0, Math.PI * 2);
-                     ctx.stroke();
+                    // Circulo de hitbox para debug
+                    //  ctx.strokeStyle = 'red';
+                    //  ctx.beginPath();
+                    //  ctx.arc(moneda.x, moneda.y, this.coinRadius, 0, Math.PI * 2);
+                    //  ctx.stroke();
                 }
             }
         } else {
