@@ -507,7 +507,7 @@
     background-image: url("../img/leapy_frog/fondo_0.png");
     animation: parallax 30s linear infinite;
     z-index: 8;
-    filter: blur(3px);
+    filter: blur(2px);
 }
 
 @keyframes recolectar-moneda {
@@ -548,4 +548,38 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+
+@keyframes renacuajo-muerte {
+  0% {
+    transform: translateY(0) scale(1) rotate(0deg);
+    opacity: 1;
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  40% {
+    transform: translateY(-30px) scale(1.05) rotate(-10deg);
+    opacity: 0.95;
+    filter: drop-shadow(0 6px 20px rgba(0,0,0,0.3));
+  }
+  70% {
+    transform: translateY(-10px) scale(1.1) rotate(10deg);
+    opacity: 0.7;
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.35));
+  }
+  100% {
+    transform: translateY(-80px) scale(0.6) rotate(25deg);
+    opacity: 0;
+    filter: drop-shadow(0 0 0 transparent);
+  }
+}
+
+.renacuajo-caida {
+  /* position/coords se establecen en JS con fixed; aquí garantizamos apariencia */
+  pointer-events: none;
+  object-fit: contain;
+  opacity: 1;           /* no debe cambiar */
+  transition: top 0.9s ease-out;
+  transform-origin: center center;
+  z-index: 7; 
 }

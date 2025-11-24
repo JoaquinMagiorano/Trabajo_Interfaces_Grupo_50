@@ -1,12 +1,19 @@
 // Clase Renacuajo - Maneja el personaje principal
 export class Renacuajo {
     constructor(canvas) {
+        this.canvas = canvas;
         this.x = canvas.width / 3;
         this.y = canvas.height / 2;
         this.radius = 25; // radio de la colision
         this.velocity = 0;
         this.gravity = 0.15;
         this.jumpStrength = -6;
+        this.offSetX = 15;
+        this.offSetY = 5;
+        this.showOnCanvas = true;
+
+
+
         /*los pixeles mas arriba son los numeros mas bajos
          por lo tanto para caer tiene que aumentar el valor de y
           el cual aumenta constantemente con la gravedad*/
@@ -89,9 +96,12 @@ export class Renacuajo {
         this.currentFrame = 0;
         this.frameCounter = 0;
         this.isDead = false;
+        this.showOnCanvas = true;
     }
 
     draw(ctx) {
+
+        if (!this.showOnCanvas) return;
         // Si está muerto y el sprite está cargado, usar el sprite muerto
         if (this.isDead && this.deadSpriteLoaded) {
             const drawX = this.x - this.drawWidth / 2;
@@ -152,5 +162,61 @@ export class Renacuajo {
     setDead() {
         this.isDead = true;
         this.isAnimating = false; // Detener animación normal
+        // Crear animación DOM si tenemos canvas (posicionar en pantalla)
+        this.showOnCanvas = false;
+
+        if (this.canvas && typeof document !== 'undefined') {
+            this.crearAnimacionDerrotaDOM();
+        }
+
+        this.velocity = Math.max(this.velocity, 2);
     }
+
+    crearAnimacionDerrotaDOM() {
+        const canvasRect = this.canvas.getBoundingClientRect();
+
+        // Usar document.body + position:fixed para evitar depender del ancestor posicionado
+        const parent = document.body;
+
+        const renacuajoDOM = document.createElement('img');
+        renacuajoDOM.src = 'img/leapy_frog/renacuajo_muerto.png';
+        renacuajoDOM.className = 'renacuajo-caida';
+
+        // Estilos iniciales: position fixed para que left/top se correspondan con getBoundingClientRect()
+        renacuajoDOM.style.position = 'fixed';
+        const left = Math.round(canvasRect.left + this.x - this.drawWidth / 2);
+        const top = Math.round(canvasRect.top + this.y - this.drawHeight / 2);
+        renacuajoDOM.style.left = `${left}px`;
+        renacuajoDOM.style.top = `${top}px`;
+        renacuajoDOM.style.width = `${this.drawWidth}px`;
+        renacuajoDOM.style.height = `${this.drawHeight}px`;
+        renacuajoDOM.style.pointerEvents = 'none';
+        renacuajoDOM.style.opacity = '1'; // NO cambiar opacidad
+        renacuajoDOM.style.transition = 'top 0.9s ease-out';
+        renacuajoDOM.style.transform = 'translateZ(0)'; // forzar capa compuesta
+        renacuajoDOM.style.objectFit = 'contain';
+
+        // Intentar igualar z-index del canvas (fallback a 10)
+        const zIndex = Number(window.getComputedStyle(this.canvas).zIndex) || 10;
+        renacuajoDOM.style.zIndex = String(zIndex);
+
+        parent.appendChild(renacuajoDOM);
+
+        // Calcular destino: borde inferior del canvas (viewport coords)
+        const targetTop = Math.round(canvasRect.top + this.canvas.height - this.drawHeight);
+
+        // Ejecutar la transición en el siguiente frame para que se anime correctamente
+        requestAnimationFrame(() => {
+            renacuajoDOM.style.top = `${targetTop}px`;
+        });
+
+        // Limpiar al terminar la transición (y fallback timeout)
+        const cleanup = () => {
+            if (renacuajoDOM.parentNode) renacuajoDOM.parentNode.removeChild(renacuajoDOM);
+            renacuajoDOM.removeEventListener('transitionend', cleanup);
+        };
+        renacuajoDOM.addEventListener('transitionend', cleanup);
+        setTimeout(cleanup, 1400);
+    }
+
 }
