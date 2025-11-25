@@ -2,7 +2,6 @@ import { Renacuajo } from './Renacuajo.js';
 import { Obstaculo } from './Obstaculo.js';
 import { Moneda } from './Moneda.js';
 
-// Clase principal
 export class Juego {
     constructor(canvas) {
         this.canvas = canvas;
@@ -17,7 +16,7 @@ export class Juego {
         this.monedas = new Moneda(canvas);
         this.obstaculos = new Obstaculo(canvas, this.monedas);
         
-        // Puntuación
+        // Puntuacion
         this.score = 0;
         this.monedasRecolectadas = 0;
         
@@ -68,7 +67,7 @@ export class Juego {
     update() {
         if (!this.juegoActivo || this.gameOver) return;
 
-        // Actualizar posición del renacuajo
+        // Actualizar posicion del renacuajo
         this.renacuajo.update();
         
         // Actualizar obstáculos y obtener puntos
@@ -82,13 +81,13 @@ export class Juego {
         const monedasNuevas = this.monedas.update(this.renacuajo);
         this.monedasRecolectadas += monedasNuevas;
         
-        // Detectar colisiones con obstáculos
+        // Detectar colisiones
         if (this.obstaculos.checkCollision(this.renacuajo)) {
             this.gameOver = true;
             this.derrotaPorColision();
         }
         
-        // Verificar límites de la pantalla
+        // Chequear limites de la pantalla
         if (this.renacuajo.isOutOfBounds(this.canvas.height)) {
             this.gameOver = true;
             this.derrotaPorColision();
@@ -102,7 +101,7 @@ export class Juego {
         this.obstaculos.draw(this.ctx);
         this.monedas.draw(this.ctx);
         
-        // Dibujar puntuacion
+        // Dibujao de la puntuacion
         this.ctx.fillStyle = '#fff';
         this.ctx.font = 'bold 40px Arial';
         this.ctx.textAlign = 'center';

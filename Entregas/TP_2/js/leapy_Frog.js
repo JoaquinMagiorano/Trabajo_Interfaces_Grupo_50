@@ -13,7 +13,7 @@ if (boton_compartir && menu_compartir) {
 // Variable global para el juego
 let game = null;
 
-// Inicializar el juego cuando el DOM esté listo
+// Inicializar el juego cuando el DOM este listo
 document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('canvas');
     game = new Juego(canvas);
@@ -31,7 +31,7 @@ const pantalla_instrucciones = document.querySelector('.pantalla_instrucciones')
 const pantalla_jugable = document.querySelector('.pantalla_jugable');
 const pantalla_final = document.querySelector('.pantalla_final');
 const pantalla_derrota_movimiento = document.querySelector('.pantalla_derrota_movimiento');
-// Botones de navegación
+// Botones de navegacin
 const btn_instrucciones = document.getElementById('btn_instrucciones');
 const btn_comenzar_jugar = document.getElementById('btn_comenzar_jugar');
 const btn_volver_menu = document.querySelector('.pantalla_instrucciones .btn');
@@ -59,7 +59,7 @@ function mostrarPantalla(pantalla) {
         pantalla_derrota_movimiento
     ];
 
-    // Si es una pantalla overlay, solo ocultar las demás pero mantener pantalla_jugable
+    // Si es una pantalla overlay, solo ocultar las demas pero mantener pantalla_jugable
     if (pantallasOverlay.includes(pantalla)) {
         pantallas.forEach(p => {
             if (p && p !== pantalla_jugable && p !== pantalla) {
@@ -122,18 +122,18 @@ function resetearJuego() {
 
 // ==================== EVENT LISTENERS ==================== //
 
-// Botón de inicio (pantalla blur)
+// Boton de inicio (pantalla blur)
 if (btn_start) {
     btn_start.addEventListener('click', irAlMenu);
 }
-// Botones del menú principal
+// Botones del menu principal
 if (btn_instrucciones) {
     btn_instrucciones.addEventListener('click', irAInstrucciones);
 }
 if (btn_comenzar_jugar) {
     btn_comenzar_jugar.addEventListener('click', irAJugar);
 }
-// Botón de volver desde instrucciones
+// Boton de volver desde instrucciones
 if (btn_volver_menu) {
     btn_volver_menu.addEventListener('click', irAlMenu);
 }
@@ -144,7 +144,7 @@ if (btn_reset) {
 if (btn_menu_jugable) {
     btn_menu_jugable.addEventListener('click', irAlMenu);
 }
-// Botón de la pantalla final
+// Boton de la pantalla final
 if (btn_menu_final) {
     btn_menu_final.addEventListener('click', irAlMenu);
 }
