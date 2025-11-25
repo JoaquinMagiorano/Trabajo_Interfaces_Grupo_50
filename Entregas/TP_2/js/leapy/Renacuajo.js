@@ -173,50 +173,39 @@ export class Renacuajo {
     }
 
     crearAnimacionDerrotaDOM() {
+        // Buscar el contenedor .pantalla_juego (que contiene los layers y el canvas)
+        const pantallaJuego = document.querySelector('.pantalla_juego');
+        if (!pantallaJuego) {
+            console.error('No se encontró .pantalla_juego');
+            return;
+        }
+
         const canvasRect = this.canvas.getBoundingClientRect();
+        const pantallaRect = pantallaJuego.getBoundingClientRect();
 
-        // Usar document.body + position:fixed para evitar depender del ancestor posicionado
-        const parent = document.body;
-
+        // Crear elemento de imagen
         const renacuajoDOM = document.createElement('img');
         renacuajoDOM.src = 'img/leapy_frog/renacuajo_muerto.png';
         renacuajoDOM.className = 'renacuajo-caida';
 
-        // Estilos iniciales: position fixed para que left/top se correspondan con getBoundingClientRect()
-        renacuajoDOM.style.position = 'fixed';
-        const left = Math.round(canvasRect.left + this.x - this.drawWidth / 2);
-        const top = Math.round(canvasRect.top + this.y - this.drawHeight / 2);
-        renacuajoDOM.style.left = `${left}px`;
-        renacuajoDOM.style.top = `${top}px`;
+        // Posicionar RELATIVO a .pantalla_juego (no al viewport)
+        renacuajoDOM.style.position = 'absolute';
+        renacuajoDOM.style.left = `${canvasRect.left - pantallaRect.left + this.x - this.drawWidth / 2}px`;
+        renacuajoDOM.style.top = `${canvasRect.top - pantallaRect.top + this.y - this.drawHeight / 2}px`;
         renacuajoDOM.style.width = `${this.drawWidth}px`;
         renacuajoDOM.style.height = `${this.drawHeight}px`;
         renacuajoDOM.style.pointerEvents = 'none';
-        renacuajoDOM.style.opacity = '1'; // NO cambiar opacidad
-        renacuajoDOM.style.transition = 'top 0.9s ease-out';
-        renacuajoDOM.style.transform = 'translateZ(0)'; // forzar capa compuesta
-        renacuajoDOM.style.objectFit = 'contain';
+        renacuajoDOM.style.zIndex = '7'; // Mismo z-index que el canvas
 
-        // Intentar igualar z-index del canvas (fallback a 10)
-        const zIndex = Number(window.getComputedStyle(this.canvas).zIndex) || 10;
-        renacuajoDOM.style.zIndex = String(zIndex);
+        // Agregar a .pantalla_juego (no al body)
+        pantallaJuego.appendChild(renacuajoDOM);
 
-        parent.appendChild(renacuajoDOM);
-
-        // Calcular destino: borde inferior del canvas (viewport coords)
-        const targetTop = Math.round(canvasRect.top + this.canvas.height - this.drawHeight);
-
-        // Ejecutar la transición en el siguiente frame para que se anime correctamente
-        requestAnimationFrame(() => {
-            renacuajoDOM.style.top = `${targetTop}px`;
-        });
-
-        // Limpiar al terminar la transición (y fallback timeout)
-        const cleanup = () => {
-            if (renacuajoDOM.parentNode) renacuajoDOM.parentNode.removeChild(renacuajoDOM);
-            renacuajoDOM.removeEventListener('transitionend', cleanup);
-        };
-        renacuajoDOM.addEventListener('transitionend', cleanup);
-        setTimeout(cleanup, 1400);
+        // Eliminar el elemento cuando termine la animación (1.2s)
+        setTimeout(() => {
+            if (renacuajoDOM.parentNode) {
+                renacuajoDOM.parentNode.removeChild(renacuajoDOM);
+            }
+        }, 1200);
     }
 
 }

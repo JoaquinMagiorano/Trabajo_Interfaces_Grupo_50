@@ -575,11 +575,9 @@
 }
 
 .renacuajo-caida {
-  /* position/coords se establecen en JS con fixed; aquí garantizamos apariencia */
-  pointer-events: none;
-  object-fit: contain;
-  opacity: 1;           /* no debe cambiar */
-  transition: top 0.9s ease-out;
-  transform-origin: center center;
+    animation: renacuajo-muerte 0.9s ease-out forwards;
+    position: fixed;
+    pointer-events: none;
+    object-fit: contain;
   z-index: 7; 
 }
