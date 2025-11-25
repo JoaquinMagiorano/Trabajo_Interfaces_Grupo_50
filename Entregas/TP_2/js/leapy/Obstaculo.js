@@ -1,14 +1,13 @@
-// Clase Obstaculo - Maneja todos los obstáculos del juego con imágenes
 export class Obstaculo {
     constructor(canvas, monedasManager) {
         this.canvas = canvas;
         this.monedasManager = monedasManager;
         this.obstacles = [];
         this.obstacleGap = 250;
-        this.obstacleWidth = 120;      // Ancho de colisión (más grande)
+        this.obstacleWidth = 120; // Ancho de colision (mas chiquito)
         this.offSetY = 10;
         
-        this.obstacleDisplayWidth = 210; // Ancho visual (más grande que colisión)
+        this.obstacleDisplayWidth = 210; // Ancho visual (mas grande que colision)
 
 
 
@@ -16,7 +15,7 @@ export class Obstaculo {
         this.frameCount = 0;
         this.spawnRate = 90;
         
-        // Cargar imágenes de los obstáculos
+        // Cargar imagenes de los obstaculos
         this.imagenSuperior = new Image();
         this.imagenInferior = new Image();
         
@@ -26,7 +25,7 @@ export class Obstaculo {
         
         this.imagenesCargadas = false;
         
-        // Contador para verificar que ambas imágenes se cargaron
+        // Contador para verificar que ambas imagenes se cargaron
         let imagenesCargadasCount = 0;
         
         this.imagenSuperior.onload = () => {
@@ -34,7 +33,7 @@ export class Obstaculo {
             imagenesCargadasCount++;
             if (imagenesCargadasCount === 2) {
                 this.imagenesCargadas = true;
-                console.log('Todas las imágenes de obstáculos cargadas');
+                console.log('Todas las imagenes de obstaculos cargadas');
             }
         };
         
@@ -43,13 +42,13 @@ export class Obstaculo {
             imagenesCargadasCount++;
             if (imagenesCargadasCount === 2) {
                 this.imagenesCargadas = true;
-                console.log('Todas las imágenes de obstáculos cargadas');
+                console.log('Todas las imagenes de obstaculos cargadas');
             }
         };
     }
 
     update(renacuajo) {
-        // Generar nuevos obstáculos
+        // Generar nuevos obstaculos
         this.frameCount++;
         if (this.frameCount % this.spawnRate === 0) {
             const minHeight = 50;
@@ -63,7 +62,7 @@ export class Obstaculo {
                 passed: false
             });
 
-            // Generar moneda entre obstáculos
+            // Generar moneda entre obstaculos
             if (this.obstacles.length > 1 && Math.random() < 0.4 && this.monedasManager) {
                 const obstaculoAnterior = this.obstacles[this.obstacles.length - 2];
                 const obstaculoNuevo = this.obstacles[this.obstacles.length - 1];
@@ -78,17 +77,17 @@ export class Obstaculo {
             }
         }
 
-        // Actualizar posición de obstáculos existentes
+        // Actualizar la posicion de obstaculos existentes
         for (let i = this.obstacles.length - 1; i >= 0; i--) {
             this.obstacles[i].x -= this.obstacleSpeed;
 
-            // Eliminar obstáculos fuera de pantalla
+            // Eliminar los obstaculos fuera de pantalla
             if (this.obstacles[i].x + this.obstacleWidth < 0) {
                 this.obstacles.splice(i, 1);
                 continue;
             }
 
-            // Contar puntos
+            // Contar los puntos
             if (!this.obstacles[i].passed && this.obstacles[i].x + this.obstacleWidth < renacuajo.x) {
                 this.obstacles[i].passed = true;
                 return 1;
@@ -99,41 +98,40 @@ export class Obstaculo {
 
     draw(ctx) {
         if (this.imagenesCargadas) {
-            // Dibujar con imágenes
             for (let obstacle of this.obstacles) {
-                // Calcular el offset para centrar la imagen sobre el área de colisión
+                // Calcular el offset para centrar la imagen sobre el area de colision
                 const offsetX = (this.obstacleDisplayWidth - this.obstacleWidth) / 2;
                 
-                // TUBO SUPERIOR - Tronco cortado (ya tiene la perspectiva correcta)
-                // Calcular altura manteniendo proporción basada en el ancho VISUAL
+                // TUBO SUPERIOR - Tronco cortado
+                // Se calcula la altura basada en el ancho visual
                 const aspectRatioSuperior = this.imagenSuperior.width / this.imagenSuperior.height;
                 const alturaSuperior = this.obstacleDisplayWidth / aspectRatioSuperior;
                 
-                // Repetir la imagen si el obstáculo es muy alto
+                // Repetir la imagen si el obstaculo es muy alto
                 const repeticionesSuperior = Math.ceil(obstacle.topHeight / alturaSuperior);
                 for (let i = repeticionesSuperior - 1; i >= 0; i--) {
                     ctx.drawImage(
                         this.imagenSuperior,
-                        obstacle.x - offsetX, // Centrar sobre el área de colisión
+                        obstacle.x - offsetX, // Centrar sobre el area de colision
                         obstacle.topHeight - (repeticionesSuperior - i) * alturaSuperior + this.offSetY,
-                        this.obstacleDisplayWidth, // Usar ancho visual
+                        this.obstacleDisplayWidth, // Usar el ancho visual
                         alturaSuperior
                     );
                 }
                 
                 // TUBO INFERIOR - Tronco completo
-                // Calcular altura manteniendo proporción basada en el ancho VISUAL
+                // Calcular altura manteniendo proporcion basada en el ancho VISUAL
                 const aspectRatioInferior = this.imagenInferior.width / this.imagenInferior.height;
                 const alturaInferior = this.obstacleDisplayWidth / aspectRatioInferior;
                 
                 const alturaObstaculoInferior = this.canvas.height - obstacle.bottomY;
                 
-                // Repetir la imagen si el obstáculo es muy alto
+                // Repetir la imagen si el obstaculo es muy alto
                 const repeticionesInferior = Math.ceil(alturaObstaculoInferior / alturaInferior);
                 for (let i = 0; i < repeticionesInferior; i++) {
                     ctx.drawImage(
                         this.imagenInferior,
-                        obstacle.x - offsetX, // Centrar sobre el área de colisión
+                        obstacle.x - offsetX, // Centrar sobre el area de colision
                         obstacle.bottomY + i * alturaInferior - this.offSetY,
                         this.obstacleDisplayWidth, // Usar ancho visual
                         alturaInferior
@@ -141,13 +139,13 @@ export class Obstaculo {
                 }
                 
                 // Rectangulo de hitbox para debug
-                //  ctx.strokeStyle = 'red';
-                //  ctx.lineWidth = 2;
-                //  ctx.strokeRect(obstacle.x, 0, this.obstacleWidth, obstacle.topHeight);
-                //  ctx.strokeRect(obstacle.x, obstacle.bottomY, this.obstacleWidth, this.canvas.height - obstacle.bottomY);
+                // ctx.strokeStyle = 'red';
+                // ctx.lineWidth = 2;
+                // ctx.strokeRect(obstacle.x, 0, this.obstacleWidth, obstacle.topHeight);
+                // ctx.strokeRect(obstacle.x, obstacle.bottomY, this.obstacleWidth, this.canvas.height - obstacle.bottomY);
             }
         } else {
-            // Mientras cargan las imágenes, dibujar rectángulos simples
+            // Mientras cargan las imagenes, dibujar rectangulos simples
             ctx.fillStyle = '#77441A';
             for (let obstacle of this.obstacles) {
                 // Tubo superior

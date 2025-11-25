@@ -1,4 +1,3 @@
-// Clase Renacuajo - Maneja el personaje principal
 export class Renacuajo {
     constructor(canvas) {
         this.x = canvas.width / 3;
@@ -10,9 +9,9 @@ export class Renacuajo {
         /*los pixeles mas arriba son los numeros mas bajos
          por lo tanto para caer tiene que aumentar el valor de y
           el cual aumenta constantemente con la gravedad*/
-        // Configuración del sprite sheet
+        // Configuracion del sprite sheet
         this.spriteSheet = new Image();
-        this.spriteSheet.src = 'img/leapy_frog/renacuajo_animad_sprite_sheet.png'; // Ruta a tu imagen
+        this.spriteSheet.src = 'img/leapy_frog/renacuajo_animad_sprite_sheet.png';
         this.spriteLoaded = false;
         
         this.spriteSheet.onload = () => {
@@ -21,9 +20,9 @@ export class Renacuajo {
         };
 
         this.spriteSheetDead = new Image();
-        this.spriteSheetDead.src = 'img/leapy_frog/renacuajo_muerto.png'; // Tu imagen con X en los ojos
+        this.spriteSheetDead.src = 'img/leapy_frog/renacuajo_muerto.png';
         this.deadSpriteLoaded = false;
-        this.isDead = false; // Nuevo estado
+        this.isDead = false;
 
         this.spriteSheetDead.onload = () => {
             this.deadSpriteLoaded = true;
@@ -31,29 +30,28 @@ export class Renacuajo {
         };
 
 
-        // Configuración de la animación
+        // Configuracion de la animacion
         this.frameWidth = 350;  // Ancho de cada frame
         this.frameHeight = 350; // Alto de cada frame
-        this.totalFrames = 14;  // Total de frames en tu sprite
-        this.currentFrame = 0;  // Frame actual (reposo)
-        this.frameCounter = 0;  // Contador para controlar velocidad de animación
-        this.frameSpeed = 3;    // Cada cuántos updates cambiar de frame
-        this.isAnimating = false; // Si la animación está activa
+        this.totalFrames = 14;  // Total de frames
+        this.currentFrame = 0;  // Frame actual
+        this.frameCounter = 0;  // Contador para controlar velocidad de animacion
+        this.frameSpeed = 3;    // Cada cuantos updates cambiar el frame
+        this.isAnimating = false; // Si la animacion esta activa
         
         // Tamaño del renacuajo en pantalla
-        this.drawWidth = 100;   // Ancho al dibujar (ajustable)
-        this.drawHeight = 100;  // Alto al dibujar (ajustable)
-        this.offSetX = 15;
+        this.drawWidth = 100;   // Ancho al dibujar 
+        this.drawHeight = 100;  // Alto al dibujar 
+
+        //Offsets para ajustar el sprite con la hitbox
+        this.offSetX = 15; 
         this.offSetY = 5;
     }
 
     jump() {
-        // Solo permitir salto si no está animando (evita reiniciar la animación)
+        // Solo permitir salto si no esta en animacion
         if (!this.isAnimating) {
-            // Sube al renacuajo (reduce y)
             this.velocity = this.jumpStrength;
-            
-            // Iniciar la animación desde el principio
             this.isAnimating = true;
             this.currentFrame = 0;
             this.frameCounter = 0;
@@ -61,11 +59,9 @@ export class Renacuajo {
     }
 
     update() {
-        // Actualizar física
         this.velocity += this.gravity;
         this.y += this.velocity;
-        
-        // Actualizar animación si está activa
+
         if (this.isAnimating) {
             this.frameCounter++;
             
@@ -73,10 +69,9 @@ export class Renacuajo {
                 this.frameCounter = 0;
                 this.currentFrame++;
                 
-                // Si llegamos al último frame, detener y volver al frame de reposo
                 if (this.currentFrame >= this.totalFrames) {
                     this.isAnimating = false;
-                    this.currentFrame = 0; // Volver al frame de reposo
+                    this.currentFrame = 0;
                 }
             }
         }
@@ -92,7 +87,6 @@ export class Renacuajo {
     }
 
     draw(ctx) {
-        // Si está muerto y el sprite está cargado, usar el sprite muerto
         if (this.isDead && this.deadSpriteLoaded) {
             const drawX = this.x - this.drawWidth / 2;
             const drawY = this.y - this.drawHeight / 2;
@@ -106,12 +100,11 @@ export class Renacuajo {
             );
             
             // Circulo de hitbox para debug
-            //  ctx.strokeStyle = 'red';
-            //  ctx.beginPath();
-            //  ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            //  ctx.stroke();
+            // ctx.strokeStyle = 'red';
+            // ctx.beginPath();
+            // ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            // ctx.stroke();
         }
-        // Si está vivo y el sprite normal está cargado
         else if (this.spriteLoaded) {
             const sourceX = this.currentFrame * this.frameWidth;
             const sourceY = 0;
@@ -151,6 +144,6 @@ export class Renacuajo {
 
     setDead() {
         this.isDead = true;
-        this.isAnimating = false; // Detener animación normal
+        this.isAnimating = false;
     }
 }
