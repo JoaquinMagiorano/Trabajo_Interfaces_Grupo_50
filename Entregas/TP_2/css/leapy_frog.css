@@ -552,32 +552,28 @@
 
 
 @keyframes renacuajo-muerte {
-  0% {
-    transform: translateY(0) scale(1) rotate(0deg);
-    opacity: 1;
-    filter: drop-shadow(0 0 0 transparent);
-  }
-  40% {
-    transform: translateY(-30px) scale(1.05) rotate(-10deg);
-    opacity: 0.95;
-    filter: drop-shadow(0 6px 20px rgba(0,0,0,0.3));
-  }
-  70% {
-    transform: translateY(-10px) scale(1.1) rotate(10deg);
-    opacity: 0.7;
-    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.35));
-  }
-  100% {
-    transform: translateY(-80px) scale(0.6) rotate(25deg);
-    opacity: 0;
-    filter: drop-shadow(0 0 0 transparent);
-  }
+    0% {
+        transform: translateY(0) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    20% {
+        transform: translateY(-60px) scale(1.1) rotate(-15deg);
+        opacity: 1;
+    }
+    40% {
+        transform: translateY(-40px) scale(1.05) rotate(10deg);
+        opacity: 0.95;
+    }
+    100% {
+        transform: translateY(800px) scale(0.8) rotate(180deg);
+        opacity: 0;
+    }
 }
 
 .renacuajo-caida {
-    animation: renacuajo-muerte 0.9s ease-out forwards;
-    position: fixed;
+    animation: renacuajo-muerte 1.2s ease-in forwards;
+    position: absolute;
     pointer-events: none;
     object-fit: contain;
-  z-index: 7; 
+    z-index: 7;
 }
