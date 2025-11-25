@@ -54,74 +54,29 @@ export class Moneda {
     update(renacuajo) {
         let monedasRecogidas = 0;
 
-        // Actualizar animacion del sprite
         this.frameCounter++;
         if (this.frameCounter >= this.frameSpeed) {
             this.frameCounter = 0;
             this.currentFrame++;
             
-            // Volver al primer frame cuando llega al final
             if (this.currentFrame >= this.totalFrames) {
                 this.currentFrame = 0;
             }
         }
 
-        // Actualizar posicion de monedas existentes
+        // Actualizar la posicion de monedas existentes
         for (let i = this.monedas.length - 1; i >= 0; i--) {
             const moneda = this.monedas[i];
-            
-            // Si esta animando la recoleccion
-            if (moneda.animandoRecoleccion) {
-                moneda.tiempoRecoleccion++;
-                const progreso = moneda.tiempoRecoleccion / 36; // 36 frames = 0.6s a 60fps
-                
-                const easeOut = 1 - Math.pow(1 - progreso, 3);
-                moneda.offsetY = -150 * easeOut;
-                
-                // Opacidad
-                if (progreso < 0.5) {
-                    moneda.opacity = 1 - (progreso * 0.2);
-                } else {
-                    moneda.opacity = 0.8 - ((progreso - 0.5) * 1.6);
-                }
-                
-                // Escala
-                if (progreso < 0.5) {
-                    moneda.scale = 1 + (progreso * 0.6);
-                } else {
-                    moneda.scale = 1.3 - ((progreso - 0.5) * 1.6);
-                }
-                
-                // Brillo
-                if (progreso < 0.3) {
-                    moneda.brightness = 1 + (progreso * 3.33);
-                    moneda.glowIntensity = progreso * 66.67;
-                } else if (progreso < 0.5) {
-                    moneda.brightness = 2 + ((progreso - 0.3) * 2.5);
-                    moneda.glowIntensity = 20 + ((progreso - 0.3) * 50);
-                } else if (progreso < 0.7) {
-                    moneda.brightness = 2.5 - ((progreso - 0.5) * 2.5);
-                    moneda.glowIntensity = 30 - ((progreso - 0.5) * 25);
-                } else {
-                    moneda.brightness = 2 - ((progreso - 0.7) * 3.33);
-                    moneda.glowIntensity = 25 - ((progreso - 0.7) * 83.33);
-                }
-                
-                // Eliminar cuando termina la animacion
-                if (moneda.tiempoRecoleccion >= 36) {
-                    this.monedas.splice(i, 1);
-                }
-                continue;
-            }
             
             if (!moneda.recogida) {
                 moneda.x -= this.coinSpeed;
 
-                // Verificar colision
                 if (this.checkCollision(moneda, renacuajo)) {
                     moneda.recogida = true;
-                    moneda.animandoRecoleccion = true; // Inicia la animacion
                     monedasRecogidas++;
+                    this.crearAnimacionRecoleccionDOM(moneda);
+                    this.monedas.splice(i, 1);
+                    continue;
                 }
 
                 // Eliminar monedas fuera de pantalla
@@ -134,6 +89,30 @@ export class Moneda {
         return monedasRecogidas;
     }
 
+
+    crearAnimacionRecoleccionDOM(moneda) {
+        const canvasRect = this.canvas.getBoundingClientRect();
+        
+        // Crear elemento de imagen
+        const monedaDOM = document.createElement('img');
+        monedaDOM.src = 'img/leapy_frog/moneda.png';
+        monedaDOM.className = 'moneda-recolectada';
+        
+        // Posicionar el elemento donde estaba la moneda en el canvas
+        monedaDOM.style.left = `${canvasRect.left + moneda.x - this.drawWidth/2}px`;
+        monedaDOM.style.top = `${canvasRect.top + moneda.y - this.drawHeight/2}px`;
+        
+        // Agregar al body
+        document.body.appendChild(monedaDOM);
+        
+        // Eliminar el elemento cuando termine la animacion (0.6s)
+        setTimeout(() => {
+            if (monedaDOM.parentNode) {
+                monedaDOM.parentNode.removeChild(monedaDOM);
+            }
+        }, 600);
+    }
+
     checkCollision(moneda, renacuajo) {
         // Colision circulo a circulo usando distancia entre centros
         const dx = moneda.x - renacuajo.x;
@@ -144,60 +123,46 @@ export class Moneda {
     }
 
     draw(ctx) {
-        if (this.spriteLoaded) {
-            for (let moneda of this.monedas) {
-                ctx.save();
-    
-                ctx.globalAlpha = moneda.opacity;
-                
-                if (moneda.animandoRecoleccion) {
-                    ctx.filter = `brightness(${moneda.brightness}) drop-shadow(0 0 ${moneda.glowIntensity}px #FFD700)`;
-                }
-                
+    if (this.spriteLoaded) {
+        for (let moneda of this.monedas) {
+            if (!moneda.recogida) {
                 // Calcular posicion del frame actual en el sprite sheet
                 const sourceX = this.currentFrame * this.frameWidth;
                 const sourceY = 0;
                 
                 // Calcular posicion para centrar el sprite
-                const drawX = moneda.x - (this.drawWidth * moneda.scale) / 2;
-                const drawY = moneda.y - (this.drawHeight * moneda.scale) / 2 + moneda.offsetY;
+                const drawX = moneda.x - this.drawWidth / 2;
+                const drawY = moneda.y - this.drawHeight / 2;
                 
                 ctx.drawImage(
                     this.spriteSheet,
-                    sourceX,            // Posicion X en el sprite sheet
-                    sourceY,            // Posicion Y en el sprite sheet
-                    this.frameWidth,    // Ancho del frame en el sprite
-                    this.frameHeight,   // Alto del frame en el sprite
-                    drawX,              // Posicion X en el canvas
-                    drawY,              // Posicion Y en el canvas
-                    this.drawWidth * moneda.scale,     // Ancho al dibujar
-                    this.drawHeight * moneda.scale     // Alto al dibujar
+                    sourceX,
+                    sourceY,
+                    this.frameWidth,
+                    this.frameHeight,
+                    drawX,
+                    drawY,
+                    this.drawWidth,
+                    this.drawHeight
                 );
-                
-                ctx.restore();
-                
-                // Dibujar circulo de colision para debug
-                /* ctx.strokeStyle = 'red';
+            }
+        }
+    } else {
+        // Mientras carga el sprite, dibujar círculos simples
+        ctx.fillStyle = '#FFD700';
+        for (let moneda of this.monedas) {
+            if (!moneda.recogida) {
                 ctx.beginPath();
                 ctx.arc(moneda.x, moneda.y, this.coinRadius, 0, Math.PI * 2);
-                ctx.stroke(); */
-            }
-        } else {
-            // Mientras carga el sprite, dibujar circulos simples
-            ctx.fillStyle = '#FFD700';
-            for (let moneda of this.monedas) {
-                if (!moneda.recogida) {
-                    ctx.beginPath();
-                    ctx.arc(moneda.x, moneda.y, this.coinRadius, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    ctx.strokeStyle = '#FFA500';
-                    ctx.lineWidth = 2;
-                    ctx.stroke();
-                }
+                ctx.fill();
+                
+                ctx.strokeStyle = '#FFA500';
+                ctx.lineWidth = 2;
+                ctx.stroke();
             }
         }
     }
+}
 
     reset() {
         this.monedas = [];
