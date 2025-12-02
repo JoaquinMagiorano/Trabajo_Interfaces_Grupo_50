@@ -4,8 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("login")
   const registerForm = document.getElementById("register")
   const loadingScreen = document.getElementById("loading-screen")
-  const progressFill = document.getElementById("progress-fill")
-  const loadingPercentage = document.getElementById("loading-percentage")
   const socialLinks = document.querySelectorAll(".social_login a")
 
   tabs.forEach((tab) => {
@@ -24,41 +22,13 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   function showLoadingScreen() {
-    // Mostrar pantalla de carga
+    // Mostrar pantalla de carga - CSS hace todo el trabajo
     loadingScreen.classList.add("active")
 
-    const lilyPads = document.querySelectorAll(".lily-pad")
-
-    // Simular carga de 5 segundos con porcentaje
-    let progress = 0
-    const duration = 5000 // 5 segundos
-    const interval = 50 // Actualizar cada 50ms
-    const increment = (100 / duration) * interval
-
-    const loadingInterval = setInterval(() => {
-      progress += increment
-
-      if (progress >= 100) {
-        progress = 100
-        clearInterval(loadingInterval)
-
-        // Redirigir a index.html después de completar
-        setTimeout(() => {
-          window.location.href = "index.html"
-        }, 200)
-      }
-
-      // Actualizar porcentaje
-      loadingPercentage.textContent = Math.floor(progress) + "%"
-
-      // Iluminar nenúfares según el progreso
-      const activeLilyIndex = Math.floor((progress / 100) * lilyPads.length)
-      lilyPads.forEach((lily, index) => {
-        if (index < activeLilyIndex) {
-          lily.classList.add("active")
-        }
-      })
-    }, interval)
+    // Redirigir después de 5 segundos (duración de la animación)
+    setTimeout(() => {
+      window.location.href = "index.html"
+    }, 5000)
   }
 
   loginForm.addEventListener("submit", (e) => {

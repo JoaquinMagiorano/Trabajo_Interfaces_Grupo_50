@@ -221,7 +221,6 @@ form button[type="submit"]:focus {
 }
 
 /* ===================== PANTALLA DE CARGA ===================== */
-/* Estilos para la pantalla de carga con animaciones CSS */
 .loading-screen {
   position: fixed;
   top: 0;
@@ -282,83 +281,123 @@ form button[type="submit"]:focus {
   transform: translate(-50%, -50%) rotate(45deg);
 }
 
-.lily-pad.active {
-  opacity: 1;
-  transform: rotate(-45deg) scale(1.1);
-  box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+/* Animación de nenúfares sincronizada */
+.loading-screen.active .lily-pad {
+  animation: lily-glow 5s ease-in-out forwards;
+}
+
+@keyframes lily-glow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: rotate(-45deg) scale(1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  10% {
+    opacity: 1;
+    transform: rotate(-45deg) scale(1.1);
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+  }
 }
 
 .lily-1 {
   left: 10%;
   top: 50%;
+  animation-delay: 0s;
 }
 
 .lily-2 {
   left: 25%;
   top: 30%;
+  animation-delay: 1s;
 }
 
 .lily-3 {
   left: 45%;
   top: 50%;
+  animation-delay: 2s;
 }
 
 .lily-4 {
   left: 65%;
   top: 30%;
+  animation-delay: 3s;
 }
 
 .lily-5 {
   left: 80%;
   top: 50%;
+  animation-delay: 4s;
 }
 
-/* Rana animada */
+/* Rana animada - TODO CON CSS */
 .frog {
   position: absolute;
   left: 10%;
   top: 50%;
   transform: translate(-50%, -50%);
-  animation: frog-jump 5s ease-in-out forwards;
   z-index: 10;
+  /* Ajuste horizontal */
+  margin-left: 15px;
+}
+
+.loading-screen.active .frog {
+  animation: frog-jump 5s cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards;
 }
 
 @keyframes frog-jump {
   0% {
     left: 10%;
     top: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  /* Salto 1: al nenúfar 2 */
+  18% {
+    left: 25%;
+    top: 5%;
+    transform: translate(-50%, -50%) rotate(-15deg) scale(1.1);
   }
   20% {
     left: 25%;
-    top: 10%;
-  }
-  25% {
-    left: 25%;
     top: 30%;
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
   }
-  45% {
+  /* Salto 2: al nenúfar 3 */
+  38% {
     left: 45%;
     top: 20%;
+    transform: translate(-50%, -50%) rotate(-10deg) scale(1.1);
   }
-  50% {
+  40% {
     left: 45%;
     top: 50%;
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
   }
-  70% {
+  /* Salto 3: al nenúfar 4 */
+  58% {
     left: 65%;
-    top: 10%;
+    top: 5%;
+    transform: translate(-50%, -50%) rotate(-15deg) scale(1.1);
   }
-  75% {
+  60% {
     left: 65%;
     top: 30%;
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
   }
-  95% {
+  /* Salto 4: al nenúfar 5 */
+  78% {
     left: 80%;
-    top: 30%;
+    top: 20%;
+    transform: translate(-50%, -50%) rotate(-10deg) scale(1.1);
+  }
+  80% {
+    left: 80%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
   }
   100% {
     left: 80%;
     top: 50%;
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
   }
 }
 
@@ -370,16 +409,20 @@ form button[type="submit"]:focus {
   background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%);
   border-radius: 50% 50% 40% 40%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  animation: frog-bounce 0.5s ease-in-out infinite;
+  /* Mover la rana hacia la derecha */
+  margin-left: 15px;
+}
+
+.loading-screen.active .frog-body {
+  animation: frog-bounce 0.4s ease-in-out infinite;
 }
 
 @keyframes frog-bounce {
-  0%,
-  100% {
-    transform: scaleY(1);
+  0%, 100% {
+    transform: scaleY(1) scaleX(1);
   }
   50% {
-    transform: scaleY(0.95);
+    transform: scaleY(0.9) scaleX(1.05);
   }
 }
 
@@ -391,13 +434,14 @@ form button[type="submit"]:focus {
   height: 20px;
   background: radial-gradient(circle at 50% 40%, #fff 30%, #2e7d32 31%, #2e7d32 60%, #1b5e20 61%);
   border-radius: 50% 50% 40% 40%;
+}
+
+.loading-screen.active .frog-eye {
   animation: blink 3s ease-in-out infinite;
 }
 
 @keyframes blink {
-  0%,
-  96%,
-  100% {
+  0%, 96%, 100% {
     transform: scaleY(1);
   }
   98% {
@@ -442,8 +486,11 @@ form button[type="submit"]:focus {
   position: absolute;
   background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(76, 175, 80, 0.3));
   border-radius: 50%;
-  animation: bubble-rise 3s ease-in-out infinite;
   opacity: 0;
+}
+
+.loading-screen.active .bubble {
+  animation: bubble-rise 3s ease-in-out infinite;
 }
 
 @keyframes bubble-rise {
@@ -501,15 +548,44 @@ form button[type="submit"]:focus {
   color: #4caf50;
   margin: 0;
   text-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
-  animation: glow 1.5s ease-in-out infinite;
+}
+
+.loading-screen.active .percentage {
+  animation: glow 1.5s ease-in-out infinite, count-up 5s linear forwards;
 }
 
 @keyframes glow {
-  0%,
-  100% {
+  0%, 100% {
     text-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
   }
   50% {
     text-shadow: 0 0 30px rgba(76, 175, 80, 0.9), 0 0 40px rgba(76, 175, 80, 0.6);
   }
+}
+
+/* Animación del contador de porcentaje con CSS */
+@keyframes count-up {
+  0% { --percent: 0; }
+  100% { --percent: 100; }
+}
+
+/* Usamos counter para el porcentaje */
+.loading-screen.active .percentage::before {
+  counter-reset: percent 0;
+  animation: count 5s linear forwards;
+  content: counter(percent) '%';
+}
+
+@keyframes count {
+  0% { counter-increment: percent 0; }
+  10% { counter-increment: percent 10; }
+  20% { counter-increment: percent 20; }
+  30% { counter-increment: percent 30; }
+  40% { counter-increment: percent 40; }
+  50% { counter-increment: percent 50; }
+  60% { counter-increment: percent 60; }
+  70% { counter-increment: percent 70; }
+  80% { counter-increment: percent 80; }
+  90% { counter-increment: percent 90; }
+  100% { counter-increment: percent 100; }
 }

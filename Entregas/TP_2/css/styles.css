@@ -135,7 +135,6 @@ header img {
 
 /* Menú desplegable optimizado para mobile */
 .menu_desplegable {
-  display: none;
   position: fixed;
   left: 0;
   top: 0;
@@ -149,10 +148,13 @@ header img {
   background-color: #388e3c;
   scrollbar-gutter: stable both-edges;
   direction: rtl;
+  
+  /* Animación de deslizamiento desde la izquierda */
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
 }
 
 .menu_configuracion_desplegable {
-  display: none;
   position: fixed;
   right: 0;
   top: 0;
@@ -164,11 +166,44 @@ header img {
   max-height: calc(100vh - 60px);
   overflow-y: auto;
   background-color: #388e3c;
+  
+  /* Animación de deslizamiento desde la derecha */
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
 }
 
-.visible {
+/* Cuando están visibles */
+.menu_desplegable.visible {
   display: flex;
   flex-direction: column;
+  transform: translateX(0);
+}
+
+.menu_configuracion_desplegable.visible {
+  display: flex;
+  flex-direction: column;
+  transform: translateX(0);
+}
+
+/* Actualiza también el menu_container para que tenga fade */
+.menu_container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(0px);
+  z-index: 98;
+  pointer-events: none;
+  transition: background-color 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out;
+}
+
+.menu_container.visible {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+  pointer-events: auto;
 }
 
 .hidden {
